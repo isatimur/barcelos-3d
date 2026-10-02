@@ -921,6 +921,11 @@ async function start() {
     },
   });
   function startMode(name) {
+    if ((name === 'cinema' && !cinema.available) || (name === 'story' && CITY.features?.story === false)) {
+      ui.toast(t('Этот режим пока недоступен'));
+      setHash(currentHash());
+      return;
+    }
     if (intro?.active) intro.skip();
     if (tour) stopTour();
     if (active >= 0) close();
@@ -941,6 +946,11 @@ async function start() {
   }
   document.getElementById('cinema-toggle')?.addEventListener('click', () => startMode('cinema'));
   document.getElementById('story-toggle')?.addEventListener('click', () => startMode('story'));
+  const storyToggle = document.getElementById('story-toggle');
+  if (storyToggle && CITY.features?.story === false) {
+    storyToggle.disabled = true;
+    storyToggle.title = t('Этот режим пока недоступен');
+  }
   debug.cinema = cinema;
   debug.story = story;
   debug.sky = sky;
@@ -1602,12 +1612,21 @@ loadCity()
   .catch((err) => {
     console.error('[braga] start failed', err);
     stopBoot?.();
-    const msg = t('Не удалось запустить карту. Нужен браузер с поддержкой WebGL.');
+    const msg = /webgl|context/i.test(err.message || '')
+      ? t('Не удалось запустить карту. Нужен браузер с поддержкой WebGL.')
+      : t('Не удалось загрузить карту. Проверьте соединение и попробуйте снова.');
     const text = document.getElementById('loader-text');
     const loaderEl = document.getElementById('loader');
     if (text && loaderEl && !loaderEl.classList.contains('is-done')) {
       text.textContent = msg;
       loaderEl.classList.add('is-error');
+      loaderEl.setAttribute('role', 'alert');
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'places-empty-action';
+      retry.textContent = t('Попробовать снова');
+      retry.addEventListener('click', () => location.reload());
+      text.after(retry);
     } else if (!debug.interactive) {
       // the boot view already removed the loader: say it over the map
       const box = document.createElement('p');

@@ -1,5 +1,14 @@
 // Source-language keys keep the original Russian edition intact.
 export const messages = {
+  'Барселуш': ['Barcelos', 'Barcelos'],
+  'Барселуш — 3D-карта достопримечательностей': ['Barcelos — mapa 3D de pontos de interesse', 'Barcelos — 3D landmarks map'],
+  'Предварительная версия': ['Pré-visualização', 'Early preview'],
+  'Начните с улиц': ['Comece pelas ruas', 'Start with the streets'],
+  'Достопримечательности и маршруты пока не добавлены. Исследуйте карту или найдите улицу по названию.': ['Os pontos de interesse e os percursos ainda não foram adicionados. Explore o mapa ou procure uma rua pelo nome.', 'Landmarks and routes have not been added yet. Explore the map or search for a street by name.'],
+  'Найти улицу': ['Procurar uma rua', 'Find a street'],
+  'Этот режим пока недоступен': ['Este modo ainda não está disponível', 'This mode is not available yet'],
+  'Не удалось загрузить карту. Проверьте соединение и попробуйте снова.': ['Não foi possível carregar o mapa. Verifique a ligação e tente novamente.', 'Could not load the map. Check your connection and try again.'],
+  'Попробовать снова': ['Tentar novamente', 'Try again'],
   // cinema and story modes (tour.js, story.js)
   'Режимы просмотра': ['Modos de visualização', 'Viewing modes'],
   'Кино': ['Cinema', 'Cinema'], 'История (режим)': ['História', 'Story'],

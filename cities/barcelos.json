@@ -1,5 +1,11 @@
 {
   "id": "barcelos",
+  "features": { "story": false },
+  "description": {
+    "pt": "Explore as ruas e o relevo de Barcelos num mapa 3D interativo. Pré-visualização: pontos de interesse e percursos ainda não disponíveis.",
+    "en": "Explore the streets and terrain of Barcelos in an interactive 3D map. Early preview: landmarks and routes are not yet available.",
+    "ru": "Исследуйте улицы и рельеф Барселуша на интерактивной 3D-карте. Предварительная версия: достопримечательности и маршруты пока недоступны."
+  },
   "name": { "pt": "Barcelos", "en": "Barcelos", "ru": "Барселуш" },
   "name_ru_cases": { "gen": "Барселуша", "prep": "Барселуше", "ins": "Барселушем" },
   "domain": null,

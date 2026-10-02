@@ -1,7 +1,7 @@
 {
   "name": "Barcelos 3D — mapa interativo",
   "short_name": "Barcelos 3D",
-  "description": "An interactive 3D map of Barcelos: the medieval bridge, baroque churches and the Rooster.",
+  "description": "Explore the streets and terrain of Barcelos in 3D. Early preview.",
   "lang": "pt-PT",
   "start_url": "/",
   "scope": "/",

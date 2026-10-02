@@ -15,6 +15,7 @@ const CATEGORY_RU = {
   city: t('Город'),
   park: t('Сады'),
   garden: t('Сады'),
+  gardens: t('Сады'),
   museum: t('Музеи'),
   education: t('Образование'),
   university: t('Образование'),
@@ -145,6 +146,22 @@ export function createUI(landmarks, routes, h) {
     listEl.append(li);
     return { li, b, l };
   });
+
+  if (!rows.length) {
+    listEl.closest('.side')?.classList.add('is-empty');
+    chipsEl.hidden = true;
+    const empty = el('li', 'places-empty');
+    empty.append(
+      el('p', 'places-empty-kicker', t('Предварительная версия')),
+      el('h2', '', t('Начните с улиц')),
+      el('p', '', t('Достопримечательности и маршруты пока не добавлены. Исследуйте карту или найдите улицу по названию.')),
+    );
+    const searchButton = el('button', 'places-empty-action', t('Найти улицу'));
+    searchButton.type = 'button';
+    searchButton.addEventListener('click', () => document.querySelector('#search input')?.focus());
+    empty.append(searchButton);
+    listEl.append(empty);
+  }
 
   function refreshFilter() {
     let n = 0;

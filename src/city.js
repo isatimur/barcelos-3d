@@ -10,18 +10,8 @@
 // evaluate before the fetch answers. main.js awaits loadCity() first.
 import { language, t } from './i18n.js';
 
-const HOSTS = { 'barcelos-3d.com': 'barcelos', 'www.barcelos-3d.com': 'barcelos', 'barcelos-3d.vercel.app': 'barcelos' };
-const ID_RE = /^[a-z][a-z0-9-]*$/;
-
-export function resolveCityId(envId, search = '', hostname = '') {
-  const q = new URLSearchParams(search).get('city');
-  if (q && ID_RE.test(q)) return q;
-  if (envId && ID_RE.test(envId)) return envId;
-  if (HOSTS[hostname]) return HOSTS[hostname];
-  const m = /^(?:www\.)?([a-z][a-z0-9-]*)-3d\.(?:com|pt|app)$/.exec(hostname || '');
-  if (m) return m[1];
-  return 'braga';
-}
+import { resolveCityId } from './city-id.js';
+export { resolveCityId } from './city-id.js';
 
 export const CITY_ID = resolveCityId(import.meta.env.VITE_CITY, globalThis.location?.search, globalThis.location?.hostname);
 

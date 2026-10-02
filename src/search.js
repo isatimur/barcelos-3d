@@ -15,7 +15,7 @@ import * as THREE from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2.js';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
-import { t } from './i18n.js';
+import { t, loadTranslations } from './i18n.js';
 import { CITY } from './city.js';
 import { categoryLabel, fmtDistance, placesWord } from './ui.js';
 import { METRES_PER_UNIT } from './geo.js';
@@ -148,20 +148,20 @@ export function createSearch({ landmarks, routes, roads, project, heightAt, scen
     color: r.color,
     rank: 5,
   }));
-  // the other languages' names, once, on the first search (Braga's files)
+  // Optional city-specific translations, once, on the first search.
   let namesLoaded = false;
   async function loadNames() {
-    if (namesLoaded || CITY.id !== 'braga') return;
+    if (namesLoaded) return;
     namesLoaded = true;
     try {
-      const [en, pt] = await Promise.all([import('./locales/en.js'), import('./locales/pt.js')]);
+      const [en, pt] = await Promise.all([loadTranslations('en', CITY.id), loadTranslations('pt', CITY.id)]);
       for (const p of places) {
         const id = landmarks[p.i].id;
-        for (const tr of [en.landmarks?.[id], pt.landmarks?.[id]]) if (tr?.name) p.keys.push(fold(tr.name));
+        for (const tr of [en?.landmarks?.[id], pt?.landmarks?.[id]]) if (tr?.name) p.keys.push(fold(tr.name));
         p.keys = [...new Set(p.keys)];
       }
       for (const r of routeEntries) {
-        for (const tr of [en.routes?.[r.id], pt.routes?.[r.id]]) if (tr?.name) r.keys.push(fold(tr.name));
+        for (const tr of [en?.routes?.[r.id], pt?.routes?.[r.id]]) if (tr?.name) r.keys.push(fold(tr.name));
         r.keys = [...new Set(r.keys)];
       }
       if (input.value.trim()) render();

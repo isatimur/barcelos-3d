@@ -308,7 +308,12 @@ export function createCinema(ctx) {
   if (missing.length) console.warn('[braga] cinema: not in CINEMA_ORDER:', missing.join(', '));
   // the button title counts the places the film really shows
   const toggle = document.getElementById('cinema-toggle');
-  if (toggle) toggle.title = cityT('Фильм о {city_prep}: {n} с утра до ночи').replace('{n}', `${order.length} ${placesWord(order.length)}`);
+  if (toggle) {
+    toggle.disabled = !order.length;
+    toggle.title = order.length
+      ? cityT('Фильм о {city_prep}: {n} с утра до ночи').replace('{n}', `${order.length} ${placesWord(order.length)}`)
+      : t('Этот режим пока недоступен');
+  }
 
   function viewBand() {
     const W = window.innerWidth;
@@ -493,7 +498,7 @@ export function createCinema(ctx) {
   }
 
   function start() {
-    if (active) return;
+    if (active || !order.length) return;
     ctx.onEnter?.();
     active = true;
     paused = false;
@@ -583,6 +588,9 @@ export function createCinema(ctx) {
     start,
     stop,
     onKey,
+    get available() {
+      return order.length > 0;
+    },
     get active() {
       return active;
     },

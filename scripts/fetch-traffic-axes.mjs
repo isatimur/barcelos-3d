@@ -56,6 +56,14 @@ const AXES_BY_CITY = {
     n101: (t) => /EN 101/.test(t.ref || ''),
     a11: (t) => /A 11|CSB|EN 14/.test(t.ref || '') || /Circular Sul de Braga/.test(t.name || ''),
   },
+  barcelos: {
+    n205: (t) => /EN 205/.test(t.ref || '') || /Estrada Nacional 205/.test(t.name || ''),
+    n103: (t) => /(EN|EM) 103/.test(t.ref || ''),
+    a11: (t) => /A 11|IC 14/.test(t.ref || '') || /Autoestrada do Baixo Minho/.test(t.name || ''),
+    circular: (t) => /Circular (?:de|Urbana de) Barcelos/.test(t.name || ''),
+    nunoalvares: (t) => /Avenida Dom Nuno Álvares Pereira/.test(t.name || ''),
+    sidoniopais: (t) => /Avenida Doutor Sidónio Pais/.test(t.name || ''),
+  },
 };
 const AXES = AXES_BY_CITY[CITY.id];
 

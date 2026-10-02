@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "check:models": "node scripts/count-tris.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "city": "node scripts/city.mjs"
   },
   "dependencies": {
