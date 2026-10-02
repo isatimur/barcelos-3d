@@ -1,0 +1,72 @@
+{
+  "torre-menagem": {
+    "src": "assets/img/torre-menagem.jpg",
+    "credit": {
+      "author": "Turismo En Portugal",
+      "license": "CC BY 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Torre_de_Barcelos_(9590194178).jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q9088866"
+  },
+  "bom-jesus-cruz": {
+    "src": "assets/img/bom-jesus-cruz.jpg",
+    "credit": {
+      "author": "Joseolgon at Portuguese Wikipedia. Foto de Jose Goncalves",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_Senhor_da_Cruz_Barcelos.jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q10300883"
+  },
+  "igreja-matriz": {
+    "src": "assets/img/igreja-matriz.jpg",
+    "credit": {
+      "author": "Xauxa Håkan Svensson",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q5993993"
+  },
+  "paco-condes": {
+    "src": "assets/img/paco-condes.jpg",
+    "credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Aerial_photograph_of_Barcelos_(9).jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q10347027"
+  },
+  "museu-olaria": {
+    "src": "assets/img/museu-olaria.jpg",
+    "credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Pottery_Museum6.JPG"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q10333855"
+  },
+  "solar-pinheiros": {
+    "src": "assets/img/solar-pinheiros.jpg",
+    "credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_03.JPG"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q66813160"
+  },
+  "teatro-gil-vicente": {
+    "src": "assets/img/teatro-gil-vicente.jpg",
+    "credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q10378848"
+  }
+}

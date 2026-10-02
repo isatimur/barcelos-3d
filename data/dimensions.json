@@ -1,0 +1,492 @@
+{
+  "ponte-medieval": {
+    "footprint_m": {
+      "length": 99.13,
+      "width": 6.12,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 8
+    },
+    "elements": {},
+    "facade_azimuth_deg": 5.5,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/1517247585",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "99.13 × 6.12 m; 5.5 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (8 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "bom-jesus-cruz": {
+    "footprint_m": {
+      "length": 30.24,
+      "width": 24.71,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 24
+    },
+    "elements": {},
+    "facade_azimuth_deg": 179.5,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/177238633",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "30.24 × 24.71 m; 179.5 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (24 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "igreja-matriz": {
+    "footprint_m": {
+      "length": 37.13,
+      "width": 35.25,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 22
+    },
+    "elements": {},
+    "facade_azimuth_deg": 81.8,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/108362149",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "37.13 × 35.25 m; 81.8 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (22 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "paco-condes": {
+    "footprint_m": {
+      "length": 49.97,
+      "width": 42.38,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 12
+    },
+    "elements": {},
+    "facade_azimuth_deg": 84.3,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/108362147",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "49.97 × 42.38 m; 84.3 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (12 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "torre-menagem": {
+    "footprint_m": {
+      "length": 13.27,
+      "width": 12.1,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 24
+    },
+    "elements": {},
+    "facade_azimuth_deg": 21,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/108359868",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "13.27 × 12.10 m; 21 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (24 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "museu-olaria": {
+    "footprint_m": {
+      "length": 53.27,
+      "width": 35.4,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 11
+    },
+    "elements": {},
+    "facade_azimuth_deg": 60.7,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/1444493946",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "53.27 × 35.40 m; 60.7 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (11 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "pacos-concelho": {
+    "footprint_m": {
+      "length": 76.45,
+      "width": 62.12,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 15
+    },
+    "elements": {},
+    "facade_azimuth_deg": 67.6,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/108362148",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "76.45 × 62.12 m; 67.6 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (15 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "solar-pinheiros": {
+    "footprint_m": {
+      "length": 27.32,
+      "width": 20.59,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 14
+    },
+    "elements": {},
+    "facade_azimuth_deg": 167.3,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/210203502",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "27.32 × 20.59 m; 167.3 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (14 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "teatro-gil-vicente": {
+    "footprint_m": {
+      "length": 32.63,
+      "width": 22.66,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 14
+    },
+    "elements": {},
+    "facade_azimuth_deg": 160.4,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/108362146",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "32.63 × 22.66 m; 160.4 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (14 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "estadio-cidade": {
+    "footprint_m": {
+      "length": 195.58,
+      "width": 135.34,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 22
+    },
+    "elements": {},
+    "facade_azimuth_deg": 172.9,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/relation/9094040",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "195.58 × 135.34 m; 172.9 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (22 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "parque-cidade": {
+    "footprint_m": {
+      "length": 229.11,
+      "width": 199.44,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 8
+    },
+    "elements": {},
+    "facade_azimuth_deg": 154.4,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/104557499",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "229.11 × 199.44 m; 154.4 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (8 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "jardim-barrocas": {
+    "footprint_m": {
+      "length": 166.14,
+      "width": 141.89,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 2
+    },
+    "elements": {},
+    "facade_azimuth_deg": 165.1,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/108359861",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "166.14 × 141.89 m; 165.1 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (2 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "mercado-municipal": {
+    "footprint_m": {
+      "length": 87.39,
+      "width": 43.68,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 9
+    },
+    "elements": {},
+    "facade_azimuth_deg": 148.4,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/546633505",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "87.39 × 43.68 m; 148.4 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (9 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "igreja-barcelinhos": {
+    "footprint_m": {
+      "length": 37.36,
+      "width": 17.55,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 17
+    },
+    "elements": {},
+    "facade_azimuth_deg": 96,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/1278607344",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "37.36 × 17.55 m; 96 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (17 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  }
+}

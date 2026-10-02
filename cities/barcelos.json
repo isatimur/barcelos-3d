@@ -1,27 +1,63 @@
 {
   "id": "barcelos",
-  "features": { "story": false },
-  "description": {
-    "pt": "Explore as ruas e o relevo de Barcelos num mapa 3D interativo. Pré-visualização: pontos de interesse e percursos ainda não disponíveis.",
-    "en": "Explore the streets and terrain of Barcelos in an interactive 3D map. Early preview: landmarks and routes are not yet available.",
-    "ru": "Исследуйте улицы и рельеф Барселуша на интерактивной 3D-карте. Предварительная версия: достопримечательности и маршруты пока недоступны."
+  "features": {
+    "story": true
   },
-  "name": { "pt": "Barcelos", "en": "Barcelos", "ru": "Барселуш" },
-  "name_ru_cases": { "gen": "Барселуша", "prep": "Барселуше", "ins": "Барселушем" },
+  "description": {
+    "pt": "Explore 14 lugares de Barcelos em 3D, três percursos a pé e uma história guiada. Modelos interpretativos sobre contornos OpenStreetMap.",
+    "en": "Explore 14 Barcelos places in 3D, three walking routes and a guided story. Interpretive models use OpenStreetMap outlines.",
+    "ru": "14 мест Барселуша в 3D, три пешеходных маршрута и история города. Интерпретационные модели используют контуры OpenStreetMap."
+  },
+  "name": {
+    "pt": "Barcelos",
+    "en": "Barcelos",
+    "ru": "Барселуш"
+  },
+  "name_ru_cases": {
+    "gen": "Барселуша",
+    "prep": "Барселуше",
+    "ins": "Барселушем"
+  },
   "domain": null,
-  "hostnames": ["barcelos-3d.com", "www.barcelos-3d.com", "barcelos-3d.vercel.app"],
+  "hostnames": [
+    "barcelos-3d.com",
+    "www.barcelos-3d.com",
+    "barcelos-3d.vercel.app"
+  ],
   "domain_note": "Barcelos is Portugal's rooster town and a UNESCO Creative City of Crafts and Folk Art; the domain waits for the deploy.",
-  "origin": { "lat": 41.5314, "lon": -8.6192 },
-  "core_bbox": { "s": 41.505, "w": -8.675, "n": 41.560, "e": -8.560 },
-  "wide_bbox": { "s": 41.455, "w": -8.745, "n": 41.610, "e": -8.490 },
+  "origin": {
+    "lat": 41.5314,
+    "lon": -8.6192
+  },
+  "core_bbox": {
+    "s": 41.505,
+    "w": -8.675,
+    "n": 41.56,
+    "e": -8.56
+  },
+  "wide_bbox": {
+    "s": 41.455,
+    "w": -8.745,
+    "n": 41.61,
+    "e": -8.49
+  },
   "terrain": {
     "dataset": "eudem25m",
     "spacing_m": 110,
     "datum_note": "y=0 at the centre DEM height",
     "probes": {
-      "centre": [41.5314, -8.6192],
-      "franqueira": [41.4945, -8.6453],
-      "estadio": [41.5511, -8.6231]
+      "centre": [
+        41.5314,
+        -8.6192
+      ],
+      "franqueira": [
+        41.4945,
+        -8.6453
+      ],
+      "estadio": [
+        41.5511,
+        -8.6231
+      ]
     }
   },
   "timezone": "Europe/Lisbon",
@@ -35,44 +71,320 @@
     "gtfs_rt": null,
     "todo": "find a GTFS feed on dados.gov.pt / NAP; else schedule line from the station and the Via Verde bus"
   },
-  "aircraft": { "lat": 41.53, "lon": -8.62, "radius_nm": 40 },
-  "weather": { "lat": 41.5314, "lon": -8.6192 },
+  "aircraft": {
+    "lat": 41.53,
+    "lon": -8.62,
+    "radius_nm": 40
+  },
+  "weather": {
+    "lat": 41.5314,
+    "lon": -8.6192
+  },
   "traffic": {
-    "car_free": [[41.5285, -8.6217, 200]],
-    "axes_bbox": { "s": 41.49, "w": -8.70, "n": 41.58, "e": -8.54 },
-    "axes_base": [41.49, -8.70]
+    "car_free": [
+      [
+        41.5285,
+        -8.6217,
+        200
+      ]
+    ],
+    "axes_bbox": {
+      "s": 41.49,
+      "w": -8.7,
+      "n": 41.58,
+      "e": -8.54
+    },
+    "axes_base": [
+      41.49,
+      -8.7
+    ]
   },
   "nature": {
     "hills": [
-      { "lat": 41.4945, "lon": -8.6453, "r": 1500, "name": "Monte da Franqueira" },
-      { "lat": 41.533, "lon": -8.615, "r": 900, "name": "Parque da Cidade" }
+      {
+        "lat": 41.4945,
+        "lon": -8.6453,
+        "r": 1500,
+        "name": "Monte da Franqueira"
+      },
+      {
+        "lat": 41.533,
+        "lon": -8.615,
+        "r": 900,
+        "name": "Parque da Cidade"
+      }
     ]
   },
-  "start_view": { "landmark": "bom-jesus-cruz", "narrow_landmark": "torre-menagem" },
-  "ms_centre": [41.5285, -8.6217],
+  "start_view": {
+    "landmark": "bom-jesus-cruz",
+    "narrow_landmark": "torre-menagem"
+  },
+  "ms_centre": [
+    41.5285,
+    -8.6217
+  ],
   "data_dir": "data",
   "landmarks_file": "data/landmarks.json",
   "og_image": "/og/barcelos.jpg",
   "landmark_candidates": [
-    { "id": "ponte-medieval", "name_pt": "Ponte Medieval de Barcelos", "category": "civic", "why": "Gothic bridge over the Cávado, built 1325–1328 by Count Pedro Afonso", "lat": 41.5275, "lon": -8.6223 },
-    { "id": "bom-jesus-cruz", "name_pt": "Templo do Senhor Bom Jesus da Cruz", "category": "religious", "why": "Baroque temple (1705–1710) on the Campo da Feira, from the Miracle of the Holy Cross", "lat": 41.5306, "lon": -8.6153 },
-    { "id": "igreja-matriz", "name_pt": "Igreja Matriz de Barcelos (Santa Maria Maior)", "category": "religious", "why": "Collegiate church enlarged in the 14th–15th c.; gilded interior", "lat": 41.5286, "lon": -8.6221 },
-    { "id": "paco-condes", "name_pt": "Paço dos Condes de Barcelos", "category": "civic", "why": "15th-c. palace of the Dukes of Braganza, now the archaeological museum", "lat": 41.5282, "lon": -8.6221 },
-    { "id": "torre-menagem", "name_pt": "Torre de Menagem / Torre da Porta Nova", "category": "civic", "why": "Medieval keep, last standing piece of the 15th-c. town walls", "lat": 41.5309, "lon": -8.6197 },
-    { "id": "senhor-galo", "name_pt": "Cruzeiro do Senhor do Galo", "category": "religious", "why": "Stone cross of the Rooster of Barcelos legend, the town's symbol", "lat": 41.5270, "lon": -8.6241 },
-    { "id": "museu-olaria", "name_pt": "Museu de Olaria", "category": "museum", "why": "Pottery museum in the historic centre; 'figurado' folk ceramics", "lat": 41.5289, "lon": -8.6206 },
-    { "id": "pacos-concelho", "name_pt": "Paços do Concelho e Largo do Município", "category": "civic", "why": "City hall and the main civic square of the old town", "lat": 41.5285, "lon": -8.6217 },
-    { "id": "sao-francisco", "name_pt": "Igreja da Ordem Terceira de São Francisco", "category": "religious", "why": "18th-c. church of the Third Order of St Francis", "lat": 41.5295, "lon": -8.6165 },
-    { "id": "mosteiro-terco", "name_pt": "Mosteiro do Terço", "category": "religious", "why": "18th-c. monastery linked to the Terço devotion", "lat": 41.5300, "lon": -8.6150 },
-    { "id": "solar-pinheiros", "name_pt": "Solar dos Pinheiros", "category": "civic", "why": "Rare three-storey 15th-c. manor recorded in medieval Barcelos", "lat": 41.5290, "lon": -8.6205 },
-    { "id": "teatro-gil-vicente", "name_pt": "Teatro Gil Vicente", "category": "civic", "why": "Municipal theatre named after the playwright born near Barcelos", "lat": 41.5295, "lon": -8.6218 },
-    { "id": "estadio-cidade", "name_pt": "Estádio Cidade de Barcelos", "category": "sport", "why": "Home of Gil Vicente FC, the town's Primeira Liga club", "lat": 41.5511, "lon": -8.6231 },
-    { "id": "parque-cidade", "name_pt": "Parque da Cidade de Barcelos", "category": "gardens", "why": "Large riverside city park by the Cávado", "lat": 41.5330, "lon": -8.6150 },
-    { "id": "jardim-barrocas", "name_pt": "Jardim das Barrocas", "category": "gardens", "why": "Formal garden beside the historic centre", "lat": 41.5308, "lon": -8.6181 },
-    { "id": "mercado-municipal", "name_pt": "Mercado Municipal de Barcelos", "category": "civic", "why": "Covered market, centre of a fair town famous since the Middle Ages", "lat": 41.5319, "lon": -8.6219 },
-    { "id": "igreja-santa-cruz", "name_pt": "Igreja de Santa Cruz", "category": "religious", "why": "Old parish church on the east bank of the historic centre", "lat": 41.5290, "lon": -8.6200 },
-    { "id": "igreja-barcelinhos", "name_pt": "Igreja de Barcelinhos", "category": "religious", "why": "Parish church of Barcelinhos across the bridge", "lat": 41.5280, "lon": -8.6250 },
-    { "id": "franqueira", "name_pt": "Santuário de Nossa Senhora da Franqueira", "category": "religious", "why": "Hill sanctuary above the Cávado with a long pilgrimage tradition", "lat": 41.4945, "lon": -8.6453 }
+    {
+      "id": "ponte-medieval",
+      "name_pt": "Ponte Medieval de Barcelos",
+      "category": "civic",
+      "why": "Gothic bridge over the Cávado, built 1325–1328 by Count Pedro Afonso",
+      "lat": 41.5275,
+      "lon": -8.6223
+    },
+    {
+      "id": "bom-jesus-cruz",
+      "name_pt": "Templo do Senhor Bom Jesus da Cruz",
+      "category": "religious",
+      "why": "Baroque temple (1705–1710) on the Campo da Feira, from the Miracle of the Holy Cross",
+      "lat": 41.5306,
+      "lon": -8.6153
+    },
+    {
+      "id": "igreja-matriz",
+      "name_pt": "Igreja Matriz de Barcelos (Santa Maria Maior)",
+      "category": "religious",
+      "why": "Collegiate church enlarged in the 14th–15th c.; gilded interior",
+      "lat": 41.5286,
+      "lon": -8.6221
+    },
+    {
+      "id": "paco-condes",
+      "name_pt": "Paço dos Condes de Barcelos",
+      "category": "civic",
+      "why": "15th-c. palace of the Dukes of Braganza, now the archaeological museum",
+      "lat": 41.5282,
+      "lon": -8.6221
+    },
+    {
+      "id": "torre-menagem",
+      "name_pt": "Torre de Menagem / Torre da Porta Nova",
+      "category": "civic",
+      "why": "Medieval keep, last standing piece of the 15th-c. town walls",
+      "lat": 41.5309,
+      "lon": -8.6197
+    },
+    {
+      "id": "senhor-galo",
+      "name_pt": "Cruzeiro do Senhor do Galo",
+      "category": "religious",
+      "why": "Stone cross of the Rooster of Barcelos legend, the town's symbol",
+      "lat": 41.527,
+      "lon": -8.6241
+    },
+    {
+      "id": "museu-olaria",
+      "name_pt": "Museu de Olaria",
+      "category": "museum",
+      "why": "Pottery museum in the historic centre; 'figurado' folk ceramics",
+      "lat": 41.5289,
+      "lon": -8.6206
+    },
+    {
+      "id": "pacos-concelho",
+      "name_pt": "Paços do Concelho e Largo do Município",
+      "category": "civic",
+      "why": "City hall and the main civic square of the old town",
+      "lat": 41.5285,
+      "lon": -8.6217
+    },
+    {
+      "id": "sao-francisco",
+      "name_pt": "Igreja da Ordem Terceira de São Francisco",
+      "category": "religious",
+      "why": "18th-c. church of the Third Order of St Francis",
+      "lat": 41.5295,
+      "lon": -8.6165
+    },
+    {
+      "id": "mosteiro-terco",
+      "name_pt": "Mosteiro do Terço",
+      "category": "religious",
+      "why": "18th-c. monastery linked to the Terço devotion",
+      "lat": 41.53,
+      "lon": -8.615
+    },
+    {
+      "id": "solar-pinheiros",
+      "name_pt": "Solar dos Pinheiros",
+      "category": "civic",
+      "why": "Rare three-storey 15th-c. manor recorded in medieval Barcelos",
+      "lat": 41.529,
+      "lon": -8.6205
+    },
+    {
+      "id": "teatro-gil-vicente",
+      "name_pt": "Teatro Gil Vicente",
+      "category": "civic",
+      "why": "Municipal theatre named after the playwright born near Barcelos",
+      "lat": 41.5295,
+      "lon": -8.6218
+    },
+    {
+      "id": "estadio-cidade",
+      "name_pt": "Estádio Cidade de Barcelos",
+      "category": "sport",
+      "why": "Home of Gil Vicente FC, the town's Primeira Liga club",
+      "lat": 41.5511,
+      "lon": -8.6231
+    },
+    {
+      "id": "parque-cidade",
+      "name_pt": "Parque da Cidade de Barcelos",
+      "category": "gardens",
+      "why": "Large riverside city park by the Cávado",
+      "lat": 41.533,
+      "lon": -8.615
+    },
+    {
+      "id": "jardim-barrocas",
+      "name_pt": "Jardim das Barrocas",
+      "category": "gardens",
+      "why": "Formal garden beside the historic centre",
+      "lat": 41.5308,
+      "lon": -8.6181
+    },
+    {
+      "id": "mercado-municipal",
+      "name_pt": "Mercado Municipal de Barcelos",
+      "category": "civic",
+      "why": "Covered market, centre of a fair town famous since the Middle Ages",
+      "lat": 41.5319,
+      "lon": -8.6219
+    },
+    {
+      "id": "igreja-santa-cruz",
+      "name_pt": "Igreja de Santa Cruz",
+      "category": "religious",
+      "why": "Old parish church on the east bank of the historic centre",
+      "lat": 41.529,
+      "lon": -8.62
+    },
+    {
+      "id": "igreja-barcelinhos",
+      "name_pt": "Igreja de Barcelinhos",
+      "category": "religious",
+      "why": "Parish church of Barcelinhos across the bridge",
+      "lat": 41.528,
+      "lon": -8.625
+    },
+    {
+      "id": "franqueira",
+      "name_pt": "Santuário de Nossa Senhora da Franqueira",
+      "category": "religious",
+      "why": "Hill sanctuary above the Cávado with a long pilgrimage tradition",
+      "lat": 41.4945,
+      "lon": -8.6453
+    }
   ],
-  "notes": "Start city for barcelos-3d, forked from braga-3d (engine copy, fresh history). Bboxes are a first estimate around the historic centre and the Cávado; pin tiles/terrain.lattice here later once the pipeline has run. Landmark candidates carry provisional coordinates; the landmark agents replace them with real OSM outlines and sourced dimensions in data/new/."
+  "notes": "Published landmark set is the 14 verified OSM records in data/sources/landmark-osm.json. The older landmark_candidates list is a research backlog, not published data. Heights and decorative geometry are explicitly interpretive; outlines are mapped.",
+  "content_profile": "concise",
+  "model_profile": "interpretive",
+  "cinema_order": [
+    {
+      "id": "ponte-medieval",
+      "shot": "crane",
+      "dur": 12,
+      "time": "morning"
+    },
+    {
+      "id": "bom-jesus-cruz",
+      "shot": "crane",
+      "dur": 12,
+      "time": "morning"
+    },
+    {
+      "id": "igreja-matriz",
+      "shot": "rise",
+      "dur": 12,
+      "time": "morning"
+    },
+    {
+      "id": "paco-condes",
+      "shot": "orbit",
+      "dur": 12,
+      "time": "morning"
+    },
+    {
+      "id": "torre-menagem",
+      "shot": "crane",
+      "dur": 12,
+      "time": "day"
+    },
+    {
+      "id": "museu-olaria",
+      "shot": "rise",
+      "dur": 12,
+      "time": "day"
+    },
+    {
+      "id": "pacos-concelho",
+      "shot": "orbit",
+      "dur": 12,
+      "time": "day"
+    },
+    {
+      "id": "solar-pinheiros",
+      "shot": "crane",
+      "dur": 12,
+      "time": "day"
+    },
+    {
+      "id": "teatro-gil-vicente",
+      "shot": "rise",
+      "dur": 12,
+      "time": "day"
+    },
+    {
+      "id": "estadio-cidade",
+      "shot": "orbit",
+      "dur": 12,
+      "time": "sunset"
+    },
+    {
+      "id": "parque-cidade",
+      "shot": "crane",
+      "dur": 12,
+      "time": "sunset"
+    },
+    {
+      "id": "jardim-barrocas",
+      "shot": "rise",
+      "dur": 12,
+      "time": "sunset"
+    },
+    {
+      "id": "mercado-municipal",
+      "shot": "orbit",
+      "dur": 12,
+      "time": "sunset"
+    },
+    {
+      "id": "igreja-barcelinhos",
+      "shot": "crane",
+      "dur": 12,
+      "time": "sunset",
+      "then": "night",
+      "at": 6
+    }
+  ],
+  "verified_landmarks": [
+    "ponte-medieval",
+    "bom-jesus-cruz",
+    "igreja-matriz",
+    "paco-condes",
+    "torre-menagem",
+    "museu-olaria",
+    "pacos-concelho",
+    "solar-pinheiros",
+    "teatro-gil-vicente",
+    "estadio-cidade",
+    "parque-cidade",
+    "jardim-barrocas",
+    "mercado-municipal",
+    "igreja-barcelinhos"
+  ]
 }

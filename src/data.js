@@ -248,7 +248,7 @@ export async function loadData(onStep = () => {}) {
     status.roads = 'placeholder';
   }
 
-  status.enriched = enrich(landmarks, force);
+  status.enriched = braga ? enrich(landmarks, force) : [];
   if (status.enriched.length) {
     const why = force ? '?demo: empty rich fields filled' : 'no rich fields in landmarks.json';
     console.warn(`[braga] ${why}. Placeholder values used for: ${status.enriched.join(', ')}`);
@@ -281,4 +281,3 @@ export async function loadData(onStep = () => {}) {
 
   return { landmarks, roads, routes, status, life: life.value || {}, trafficAxes: axes.value || {}, ...geo };
 }
-

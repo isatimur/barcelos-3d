@@ -1,0 +1,143 @@
+{
+  "kicker_pt": "Barcelos · rio, pedra e barro",
+  "kicker_en": "Barcelos · river, stone and clay",
+  "kicker_ru": "Барселуш · река, камень и глина",
+  "title_pt": "Uma cidade em cinco lugares",
+  "title_en": "A city in five places",
+  "title_ru": "Город в пяти местах",
+  "subtitle_pt": "Percorra os lugares, leia as fontes e descubra as ligações entre eles.",
+  "subtitle_en": "Move through the places, read their sources and discover the connections.",
+  "subtitle_ru": "Пройдите по местам, изучите источники и найдите связи между ними.",
+  "chapters": [
+    {
+      "id": "ponte-medieval",
+      "focus": [
+        "ponte-medieval"
+      ],
+      "time": "morning",
+      "sources": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/way/1517247585"
+        },
+        {
+          "title": "Fonte cultural / Heritage source",
+          "url": "https://www.visitportugal.com/pt-pt/content/ponte-medieval-de-barcelos"
+        }
+      ],
+      "era_pt": "1325–1330",
+      "title_pt": "Ponte Medieval de Barcelos",
+      "text_pt": "A ponte gótica liga Barcelos a Barcelinhos. Foi mandada construir pelo conde D. Pedro no século XIV; o arco central é o mais elevado.\n\nObserve a sequência dos arcos a partir da margem. A ligação entre as duas povoações continua a definir este lugar.",
+      "era_en": "1325–1330",
+      "title_en": "Medieval Bridge",
+      "text_en": "This Gothic bridge links Barcelos and Barcelinhos. Count Pedro commissioned it in the 14th century; the central arch rises above the others.\n\nView its five arches from the riverbank, then follow the crossing between the two settlements.",
+      "era_ru": "1325–1330",
+      "title_ru": "Средневековый мост",
+      "text_ru": "Готический мост соединяет Барселуш и Барселиньюш. Его построили по приказу графа Педру в XIV веке; центральная арка выше остальных.\n\nПосмотрите на пять арок с берега, затем проследите путь через реку между двумя поселениями."
+    },
+    {
+      "id": "paco-condes",
+      "focus": [
+        "paco-condes"
+      ],
+      "time": "day",
+      "sources": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/way/108362147"
+        },
+        {
+          "title": "Fonte cultural / Heritage source",
+          "url": "https://www.cm-barcelos.pt/items/paco-dos-condes-de-barcelos/"
+        }
+      ],
+      "era_pt": "XV",
+      "title_pt": "Paço dos Condes de Barcelos",
+      "text_pt": "D. Afonso, conde de Barcelos e primeiro duque de Bragança, mandou construir o paço na primeira metade do século XV.\n\nO museu arqueológico instalou-se aqui no início do século XX. As paredes sobreviventes permitem observar a relação entre o paço, a igreja e a ponte.",
+      "era_en": "XV",
+      "title_en": "Palace of the Counts",
+      "text_en": "Afonso, Count of Barcelos and first Duke of Braganza, commissioned the palace in the first half of the 15th century.\n\nAn archaeological museum was established here in the early 20th century. The surviving walls stand beside the church and medieval bridge.",
+      "era_ru": "XV",
+      "title_ru": "Дворец графов Барселуша",
+      "text_ru": "Афонсу, граф Барселуша и первый герцог Браганса, заказал дворец в первой половине XV века.\n\nВ начале XX века здесь разместился археологический музей. Сохранившиеся стены стоят рядом с церковью и средневековым мостом."
+    },
+    {
+      "id": "bom-jesus-cruz",
+      "focus": [
+        "bom-jesus-cruz"
+      ],
+      "time": "day",
+      "sources": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/way/177238633"
+        },
+        {
+          "title": "Fonte cultural / Heritage source",
+          "url": "https://www.cm-barcelos.pt/items/templo-do-bom-jesus-da-cruz/"
+        }
+      ],
+      "era_pt": "1710",
+      "title_pt": "Templo do Bom Jesus da Cruz",
+      "text_pt": "O templo abriu ao culto em 1710. João Antunes concebeu a planta centralizada, com o interior disposto em cruz grega.\n\nA tradição associa a sua origem a uma cruz aparecida no Campo da Feira em 1504. É uma narrativa religiosa local, ligada à Festa das Cruzes.",
+      "era_en": "1710",
+      "title_en": "Bom Jesus da Cruz",
+      "text_en": "Opened for worship in 1710, João Antunes’s church has a central dome and a Greek-cross interior.\n\nLocal religious tradition traces its origin to a cross said to have appeared in the fairground in 1504. The church remains closely associated with the Festival of the Crosses.",
+      "era_ru": "1710",
+      "title_ru": "Бон-Жезуш-да-Круш",
+      "text_ru": "Храм открылся в 1710 году. Архитектор Жуан Антунеш создал центрическую композицию с куполом и интерьером в форме греческого креста.\n\nМестное религиозное предание связывает его появление с крестом, якобы возникшим на ярмарочной площади в 1504 году. Храм связан с праздником Крестов."
+    },
+    {
+      "id": "museu-olaria",
+      "focus": [
+        "museu-olaria"
+      ],
+      "time": "sunset",
+      "sources": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/way/1444493946"
+        },
+        {
+          "title": "Fonte cultural / Heritage source",
+          "url": "https://www.cm-barcelos.pt/viver/cultura/museu-de-olaria/"
+        }
+      ],
+      "era_pt": "Museu de Olaria",
+      "title_pt": "Museu de Olaria",
+      "text_pt": "O museu ocupa a antiga Casa dos Mendanhas Benevides Cyrne, no centro histórico. A sua coleção liga Barcelos à tradição oleira portuguesa.\n\nProcure as diferenças entre recipientes de uso quotidiano e o figurado: pequenas esculturas que transformam personagens e costumes em barro.",
+      "era_en": "Pottery Museum",
+      "title_en": "Pottery Museum",
+      "text_en": "The museum occupies the former Casa dos Mendanhas Benevides Cyrne in the historic centre. Its collection connects Barcelos with Portugal’s pottery traditions.\n\nLook for the contrast between everyday vessels and figurado: small clay sculptures of characters and customs.",
+      "era_ru": "Музей керамики",
+      "title_ru": "Музей керамики",
+      "text_ru": "Музей занимает бывший дом Менданьяш Беневидеш Сирне в историческом центре. Коллекция связывает Барселуш с гончарными традициями Португалии.\n\nСравните повседневную посуду и фигурáду — небольшие глиняные скульптуры, изображающие людей и обычаи."
+    },
+    {
+      "id": "estadio-cidade",
+      "focus": [
+        "estadio-cidade"
+      ],
+      "time": "night",
+      "sources": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/relation/9094040"
+        },
+        {
+          "title": "Fonte cultural / Heritage source",
+          "url": "https://cm-barcelos.pt/viver/desporto/estadio-cidade-de-barcelos/"
+        }
+      ],
+      "era_pt": "2004",
+      "title_pt": "Estádio Cidade de Barcelos",
+      "text_pt": "O estádio municipal foi inaugurado a 30 de maio de 2004. Fica a norte do centro histórico, numa paisagem urbana de maior escala.\n\nA forma aberta da bancada e do relvado contrasta com os quarteirões antigos. Consulte os canais do recinto para eventos e acesso.",
+      "era_en": "2004",
+      "title_en": "Barcelos City Stadium",
+      "text_en": "The municipal stadium opened on 30 May 2004. It lies north of the historic centre, in an urban setting of larger buildings and open space.\n\nIts stands and pitch contrast with the compact old town. Check the venue’s channels for events and access.",
+      "era_ru": "2004",
+      "title_ru": "Городской стадион Барселуша",
+      "text_ru": "Муниципальный стадион открылся 30 мая 2004 года. Он находится севернее исторического центра, среди более просторной городской застройки.\n\nТрибуны и поле контрастируют с тесными кварталами старого города. События и доступ уточняйте у площадки."
+    }
+  ]
+}

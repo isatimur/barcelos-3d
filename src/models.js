@@ -19,6 +19,7 @@
 // spread it into DETAILED below.
 import { Kit, PALETTE, MAT, triangleCount } from './models/kit.js';
 import { blockBuilders } from './models/barcelos/block.js';
+import { detailedBuilders } from './models/barcelos/detailed.js';
 
 export { PALETTE, MAT, triangleCount };
 
@@ -48,7 +49,7 @@ export const LANDMARK_SPECS = {
   'igreja-barcelinhos': { type: 'church', h: 16, yaw: 0 },
 };
 
-const DETAILED = {};
+const DETAILED = detailedBuilders;
 const BUILDERS = { ...blockBuilders(Object.keys(LANDMARK_SPECS)), ...DETAILED };
 
 const TYPE_DEFAULT = Object.fromEntries(Object.entries(LANDMARK_SPECS).map(([id, s]) => [s.type, id]));

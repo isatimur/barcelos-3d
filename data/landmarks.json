@@ -1,0 +1,586 @@
+[
+  {
+    "id": "ponte-medieval",
+    "name_pt": "Ponte Medieval de Barcelos",
+    "name_ru": "Средневековый мост",
+    "category": "civic",
+    "lat": 41.5274233,
+    "lon": -8.6223204,
+    "year": "1325–1330",
+    "model": "bridge",
+    "short_ru": "Пять арок над Каваду.",
+    "long_ru": "Готический мост соединяет Барселуш и Барселиньюш. Его построили по приказу графа Педру в XIV веке; центральная арка выше остальных.\n\nПосмотрите на пять арок с берега, затем проследите путь через реку между двумя поселениями.",
+    "history_ru": "Готический мост соединяет Барселуш и Барселиньюш. Его построили по приказу графа Педру в XIV веке; центральная арка выше остальных.\n\nПосмотрите на пять арок с берега, затем проследите путь через реку между двумя поселениями.",
+    "facts_ru": [
+      "Пять каменных арок",
+      "XIV век"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/1517247585"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.visitportugal.com/pt-pt/content/ponte-medieval-de-barcelos"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 1517247585,
+      "url": "https://www.openstreetmap.org/way/1517247585",
+      "height_m": 8,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "bom-jesus-cruz",
+    "name_pt": "Templo do Bom Jesus da Cruz",
+    "name_ru": "Бон-Жезуш-да-Круш",
+    "category": "religious",
+    "lat": 41.5318019,
+    "lon": -8.619232,
+    "year": "1710",
+    "model": "church-baroque",
+    "short_ru": "Купольный храм праздника Крестов.",
+    "long_ru": "Храм открылся в 1710 году. Архитектор Жуан Антунеш создал центрическую композицию с куполом и интерьером в форме греческого креста.\n\nМестное религиозное предание связывает его появление с крестом, якобы возникшим на ярмарочной площади в 1504 году. Храм связан с праздником Крестов.",
+    "history_ru": "Храм открылся в 1710 году. Архитектор Жуан Антунеш создал центрическую композицию с куполом и интерьером в форме греческого креста.\n\nМестное религиозное предание связывает его появление с крестом, якобы возникшим на ярмарочной площади в 1504 году. Храм связан с праздником Крестов.",
+    "facts_ru": [
+      "Открыт в 1710 году",
+      "Архитектор — Жуан Антунеш"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/177238633"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/items/templo-do-bom-jesus-da-cruz/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 177238633,
+      "url": "https://www.openstreetmap.org/way/177238633",
+      "height_m": 24,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "igreja-matriz",
+    "name_pt": "Igreja Matriz de Barcelos",
+    "name_ru": "Церковь Санта-Мария-Майор",
+    "category": "religious",
+    "lat": 41.5285561,
+    "lon": -8.6220445,
+    "year": "XIV",
+    "model": "church-collegiate",
+    "short_ru": "Романская кладка, готические формы и поздняя башня.",
+    "long_ru": "Церковь сочетает романские и готические черты. Перестройки последующих веков добавили новые архитектурные слои.\n\nКолокольня относится к XVIII веку, а розу восстановили в XX веке. Сравните портал, окно-розу и башню во время прогулки.",
+    "history_ru": "Церковь сочетает романские и готические черты. Перестройки последующих веков добавили новые архитектурные слои.\n\nКолокольня относится к XVIII веку, а розу восстановили в XX веке. Сравните портал, окно-розу и башню во время прогулки.",
+    "facts_ru": [
+      "Средневековое ядро",
+      "Колокольня XVIII века"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/108362149"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/items/igreja-matriz/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 108362149,
+      "url": "https://www.openstreetmap.org/way/108362149",
+      "height_m": 22,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "paco-condes",
+    "name_pt": "Paço dos Condes de Barcelos",
+    "name_ru": "Дворец графов Барселуша",
+    "category": "archaeology",
+    "lat": 41.528185,
+    "lon": -8.6220544,
+    "year": "XV",
+    "model": "palace",
+    "short_ru": "Руины дворца над рекой.",
+    "long_ru": "Афонсу, граф Барселуша и первый герцог Браганса, заказал дворец в первой половине XV века.\n\nВ начале XX века здесь разместился археологический музей. Сохранившиеся стены стоят рядом с церковью и средневековым мостом.",
+    "history_ru": "Афонсу, граф Барселуша и первый герцог Браганса, заказал дворец в первой половине XV века.\n\nВ начале XX века здесь разместился археологический музей. Сохранившиеся стены стоят рядом с церковью и средневековым мостом.",
+    "facts_ru": [
+      "Дворец XV века",
+      "Сегодня — руины и археология"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/108362147"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/items/paco-dos-condes-de-barcelos/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 108362147,
+      "url": "https://www.openstreetmap.org/way/108362147",
+      "height_m": 12,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "torre-menagem",
+    "name_pt": "Torre da Porta Nova",
+    "name_ru": "Башня Порта-Нова",
+    "category": "civic",
+    "lat": 41.5309103,
+    "lon": -8.6196664,
+    "year": "XV",
+    "model": "tower",
+    "short_ru": "Сохранившаяся башня средневековых стен.",
+    "long_ru": "Порта-Нова напоминает о средневековых укреплениях города. За столетия назначение башни менялось.\n\nРеставрация 2010–2013 годов вернула ей культурную и туристическую роль. Со смотровой площадки видны исторический центр и долина Каваду.",
+    "history_ru": "Порта-Нова напоминает о средневековых укреплениях города. За столетия назначение башни менялось.\n\nРеставрация 2010–2013 годов вернула ей культурную и туристическую роль. Со смотровой площадки видны исторический центр и долина Каваду.",
+    "facts_ru": [
+      "Средневековая оборонительная башня",
+      "Смотровая площадка"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/108359868"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.visitportugal.com/en/content/torre-medieval-barcelos"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 108359868,
+      "url": "https://www.openstreetmap.org/way/108359868",
+      "height_m": 24,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "museu-olaria",
+    "name_pt": "Museu de Olaria",
+    "name_ru": "Музей керамики",
+    "category": "museum",
+    "lat": 41.5290564,
+    "lon": -8.6205329,
+    "year": "",
+    "model": "museum",
+    "short_ru": "Глина как память и творчество.",
+    "long_ru": "Музей занимает бывший дом Менданьяш Беневидеш Сирне в историческом центре. Коллекция связывает Барселуш с гончарными традициями Португалии.\n\nСравните повседневную посуду и фигурáду — небольшие глиняные скульптуры, изображающие людей и обычаи.",
+    "history_ru": "Музей занимает бывший дом Менданьяш Беневидеш Сирне в историческом центре. Коллекция связывает Барселуш с гончарными традициями Португалии.\n\nСравните повседневную посуду и фигурáду — небольшие глиняные скульптуры, изображающие людей и обычаи.",
+    "facts_ru": [
+      "Керамика и фигурáду",
+      "Исторический центр"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/1444493946"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/viver/cultura/museu-de-olaria/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 1444493946,
+      "url": "https://www.openstreetmap.org/way/1444493946",
+      "height_m": 11,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "pacos-concelho",
+    "name_pt": "Paços do Concelho",
+    "name_ru": "Ратуша",
+    "category": "civic",
+    "lat": 41.5290979,
+    "lon": -8.6220918,
+    "year": "",
+    "model": "civic",
+    "short_ru": "Городская ратуша у старого центра.",
+    "long_ru": "Муниципальное здание входит в застройку исторического центра и связывает старый город с повседневной жизнью Барселуша.\n\nОсмотрите фасад по пути от главной церкви к театру. Доступ к муниципальным службам не означает свободную туристическую экскурсию.",
+    "history_ru": "Муниципальное здание входит в застройку исторического центра и связывает старый город с повседневной жизнью Барселуша.\n\nОсмотрите фасад по пути от главной церкви к театру. Доступ к муниципальным службам не означает свободную туристическую экскурсию.",
+    "facts_ru": [
+      "Муниципальное здание",
+      "Рядом с главной церковью"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/108362148"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/servicos/contacto-municipais/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 108362148,
+      "url": "https://www.openstreetmap.org/way/108362148",
+      "height_m": 15,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "solar-pinheiros",
+    "name_pt": "Solar dos Pinheiros",
+    "name_ru": "Усадьба Пиньейруш",
+    "category": "civic",
+    "lat": 41.5286697,
+    "lon": -8.6229419,
+    "year": "1448",
+    "model": "manor",
+    "short_ru": "Господский дом XV века.",
+    "long_ru": "Усадьба датируется 1448 годом и сохраняет черты мануэлино. Её масштаб выделяется среди соседних домов.\n\nНайдите на фасаде бородатую фигуру Барбадау. Истории об этой скульптуре относятся к местным преданиям.",
+    "history_ru": "Усадьба датируется 1448 годом и сохраняет черты мануэлино. Её масштаб выделяется среди соседних домов.\n\nНайдите на фасаде бородатую фигуру Барбадау. Истории об этой скульптуре относятся к местным преданиям.",
+    "facts_ru": [
+      "Датировка — 1448",
+      "Деталь фасада — Барбадау"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/210203502"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/items/solar-dos-pinheiros/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 210203502,
+      "url": "https://www.openstreetmap.org/way/210203502",
+      "height_m": 14,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "teatro-gil-vicente",
+    "name_pt": "Theatro Gil Vicente",
+    "name_ru": "Театр Жила Висенте",
+    "category": "civic",
+    "lat": 41.5295316,
+    "lon": -8.621839,
+    "year": "1903",
+    "model": "theatre",
+    "short_ru": "Сцена культурной жизни города.",
+    "long_ru": "Театр открылся в 1903 году и остаётся частью культурной жизни Барселуша. Он носит имя драматурга Жила Висенте.\n\nОсмотр фасада легко совместить с прогулкой по старому городу. Спектакли и условия посещения уточняйте в муниципальной афише.",
+    "history_ru": "Театр открылся в 1903 году и остаётся частью культурной жизни Барселуша. Он носит имя драматурга Жила Висенте.\n\nОсмотр фасада легко совместить с прогулкой по старому городу. Спектакли и условия посещения уточняйте в муниципальной афише.",
+    "facts_ru": [
+      "Открыт в 1903 году",
+      "Назван в честь драматурга"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/108362146"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/viver/cultura/theatro-gil-vicente/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 108362146,
+      "url": "https://www.openstreetmap.org/way/108362146",
+      "height_m": 14,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "estadio-cidade",
+    "name_pt": "Estádio Cidade de Barcelos",
+    "name_ru": "Городской стадион Барселуша",
+    "category": "sport",
+    "lat": 41.5511701,
+    "lon": -8.6230677,
+    "year": "2004",
+    "model": "stadium",
+    "short_ru": "Город через его футбольный стадион.",
+    "long_ru": "Муниципальный стадион открылся 30 мая 2004 года. Он находится севернее исторического центра, среди более просторной городской застройки.\n\nТрибуны и поле контрастируют с тесными кварталами старого города. События и доступ уточняйте у площадки.",
+    "history_ru": "Муниципальный стадион открылся 30 мая 2004 года. Он находится севернее исторического центра, среди более просторной городской застройки.\n\nТрибуны и поле контрастируют с тесными кварталами старого города. События и доступ уточняйте у площадки.",
+    "facts_ru": [
+      "Открыт 30 мая 2004 года",
+      "Севернее исторического центра"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/relation/9094040"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://cm-barcelos.pt/viver/desporto/estadio-cidade-de-barcelos/"
+      }
+    ],
+    "osm": {
+      "type": "relation",
+      "id": 9094040,
+      "url": "https://www.openstreetmap.org/relation/9094040",
+      "height_m": 22,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "parque-cidade",
+    "name_pt": "Parque da Cidade",
+    "name_ru": "Городской парк",
+    "category": "gardens",
+    "lat": 41.5327031,
+    "lon": -8.6150311,
+    "year": "",
+    "model": "park",
+    "short_ru": "Зелёная пауза рядом с центром.",
+    "long_ru": "Парк предлагает сменить ритм рядом с центром Барселуша. Дорожки и деревья создают иную среду, чем торговые улицы.\n\nСкульптура маршрута Фигураду связывает парк с местными ремёслами. Найдите эту связь во время прогулки.",
+    "history_ru": "Парк предлагает сменить ритм рядом с центром Барселуша. Дорожки и деревья создают иную среду, чем торговые улицы.\n\nСкульптура маршрута Фигураду связывает парк с местными ремёслами. Найдите эту связь во время прогулки.",
+    "facts_ru": [
+      "Городской зелёный массив",
+      "Связь с маршрутом Фигураду"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/104557499"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/items/parque-da-cidade-de-barcelos/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 104557499,
+      "url": "https://www.openstreetmap.org/way/104557499",
+      "height_m": 8,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "jardim-barrocas",
+    "name_pt": "Jardim das Barrocas",
+    "name_ru": "Сад Баррокаш",
+    "category": "gardens",
+    "lat": 41.5308749,
+    "lon": -8.618355,
+    "year": "",
+    "model": "garden",
+    "short_ru": "Сад между башней и храмом.",
+    "long_ru": "Сад Баррокаш и прогулочная аллея Ассентуш отмечены на муниципальной карте рядом с башней Порта-Нова и храмом Бон-Жезуш-да-Круш.\n\nЭто место для паузы между памятниками. Клумбы в модели — визуальная интерпретация внутри нанесённого на карту контура.",
+    "history_ru": "Сад Баррокаш и прогулочная аллея Ассентуш отмечены на муниципальной карте рядом с башней Порта-Нова и храмом Бон-Жезуш-да-Круш.\n\nЭто место для паузы между памятниками. Клумбы в модели — визуальная интерпретация внутри нанесённого на карту контура.",
+    "facts_ru": [
+      "Рядом с башней Порта-Нова",
+      "Отмечен на муниципальной карте"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/108359861"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/wp-content/uploads/2022/04/Mapa-Barcelos_Caminho_Santiago_PT_ING.pdf"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 108359861,
+      "url": "https://www.openstreetmap.org/way/108359861",
+      "height_m": 2,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "mercado-municipal",
+    "name_pt": "Mercado Municipal",
+    "name_ru": "Муниципальный рынок",
+    "category": "civic",
+    "lat": 41.5318109,
+    "lon": -8.6218581,
+    "year": "",
+    "model": "market",
+    "short_ru": "Повседневная торговля ярмарочного города.",
+    "long_ru": "Муниципальный рынок представляет повседневную торговлю Барселуша. Муниципалитет сообщил об открытии обновлённого здания в августе 2026 года.\n\nМодель использует доступный контур OpenStreetMap и не воспроизводит все детали реконструкции. Перед визитом уточните часы работы.",
+    "history_ru": "Муниципальный рынок представляет повседневную торговлю Барселуша. Муниципалитет сообщил об открытии обновлённого здания в августе 2026 года.\n\nМодель использует доступный контур OpenStreetMap и не воспроизводит все детали реконструкции. Перед визитом уточните часы работы.",
+    "facts_ru": [
+      "Муниципальный рынок",
+      "Обновление объявлено в 2026 году"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/546633505"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://cm-barcelos.pt/2026/08/barcelos-inaugurou-renovado-mercado-municipal/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 546633505,
+      "url": "https://www.openstreetmap.org/way/546633505",
+      "height_m": 9,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "igreja-barcelinhos",
+    "name_pt": "Igreja Paroquial de Barcelinhos",
+    "name_ru": "Приходская церковь Барселиньюша",
+    "category": "religious",
+    "lat": 41.5243798,
+    "lon": -8.621311,
+    "year": "",
+    "model": "church",
+    "short_ru": "Приходская церковь на стороне Барселиньюша.",
+    "long_ru": "В OpenStreetMap приходская церковь также названа именем апостола Андрея. Она стоит южнее средневекового моста, на стороне Барселиньюша.\n\nСюда можно продолжить прогулку после перехода через Каваду. Уважайте богослужения и уточняйте доступ на месте.",
+    "history_ru": "В OpenStreetMap приходская церковь также названа именем апостола Андрея. Она стоит южнее средневекового моста, на стороне Барселиньюша.\n\nСюда можно продолжить прогулку после перехода через Каваду. Уважайте богослужения и уточняйте доступ на месте.",
+    "facts_ru": [
+      "Приходская церковь",
+      "Южнее средневекового моста"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/1278607344"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 1278607344,
+      "url": "https://www.openstreetmap.org/way/1278607344",
+      "height_m": 17,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": null,
+    "image_credit": null,
+    "media_status": "not-curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  }
+]
