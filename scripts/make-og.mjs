@@ -211,7 +211,7 @@ export class ErrorOverlay extends HTMLElement {}`;
 // sanctuary and `up` above the ground, `side` to its right; the target is
 // `ahead` of it toward the city (kept close: far targets switch the roads
 // to their thick overview glow).
-const HERO_FROM = process.env.CITY_HERO_FROM || 'bom-jesus'; // Braga-specific default
+const HERO_FROM = process.env.CITY_HERO_FROM || CITY.start_view?.hero_from || 'bom-jesus'; // city-configurable, Braga default
 const HERO = JSON.parse(process.env.BRAGA_HERO || 'null') || { back: 120, up: 38, side: 35, ahead: 120, lift: 48 };
 
 async function makeOg() {

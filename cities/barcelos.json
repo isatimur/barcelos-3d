@@ -126,7 +126,8 @@
       "distance_m": 1600,
       "azimuth_deg": 245,
       "elevation_deg": 24
-    }
+    },
+    "hero_from": "igreja-barcelinhos"
   },
   "ms_centre": [
     41.5285,
