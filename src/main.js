@@ -309,6 +309,27 @@ async function start() {
   // (a city without landmarks yet frames its core bbox instead)
   // pts: [{ x, z, id | data.id }] (boot positions or marks.items)
   function homeFrom(pts) {
+    // A city may pin its own opening framing (cities/<id>.json start_view.home):
+    // a target landmark (or the landmark midpoint) and a camera on a compass
+    // bearing from it. Barcelos frames the Cávado and the medieval bridge from
+    // the west bank. Without this the span of the landmarks sets the distance.
+    const cfgHome = CITY.start_view?.home;
+    if (cfgHome && pts.length) {
+      const xs = pts.map((it) => it.x);
+      const zs = pts.map((it) => it.z);
+      const t = cfgHome.target && pts.find((it) => (it.id ?? it.data?.id) === cfgHome.target);
+      const tx = t ? t.x : (Math.min(...xs) + Math.max(...xs)) / 2;
+      const tz = t ? t.z : (Math.min(...zs) + Math.max(...zs)) / 2;
+      const dist = (cfgHome.distance_m ?? 1500) * proj.S; // world units
+      const el = ((cfgHome.elevation_deg ?? 26) * Math.PI) / 180;
+      const b = ((cfgHome.azimuth_deg ?? 225) * Math.PI) / 180; // 0 N, 90 E
+      const hd = dist * Math.cos(el);
+      return {
+        target: new THREE.Vector3(tx, 0, tz),
+        // east = +x, north = -z
+        position: new THREE.Vector3(tx + Math.sin(b) * hd, dist * Math.sin(el), tz - Math.cos(b) * hd),
+      };
+    }
     const coreBox = roads.bbox || CITY.core_bbox;
     const coreSW = project(coreBox.s, coreBox.w);
     const coreNE = project(coreBox.n, coreBox.e);

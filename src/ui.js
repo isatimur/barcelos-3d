@@ -250,12 +250,19 @@ export function createUI(landmarks, routes, h) {
   $('#pano-open').addEventListener('click', (e) => current?.panorama?.type === 'image' && h.onPanorama(current.panorama, e.currentTarget));
 
   function fillOverview(l) {
-    fig.classList.remove('is-missing');
-    fig.classList.add('is-loading');
-    img.onload = () => fig.classList.remove('is-loading');
-    img.alt = l.name;
-    if (l.image) img.src = assetUrl(l.image);
-    else fig.classList.add('is-missing');
+    // A place without a curated photograph hides the figure entirely rather
+    // than showing an empty frame.
+    if (l.image) {
+      fig.hidden = false;
+      fig.classList.remove('is-missing');
+      fig.classList.add('is-loading');
+      img.onload = () => fig.classList.remove('is-loading');
+      img.alt = l.name;
+      img.src = assetUrl(l.image);
+    } else {
+      fig.hidden = true;
+      img.removeAttribute('src');
+    }
     $('#detail-short').textContent = l.short || '';
     $('#detail-long').textContent = l.long || '';
     $('#detail-tip').hidden = !l.tip;

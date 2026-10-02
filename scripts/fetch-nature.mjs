@@ -45,7 +45,9 @@ out geom;`;
 const PRIORITY = ['water', 'forest', 'scrub', 'park', 'garden', 'orchard', 'vineyard', 'grass', 'farmland'];
 const COARSE = new Set(['forest', 'scrub', 'farmland', 'grass', 'orchard', 'vineyard']);
 const BUMPABLE = new Set(['forest', 'farmland', 'grass']);
-const LINE_KINDS = { river: 12, canal: 6, stream: 3 };
+// Per-city width overrides (cities/<id>.json nature.line_widths), e.g. a wide
+// river mapped in OSM as a thin centreline (Barcelos: the Cávado at 60 m).
+const LINE_KINDS = { river: 12, canal: 6, stream: 3, ...(CITY.nature?.line_widths || {}) };
 
 const wait = ms => new Promise(res => setTimeout(res, ms));
 

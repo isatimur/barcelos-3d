@@ -68,5 +68,44 @@
     },
     "retrieved": "2026-10-02",
     "wikidata": "Q10378848"
+  },
+  "ponte-medieval": {
+    "src": "assets/img/ponte-medieval.jpg",
+    "credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_2021_(3).jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q7228129"
+  },
+  "igreja-barcelinhos": {
+    "src": "assets/img/igreja-barcelinhos.jpg",
+    "credit": {
+      "author": "Krzysztof Golik",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q95590325"
+  },
+  "estadio-cidade": {
+    "src": "assets/img/estadio-cidade.jpg",
+    "credit": {
+      "author": "JP Ribeiro",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos.jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q1167583"
+  },
+  "jardim-barrocas": {
+    "src": "assets/img/jardim-barrocas.jpg",
+    "credit": {
+      "author": "tiago186703274",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3AJardim%20das%20Barrocas%20-%20panoramio.jpg"
+    },
+    "retrieved": "2026-10-02"
   }
 }

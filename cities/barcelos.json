@@ -113,11 +113,20 @@
         "r": 900,
         "name": "Parque da Cidade"
       }
-    ]
+    ],
+    "line_widths": {
+      "river": 60
+    }
   },
   "start_view": {
     "landmark": "bom-jesus-cruz",
-    "narrow_landmark": "torre-menagem"
+    "narrow_landmark": "torre-menagem",
+    "home": {
+      "target": "ponte-medieval",
+      "distance_m": 1600,
+      "azimuth_deg": 245,
+      "elevation_deg": 24
+    }
   },
   "ms_centre": [
     41.5285,
@@ -286,86 +295,86 @@
   "cinema_order": [
     {
       "id": "ponte-medieval",
-      "shot": "crane",
-      "dur": 12,
+      "shot": "dolly",
+      "dur": 14,
       "time": "morning"
     },
     {
-      "id": "bom-jesus-cruz",
-      "shot": "crane",
-      "dur": 12,
+      "id": "igreja-barcelinhos",
+      "shot": "dolly",
+      "dur": 10,
       "time": "morning"
     },
     {
       "id": "igreja-matriz",
-      "shot": "rise",
-      "dur": 12,
+      "shot": "dolly",
+      "dur": 11,
       "time": "morning"
     },
     {
       "id": "paco-condes",
       "shot": "orbit",
-      "dur": 12,
+      "dur": 11,
+      "time": "morning"
+    },
+    {
+      "id": "museu-olaria",
+      "shot": "dolly",
+      "dur": 10,
       "time": "morning"
     },
     {
       "id": "torre-menagem",
-      "shot": "crane",
-      "dur": 12,
+      "shot": "rise",
+      "dur": 11,
+      "time": "morning"
+    },
+    {
+      "id": "solar-pinheiros",
+      "shot": "orbit",
+      "dur": 10,
       "time": "day"
     },
     {
-      "id": "museu-olaria",
-      "shot": "rise",
+      "id": "mercado-municipal",
+      "shot": "dolly",
+      "dur": 10,
+      "time": "day"
+    },
+    {
+      "id": "jardim-barrocas",
+      "shot": "orbit",
+      "dur": 10,
+      "time": "day"
+    },
+    {
+      "id": "teatro-gil-vicente",
+      "shot": "dolly",
+      "dur": 10,
+      "time": "day"
+    },
+    {
+      "id": "bom-jesus-cruz",
+      "shot": "crane",
       "dur": 12,
       "time": "day"
     },
     {
       "id": "pacos-concelho",
-      "shot": "orbit",
-      "dur": 12,
-      "time": "day"
-    },
-    {
-      "id": "solar-pinheiros",
-      "shot": "crane",
-      "dur": 12,
-      "time": "day"
-    },
-    {
-      "id": "teatro-gil-vicente",
-      "shot": "rise",
-      "dur": 12,
-      "time": "day"
-    },
-    {
-      "id": "estadio-cidade",
-      "shot": "orbit",
-      "dur": 12,
+      "shot": "dolly",
+      "dur": 10,
       "time": "sunset"
     },
     {
       "id": "parque-cidade",
-      "shot": "crane",
-      "dur": 12,
-      "time": "sunset"
-    },
-    {
-      "id": "jardim-barrocas",
-      "shot": "rise",
-      "dur": 12,
-      "time": "sunset"
-    },
-    {
-      "id": "mercado-municipal",
       "shot": "orbit",
       "dur": 12,
       "time": "sunset"
     },
     {
-      "id": "igreja-barcelinhos",
-      "shot": "crane",
-      "dur": 12,
+      "id": "estadio-cidade",
+      "shot": "rise",
+      "dur": 15,
       "time": "sunset",
       "then": "night",
       "at": 6

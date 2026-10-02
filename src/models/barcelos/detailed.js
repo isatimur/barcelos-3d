@@ -6,7 +6,7 @@ import { win } from '../parts.js';
 
 function wrap(fn) { fn.metric=true;fn.rule={snap:false,note:'Interpretive architecture, OSM footprint; estimated height and decorative detail.'};return fn; }
 function building(k,{footprint:f,dims},style='house'){
- const H=dims.height_m.total,b=bbox(f.outline), wallH=H-2.5;
+ const H=dims.height_m.total,b=bbox(f.outline), wallH=style==='civic'?H-0.5:H-2.5;
  k.begin('main');
  k.prism(f.outline,0,wallH,style==='church'?'graniteWarm':'plaster');
  polyBand(k,f.outline,0.1,0.6,0.12,'granite');
@@ -14,13 +14,17 @@ function building(k,{footprint:f,dims},style='house'){
  const storeys=style==='church'?[wallH*0.48]:[1.1,Math.max(4.5,wallH-3.2)];
  polyWindows(k,f.outline,{storeys,bay:style==='church'?6:4,w:1.25,h:style==='church'?3:2,win:{arch:style==='church'?'round':null,trim:'graniteLight',pane:'glass'}});
  // A simple roof over the mapped outline; not a measured roof survey.
- roofOver(k,f.outline,wallH,2.5,'terracotta','hip',{over:0.15});
+ // Civic halls (museum, theatre, market) get a flat roof that follows the
+ // outline: a hip roof's oriented box would overfill an irregular plan.
+ if(style==='civic') k.prism(offset(f.outline,0.12),wallH,0.5,'lead');
+ else roofOver(k,f.outline,wallH,2.5,'terracotta','hip',{over:0.06});
  const front=edges(f.outline).filter(e=>e.len>4).sort((a,b)=>b.len-a.len)[0];
  if(front){onEdge(k,front);win(k,0,0.1,2.3,3.6,0,{trim:'graniteLight',pane:'wood',arch:'round',bw:0.35});k.pop();}
  k.end('main');
 }
 const house=wrap((k,s)=>building(k,s));
 const church=wrap((k,s)=>building(k,s,'church'));
+const civic=wrap((k,s)=>building(k,s,'civic'));
 const tower=wrap((k,{footprint:f,dims})=>{
  const H=dims.height_m.total,b=bbox(f.outline);
  k.begin('main');k.prism(f.outline,0,H-1.4,'granite');
@@ -55,10 +59,13 @@ const palace=wrap((k,{footprint:f,dims})=>{
 const bridge=wrap((k,{footprint:f,dims})=>{
  const H=dims.height_m.total,b=bbox(f.outline),alongZ=b.d>b.w,L=Math.max(b.w,b.d),W=Math.min(b.w,b.d);
  k.begin('main');k.push({x:b.cx,z:b.cz,ry:alongZ?Math.PI/2:0});
- // Five open arches; road deck and parapets remain above the water.
- for(const z of [-W*0.38,W*0.38]) k.arcade(L,H-0.9,Math.max(0.6,W*0.22),5,L/5*0.76,H*0.78,'granite',0,0,z,{pointed:true});
+ // Two pierced walls, five pointed arches; a little deeper than the deck so the
+ // openings read from a low camera along the bridge.
+ for(const z of [-W*0.38,W*0.38]) k.arcade(L,H-0.9,Math.max(0.7,W*0.28),5,L/5*0.76,H*0.78,'granite',0,0,z,{pointed:true});
  k.box(L,0.5,W,'graniteLight',0,H-1.1,0);
- for(const z of [-W/2+0.16,W/2-0.16])k.box(L,0.6,0.32,'granite',0,H-0.6,z);
+ // the roadway on the deck, and parapets with a pale coping course
+ k.box(L,0.14,W*0.62,'dark',0,H-0.82,0);
+ for(const z of [-W/2+0.16,W/2-0.16]){k.box(L,0.6,0.32,'granite',0,H-0.6,z);k.box(L,0.16,0.4,'graniteLight',0,H-0.28,z);}
  k.pop();k.end('main');
 });
 function garden(k,{footprint:f,dims},park){
@@ -84,5 +91,5 @@ const stadium=wrap((k,{footprint:f,dims})=>{
  k.end('main');
 });
 export const detailedBuilders={
- 'ponte-medieval':bridge,'bom-jesus-cruz':domeChurch,'igreja-matriz':church,'paco-condes':palace,'torre-menagem':tower,'museu-olaria':house,'pacos-concelho':house,'solar-pinheiros':house,'teatro-gil-vicente':house,'estadio-cidade':stadium,'parque-cidade':wrap((k,s)=>garden(k,s,true)),'jardim-barrocas':wrap((k,s)=>garden(k,s,false)),'mercado-municipal':house,'igreja-barcelinhos':church
+ 'ponte-medieval':bridge,'bom-jesus-cruz':domeChurch,'igreja-matriz':church,'paco-condes':palace,'torre-menagem':tower,'museu-olaria':civic,'pacos-concelho':house,'solar-pinheiros':house,'teatro-gil-vicente':civic,'estadio-cidade':stadium,'parque-cidade':wrap((k,s)=>garden(k,s,true)),'jardim-barrocas':wrap((k,s)=>garden(k,s,false)),'mercado-municipal':civic,'igreja-barcelinhos':church
 };

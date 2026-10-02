@@ -34,9 +34,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/ponte-medieval.jpg",
+    "image_credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_2021_(3).jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -76,9 +80,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/bom-jesus-cruz.jpg",
+    "image_credit": {
+      "author": "Joseolgon at Portuguese Wikipedia. Foto de Jose Goncalves",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_Senhor_da_Cruz_Barcelos.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -118,9 +126,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/igreja-matriz.jpg",
+    "image_credit": {
+      "author": "Xauxa Håkan Svensson",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -160,9 +172,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/paco-condes.jpg",
+    "image_credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Aerial_photograph_of_Barcelos_(9).jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -202,9 +218,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/torre-menagem.jpg",
+    "image_credit": {
+      "author": "Turismo En Portugal",
+      "license": "CC BY 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Torre_de_Barcelos_(9590194178).jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -244,9 +264,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/museu-olaria.jpg",
+    "image_credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Pottery_Museum6.JPG"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -328,9 +352,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/solar-pinheiros.jpg",
+    "image_credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_03.JPG"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -370,9 +398,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/teatro-gil-vicente.jpg",
+    "image_credit": {
+      "author": "Joseolgon",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -412,9 +444,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/estadio-cidade.jpg",
+    "image_credit": {
+      "author": "JP Ribeiro",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -496,9 +532,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/jardim-barrocas.jpg",
+    "image_credit": {
+      "author": "tiago186703274",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3AJardim%20das%20Barrocas%20-%20panoramio.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -576,9 +616,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/igreja-barcelinhos.jpg",
+    "image_credit": {
+      "author": "Krzysztof Golik",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
