@@ -1,3 +1,4 @@
+import { TEX, loadMaterials, TRIPLANAR } from './materials-tex.js';
 // Ordinary buildings up close: pitched roofs and facades by district.
 // DOM-free (the tile worker imports it through buildings.js).
 //
@@ -635,8 +636,13 @@ vBW = (modelMatrix * vec4(transformed, 1.0)).xyz;
 `;
 export const FACADE_FRAG_PARS = /* glsl */ `
 uniform float uNight;
+uniform sampler2D tPlaster;
+uniform sampler2D tGranite;
+uniform sampler2D tRoof;
+uniform float uTexB;
 varying vec4 vWall;
 varying vec3 vBW;
+${TRIPLANAR}
 float bHash(vec2 p) {
   vec3 q = fract(vec3(p.xyx) * 0.1031);
   q += dot(q, q.yzx + 33.33);
@@ -870,6 +876,17 @@ if (vWall.y >= 0.0 && vWall.w >= 0.0) {
   }
   #endif
 
+  // real CC0 wall material (Poly Haven), triplanar on the generated walls
+  #ifndef BRG_WIN_LITE
+  {
+    float tk = uTexB * (1.0 - smoothstep(55.0, 150.0, bDist));
+    if (tk > 0.0) {
+      vec3 tw = bHist ? brgTriplanar(tGranite, vBW, normal, 0.30) : brgTriplanar(tPlaster, vBW, normal, 0.24);
+      float tl = dot(tw, vec3(0.3333));
+      col *= mix(1.0, 0.55 + 0.95 * tl, tk * 0.8);
+    }
+  }
+  #endif
   diffuseColor.rgb = col;
 
   // the lights only after dusk (a uniform branch: by day no hashes run)
@@ -905,6 +922,9 @@ else if (bNear > 0.0) {
     float sd = vWall.w - 2.0 * floor(vWall.w * 0.5);
     float mott = 0.9 + 0.2 * bHash(floor(vec2(u, v)) + sd * 31.0);
     diffuseColor.rgb *= mix(1.0, (1.0 - 0.3 * course - 0.14 * ch * ch) * mott, k);
+    vec3 rt = brgTriplanar(tRoof, vBW, normal, 0.55);
+    float rl = dot(rt, vec3(0.3333));
+    diffuseColor.rgb *= mix(1.0, 0.6 + 0.85 * rl, k * uTexB * 0.9);
   }
 }
 #endif

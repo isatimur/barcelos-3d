@@ -16,6 +16,7 @@
 // line material shares it, including the landmark stone shader, so the far
 // hills fade into exactly the colour the sky has at the horizon.
 import * as THREE from 'three';
+import { TEX, loadMaterials } from './materials-tex.js';
 
 // ------------------------------------------------------------ shared fog uniforms
 // Plain objects (not Vector3) on purpose: UniformsUtils.clone copies three.js
@@ -1004,6 +1005,8 @@ uniform sampler2D tLandW;
 uniform vec4 uLandRectW;
 uniform float uHasLandW;
 uniform vec4 uDemRect; // x0, zN, x1, zS: outside it there is no DEM data
+uniform sampler2D tGroundTex; // real CC0 ground material (Poly Haven)
+uniform float uTexG;
 varying vec3 vTWorld;
 float demOutside(vec2 p) {
   vec2 o = max(max(uDemRect.xy - p, p - uDemRect.zw), 0.0);
@@ -1077,6 +1080,17 @@ const GROUND_COLOR = /* glsl */ `
   float fw = fwidth(hc);
   float line = 1.0 - smoothstep(0.0, 1.2 * fw, abs(fract(hc - 0.5) - 0.5));
   col *= 1.0 - 0.08 * line * (1.0 - smoothstep(0.05, 0.2, fw));
+  // real CC0 ground material (Poly Haven): modulate the procedural colour
+  // by the photographic texture up close, then fade it out with distance
+  {
+    float gd = distance(cameraPosition, W);
+    float gk = uTexG * (1.0 - smoothstep(45.0, 130.0, gd));
+    if (gk > 0.0) {
+      vec3 gt = texture2D(tGroundTex, W.xz * 0.05).rgb;
+      float gl = dot(gt, vec3(0.3333));
+      col *= mix(1.0, 0.45 + 1.05 * gl, gk * 0.85);
+    }
+  }
   // beyond the DEM: plain countryside, no invented relief detail
   float outside = demOutside(W.xz);
   col = mix(col, valley * (0.9 + 0.2 * n1), outside);
@@ -1190,6 +1204,7 @@ export function createGround(terrain) {
   geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
   geo.computeBoundingSphere();
 
+  loadMaterials();
   const blank = new THREE.DataTexture(new Uint8Array(4), 1, 1);
   blank.needsUpdate = true;
   const uniforms = {
@@ -1202,6 +1217,8 @@ export function createGround(terrain) {
     uLandRectW: { value: new THREE.Vector4(0, 0, 1, 1) },
     uHasLandW: { value: 0 },
     uDemRect: { value: new THREE.Vector4(b.x0, b.zN, b.x1, b.zS) },
+    tGroundTex: { value: TEX.ground || blank },
+    uTexG: { value: 1 },
   };
   const mat = new THREE.MeshStandardMaterial({
     vertexColors: true,

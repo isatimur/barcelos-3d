@@ -34,6 +34,7 @@ import { loadCityModels } from './models.js';
 import { setLifeData } from './life.js';
 import { setTrafficAxes } from './traffic-model.js';
 import { installPois } from './pois.js';
+import { loadMaterials } from './materials-tex.js';
 
 initLanguage();
 
@@ -116,6 +117,7 @@ async function start() {
   mark('start');
   // __braga.pois (pois.js): the POI list with opening hours, for the search
   installPois(debug);
+  loadMaterials();
   const loaded = await loadData(() => loader.set(0.35, t('Данные получены')));
   mark('data');
   // data.js returns landmarks and routes already localized

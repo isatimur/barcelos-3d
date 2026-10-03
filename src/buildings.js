@@ -11,6 +11,7 @@
 import * as THREE from 'three';
 import { S } from './geo.js';
 import { setFacadeConfig, facadeStyle, wallBase, roofBase, roofPlan, extrudeRoofed, STYLE, FACADE_VERT_PARS, FACADE_VERT, FACADE_FRAG_PARS, FACADE_FRAG } from './facades.js';
+import { TEX } from './materials-tex.js';
 
 const TILE_M = 1000; // 1 km: about 60 draw calls for the city, not 230
 const MAX_TRIS = 1_500_000;
@@ -31,6 +32,10 @@ const WALL_DIM = 0.74; // keeps a sunlit white wall well below bloom threshold
 
 export const BUILDING_UNIFORMS = {
   uNight: { value: 0 },
+  tPlaster: { value: TEX.plaster || null },
+  tGranite: { value: TEX.granite || null },
+  tRoof: { value: TEX.roof || null },
+  uTexB: { value: 1 },
   // seconds, for the streamed tiles' fade-in (src/tiles.js advances it)
   uClock: { value: 0 },
 };

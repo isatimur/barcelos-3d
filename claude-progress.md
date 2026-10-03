@@ -43,3 +43,27 @@ updates it automatically.
     `assets/` is not reaching the merged contract. Fill `data/new/<id>.content.json` and re-merge.
   - `casa-azenha` model is under the 4k triangle floor.
 - Next best step: `bar-004` — wire galleries/videos into the merged content so `check:data` passes.
+
+### Session 002
+
+- Date: 2026-10-04
+- Goal: Realism pass — architectural detail to the model floor, and real CC0 surface materials.
+- Completed:
+  - Rewrote `src/models/barcelos/detailed.js`: every landmark 4k+ triangles on its real
+    footprint (bridge balustrade + voussoirs + cutwaters; church twin belfry towers,
+    apse, buttresses; crenellated palace turrets + keep; battlement keep with bartizans;
+    market arcade + stalls; theatre pilasters; stadium trusses + floodlights; mill house
+    with water wheel, dormers, roof parapet; chapels with buttresses).
+  - Added real CC0 Poly Haven materials (`assets/tex/`, `src/materials-tex.js`): ground,
+    plaster, granite, roof tiles, cobble; sampled triplanar (world space, no UVs) in the
+    ground and facade shaders, distance-faded. Credits in `data/CREDITS.md`.
+  - Wall micro-detail (grain/mottle/eave weathering), softer calçada, warmer daylight.
+- Verification run: `npm run verify`
+  - PASS build, tests, geo, dimensions, 1:1 fit, traffic, models
+  - FAIL data contract (content) — see blocker below
+- Evidence: `check:models` all 16 in 4k..40k, total ~184k/600k; `check:fit` all within tolerance;
+  screenshots: textured tower walls + terracotta roofs + photographic ground, live overview healthy
+  (149 draw calls, 1.37M tris, 0 errors).
+- Known risk or unresolved issue:
+  - `check:data` blocked (bar-004): needs authored histories (900..1800 RU chars, 3..5 paras),
+    3..5 facts, 1..5 credited gallery photos and 1..3 YouTube videos per place. Editorial work.
