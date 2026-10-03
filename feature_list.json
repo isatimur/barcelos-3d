@@ -1,0 +1,179 @@
+{
+  "project": "barcelos-3d",
+  "last_updated": "2026-10-04",
+  "rules": {
+    "single_active_feature": true,
+    "passing_requires_evidence": true,
+    "do_not_skip_verification": true
+  },
+  "status_legend": {
+    "not_started": "Work has not begun.",
+    "in_progress": "The feature is the current active task.",
+    "blocked": "Work cannot continue until a documented blocker is resolved.",
+    "passing": "Required verification has passed and evidence is recorded."
+  },
+  "features": [
+    {
+      "id": "bar-001",
+      "priority": 1,
+      "area": "skeleton",
+      "title": "Engine fork, Barcelos config, rooster branding, green build",
+      "user_visible_behavior": "The app runs for Barcelos and draws its terrain, city fabric and rooster identity.",
+      "status": "passing",
+      "verification": ["npm run build", "npm run verify → build PASS"],
+      "evidence": ["commit 8433d39 (engine fork from braga-3d, Barcelos config, rooster branding)"],
+      "notes": "cities/barcelos.json holds the place-specific constants; city resolves to barcelos."
+    },
+    {
+      "id": "bar-002",
+      "priority": 2,
+      "area": "data",
+      "title": "Core geodata: terrain, buildings, roads, nature",
+      "user_visible_behavior": "The map shows real Barcelos terrain, OSM buildings, the street network and green areas.",
+      "status": "passing",
+      "verification": ["npm run check:geo", "npm run check:traffic"],
+      "evidence": [
+        "commit f4f7066 (core geodata, review fixes, preview guards)",
+        "check-geo OK (1 warning: 2 building centroids inside a landmark outline)",
+        "check-traffic OK: 100% compliance"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "bar-003",
+      "priority": 3,
+      "area": "data",
+      "title": "OSM ring tiles and Microsoft buildings",
+      "user_visible_behavior": "The city continues past the core with Microsoft building shapes.",
+      "status": "passing",
+      "verification": ["data/tiles/ + data/buildings-ms.json present", "Visual: ring tiles and MS buildings render"],
+      "evidence": ["commit 66fa600 (OSM ring tiles complete — 372, 100% coverage; MS ring rebuilt)"],
+      "notes": "ms-buildings runs after tiles."
+    },
+    {
+      "id": "bar-004",
+      "priority": 4,
+      "area": "content",
+      "title": "Landmark content and photos for 14..16 places",
+      "user_visible_behavior": "Each landmark card shows real text with credited photos.",
+      "status": "in_progress",
+      "verification": ["npm run check:data", "Visual: cards show photos and text"],
+      "evidence": [
+        "commit f1a21e6 (content pipeline, 14 landmarks, Microsoft buildings)",
+        "commit 22a60d6 (photos for all 14 landmarks)",
+        "commit 168fcb6 (expand to 16 landmarks)",
+        "check-data FAILS: 81 errors — 16 landmarks, 0 gallery photos, 0 videos, 3 routes"
+      ],
+      "notes": "BLOCKER: merged data has 0 gallery photos and 0 videos across the content contract (plus known history/facts limits). Fill data/new/<id>.content.json galleries/videos and re-merge; do not weaken check-data."
+    },
+    {
+      "id": "bar-005",
+      "priority": 5,
+      "area": "models",
+      "title": "1:1 landmark models on real footprints (16)",
+      "user_visible_behavior": "The landmarks are recognisable 1:1 procedural models in real scale.",
+      "status": "in_progress",
+      "verification": ["npm run check:fit", "npm run check:models"],
+      "evidence": [
+        "commit 8edfd5a (architecture pass: twin-tower church, crenellated palace/tower, market hall, theatre, chapel, stadium pylons)",
+        "check-fit OK: all landmarks within tolerance; no model smaller than real",
+        "check-models FAILS: casa-azenha 969 tris below the 4000 floor (total 50,588 / 600k)"
+      ],
+      "notes": "BLOCKER: casa-azenha is under the per-model triangle floor; give it real geometry (do not lower the floor)."
+    },
+    {
+      "id": "bar-006",
+      "priority": 6,
+      "area": "content",
+      "title": "Three authored routes",
+      "user_visible_behavior": "Three routes are selectable and drawn on the map.",
+      "status": "passing",
+      "verification": ["npm run check:data (route section)", "Visual: each route draws"],
+      "evidence": ["data/routes.json (3 routes); scripts/fetch-barcelos-routes.mjs"],
+      "notes": ""
+    },
+    {
+      "id": "bar-007",
+      "priority": 7,
+      "area": "content",
+      "title": "Story mode",
+      "user_visible_behavior": "Story mode walks through Barcelos' history.",
+      "status": "passing",
+      "verification": ["data/story.json present", "Visual: story mode advances"],
+      "evidence": ["data/story.json"],
+      "notes": ""
+    },
+    {
+      "id": "bar-008",
+      "priority": 8,
+      "area": "data",
+      "title": "Living city: POIs, streetscape, life (fountains)",
+      "user_visible_behavior": "Fountains, streetscape and POIs appear across the city.",
+      "status": "passing",
+      "verification": ["Visual: fountains, calçada and POIs render"],
+      "evidence": ["commit 33dff67 (life.json — 17 OSM fountains: Campo da Feira, Porta Nova, gardens)"],
+      "notes": ""
+    },
+    {
+      "id": "bar-009",
+      "priority": 9,
+      "area": "integration",
+      "title": "Realism and character: opening view, Cávado, cinema, wall micro-detail",
+      "user_visible_behavior": "The city opens on the Cávado and bridge with Barcelos' daylight and wall detail.",
+      "status": "passing",
+      "verification": ["Visual: opening view, Cávado, cinema, wall detail"],
+      "evidence": [
+        "commit 8284981 (wow round — opening view, Cávado river, bridge, cinema, photos)",
+        "commit 45406d3 (realism pass — wall micro-detail, softer calçada, warmer daylight)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "bar-010",
+      "priority": 10,
+      "area": "harness",
+      "title": "Unit tests for city resolution and guards",
+      "user_visible_behavior": "City-id resolution and preview guards are covered by tests.",
+      "status": "passing",
+      "verification": ["npm test"],
+      "evidence": ["scripts/check-city.test.mjs — 5 tests, all passing"],
+      "notes": "Wired into `npm run verify` as the `tests` step."
+    },
+    {
+      "id": "bar-011",
+      "priority": 11,
+      "area": "harness",
+      "title": "Engine sync mechanism with braga-3d",
+      "user_visible_behavior": "Engine fixes can be ported from braga-3d in one documented step.",
+      "status": "passing",
+      "verification": ["scripts/sync-engine.sh reports changes; scripts/engine-base.txt records the base"],
+      "evidence": ["scripts/sync-engine.sh + scripts/engine-base.txt (base 1784ff3)"],
+      "notes": "Report-only by default; --apply copies, --record advances the base."
+    },
+    {
+      "id": "bar-012",
+      "priority": 12,
+      "area": "deploy",
+      "title": "Deploy: production domain, OG image set, share pages",
+      "user_visible_behavior": "The production site is live on the Barcelos domain with absolute OG/share URLs.",
+      "status": "passing",
+      "verification": ["Live domain reachable", "Check /p/<id>/ and /og/ on the live domain"],
+      "evidence": [
+        "commit bb4c0ce (production domain set; share pages use absolute og/canonical URLs)",
+        "commit 2ebc7ed (complete OG image set — hero + 14 landmarks)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "bar-013",
+      "priority": 13,
+      "area": "harness",
+      "title": "Verification harness installed",
+      "user_visible_behavior": "npm run verify is the single gate; tests + build + every check.",
+      "status": "passing",
+      "verification": ["npm run verify", ".github/workflows/verify.yml present"],
+      "evidence": ["scripts/verify.mjs, package.json verify/check:* scripts, init.sh, .nvmrc, CI workflow"],
+      "notes": "Default city barcelos."
+    }
+  ]
+}

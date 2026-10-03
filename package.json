@@ -3,11 +3,20 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check:models": "node scripts/count-tris.mjs",
+    "verify": "node scripts/verify.mjs",
+    "check:data": "node scripts/check-data.mjs --city barcelos",
+    "check:geo": "node scripts/check-geo.mjs --city barcelos",
+    "check:dimensions": "node scripts/check-dimensions.mjs --city barcelos",
+    "check:fit": "node scripts/check-fit.mjs --city barcelos",
+    "check:traffic": "node scripts/check-traffic.mjs --city barcelos",
+    "check:models": "node scripts/count-tris.mjs --city barcelos",
     "test": "node --test scripts/*.test.mjs",
     "city": "node scripts/city.mjs"
   },
