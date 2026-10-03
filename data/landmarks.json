@@ -638,5 +638,97 @@
     "gallery": [],
     "panorama": null,
     "videos": []
+  },
+  {
+    "id": "capela-ponte",
+    "name_pt": "Capela de Nossa Senhora da Ponte",
+    "name_ru": "Часовня Носса-Сеньора-да-Понте",
+    "category": "religious",
+    "lat": 41.5268105,
+    "lon": -8.6222699,
+    "year": "",
+    "model": "chapel",
+    "short_ru": "Часовня, обращённая к мосту и реке.",
+    "long_ru": "Небольшая часовня стоит в Барселиньюше у начала средневекового моста. Её посвящение связано с переправой через Каваду.\n\nЧасовня входит в прибрежный пейзаж и отмечает путь тех, кто входит в город с западного берега.",
+    "history_ru": "Небольшая часовня стоит в Барселиньюше у начала средневекового моста. Её посвящение связано с переправой через Каваду.\n\nЧасовня входит в прибрежный пейзаж и отмечает путь тех, кто входит в город с западного берега.",
+    "facts_ru": [
+      "У моста, в Барселиньюше",
+      "Прибрежная часовня"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/185199531"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 185199531,
+      "url": "https://www.openstreetmap.org/way/185199531",
+      "height_m": 12,
+      "height_source": "estimate"
+    },
+    "model_accuracy": "interpretive",
+    "image": "assets/img/capela-ponte.jpg",
+    "image_credit": {
+      "author": "Krzysztof Golik",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+    },
+    "media_status": "curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
+  },
+  {
+    "id": "casa-azenha",
+    "name_pt": "Casa de Azenha",
+    "name_ru": "Дом Азенья",
+    "category": "civic",
+    "lat": 41.5278749,
+    "lon": -8.6224401,
+    "year": "",
+    "model": "manor",
+    "short_ru": "Старый дом у реки.",
+    "long_ru": "Дом Азенья стоит у Каваду рядом с мостом. Название напоминает о водяных мельницах, использовавших течение реки.\n\nОбратите внимание, как дом поставлен относительно берега: столетиями река была и силой, и дорогой.",
+    "history_ru": "Дом Азенья стоит у Каваду рядом с мостом. Название напоминает о водяных мельницах, использовавших течение реки.\n\nОбратите внимание, как дом поставлен относительно берега: столетиями река была и силой, и дорогой.",
+    "facts_ru": [
+      "Дом у Каваду",
+      "Память о водяных мельницах"
+    ],
+    "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
+    "sources": [
+      {
+        "title": "OpenStreetMap",
+        "url": "https://www.openstreetmap.org/way/626979796"
+      },
+      {
+        "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/"
+      }
+    ],
+    "osm": {
+      "type": "way",
+      "id": 626979796,
+      "url": "https://www.openstreetmap.org/way/626979796",
+      "height_m": 6.4,
+      "height_source": "osm building:levels×3.2"
+    },
+    "model_accuracy": "interpretive",
+    "image": "assets/img/casa-azenha.jpg",
+    "image_credit": {
+      "author": "Halley Oliveira",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_visto_de_Barcelinhos_(45703458555).jpg"
+    },
+    "media_status": "curated",
+    "gallery": [],
+    "panorama": null,
+    "videos": []
   }
 ]

@@ -61,9 +61,11 @@ function building(k, { footprint: f, dims }, style = 'house') {
   k.begin('main');
   k.prism(f.outline, 0, wallH, 'plaster');
   polyBand(k, f.outline, 0, 0.9, 0.14, 'graniteDark'); // plinth
-  quoins(k, b, wallH, Math.max(0.7, Math.min(1.1, b.w * 0.05)), 'graniteLight');
+  const small = Math.max(b.w, b.d) < 14;
+  quoins(k, b, wallH, small ? 0.4 : Math.max(0.7, Math.min(1.1, b.w * 0.05)), 'graniteLight');
   polyBand(k, f.outline, Math.min(wallH - 0.6, wallH * 0.52), 0.26, 0.12, 'granite'); // string course
-  polyCornice(k, f.outline, wallH - 0.1, EAVE, 'graniteLight');
+  if (small) polyBand(k, f.outline, wallH - 0.12, 0.24, 0.06, 'graniteLight');
+  else polyCornice(k, f.outline, wallH - 0.1, EAVE, 'graniteLight');
   const storeys = style === 'church' ? [wallH * 0.5] : [1.4, Math.max(4.5, wallH - 3.4)];
   polyWindows(k, f.outline, { storeys, bay: style === 'church' ? 6 : 4.2, w: 1.25, h: style === 'church' ? 3 : 2, win: { arch: style === 'church' ? 'round' : null, trim: 'graniteLight', pane: 'glass' } });
   if (style === 'civic') {
@@ -321,9 +323,10 @@ const chapel = wrap((k, { footprint: f, dims }) => {
   if (front) {
     onEdge(k, front);
     const gw = Math.min(4.6, front.len * 0.24);
-    k.gate(gw, H - wallH + 1.4, 0.5, [{ x: 0, w: gw * 0.46, h: H * 0.2, pointed: false }], 'plaster', 0, wallH - 0.2, 0.2);
-    k.box(gw + 0.6, 0.35, 0.7, 'graniteLight', 0, wallH + H - wallH + 1.05, 0.2);
-    k.cone(gw * 0.34, 1.2, 4, 'graniteLight', 0, wallH + H - wallH + 1.2, 0.2);
+    const gh = H * 0.26;
+    k.gate(gw, gh, 0.5, [{ x: 0, w: gw * 0.46, h: gh * 0.6, pointed: false }], 'plaster', 0, H - gh - 0.1, 0.2);
+    k.box(gw + 0.6, 0.3, 0.7, 'graniteLight', 0, H - 0.15, 0.2);
+    k.cone(gw * 0.34, 0.8, 4, 'graniteLight', 0, H - 0.1, 0.2);
     win(k, 0, 0.05, 2.2, 3.4, 0.02, { trim: 'graniteLight', pane: 'wood', arch: 'round', bw: 0.35 });
     k.pop();
   }
@@ -345,4 +348,6 @@ export const detailedBuilders = {
   'jardim-barrocas': wrap((k, s) => garden(k, s, false)),
   'mercado-municipal': market,
   'igreja-barcelinhos': chapel,
+  'capela-ponte': chapel,
+  'casa-azenha': civic,
 };

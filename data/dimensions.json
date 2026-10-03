@@ -488,5 +488,75 @@
         "reasoning": "Interpretive model height (17 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
       }
     ]
+  },
+  "capela-ponte": {
+    "footprint_m": {
+      "length": 12.06,
+      "width": 12.04,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 12
+    },
+    "elements": {},
+    "facade_azimuth_deg": 95.9,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "low",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/185199531",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "12.06 × 12.04 m; 95.9 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "source": "estimate",
+        "fact": "Visual interpretation only",
+        "reasoning": "Interpretive model height (12 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+      }
+    ]
+  },
+  "casa-azenha": {
+    "footprint_m": {
+      "length": 12.16,
+      "width": 6.44,
+      "matches_osm": true
+    },
+    "height_m": {
+      "total": 6.4
+    },
+    "elements": {},
+    "facade_azimuth_deg": 99.4,
+    "facade_faces": "none",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
+    "confidence": "medium",
+    "sources": [
+      {
+        "paths": [
+          "footprint_m.length",
+          "footprint_m.width",
+          "facade_azimuth_deg"
+        ],
+        "url": "https://www.openstreetmap.org/way/626979796",
+        "fact": "Minimum-area bounding rectangle of the OSM outline; orientation used for model alignment.",
+        "value": "12.16 × 6.44 m; 99.4 degrees"
+      },
+      {
+        "paths": [
+          "height_m.total"
+        ],
+        "url": "https://www.openstreetmap.org/way/626979796",
+        "fact": "Height derived from OSM height or building:levels tags.",
+        "value": "6.4"
+      }
+    ]
   }
 }

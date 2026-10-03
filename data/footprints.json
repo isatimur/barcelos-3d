@@ -2130,5 +2130,145 @@
     "height_source": "estimate",
     "height_note": "Interpretive model height (17 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use.",
     "exclude_outline": true
+  },
+  "capela-ponte": {
+    "osm": {
+      "type": "way",
+      "id": 185199531,
+      "url": "https://www.openstreetmap.org/way/185199531",
+      "height_m": 12,
+      "height_source": "estimate"
+    },
+    "outline": [
+      [
+        41.5268698,
+        -8.6223345
+      ],
+      [
+        41.5268587,
+        -8.6221906
+      ],
+      [
+        41.5267511,
+        -8.6222054
+      ],
+      [
+        41.5267623,
+        -8.6223493
+      ]
+    ],
+    "parts": [
+      {
+        "id": "w185199531",
+        "name": "Capela da Nossa Senhora da Ponte",
+        "tag": "building",
+        "pts": [
+          [
+            41.5268698,
+            -8.6223345
+          ],
+          [
+            41.5268587,
+            -8.6221906
+          ],
+          [
+            41.5267511,
+            -8.6222054
+          ],
+          [
+            41.5267623,
+            -8.6223493
+          ]
+        ],
+        "height_m": 12
+      }
+    ],
+    "centroid": [
+      41.52681047329714,
+      -8.622269939084479
+    ],
+    "bearing_deg": 95.9,
+    "extent_m": [
+      12.06,
+      12.04
+    ],
+    "height_m": 12,
+    "height_source": "estimate",
+    "height_note": "Interpretive model height (12 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use.",
+    "exclude_outline": true
+  },
+  "casa-azenha": {
+    "osm": {
+      "type": "way",
+      "id": 626979796,
+      "url": "https://www.openstreetmap.org/way/626979796",
+      "height_m": 6.4,
+      "height_source": "osm building:levels×3.2"
+    },
+    "outline": [
+      [
+        41.5279122,
+        -8.6225055
+      ],
+      [
+        41.5279037,
+        -8.6224362
+      ],
+      [
+        41.5278946,
+        -8.6223619
+      ],
+      [
+        41.5278376,
+        -8.6223748
+      ],
+      [
+        41.5278553,
+        -8.6225184
+      ]
+    ],
+    "parts": [
+      {
+        "id": "w626979796",
+        "name": "Casa de Azenha",
+        "tag": "building",
+        "pts": [
+          [
+            41.5279122,
+            -8.6225055
+          ],
+          [
+            41.5279037,
+            -8.6224362
+          ],
+          [
+            41.5278946,
+            -8.6223619
+          ],
+          [
+            41.5278376,
+            -8.6223748
+          ],
+          [
+            41.5278553,
+            -8.6225184
+          ]
+        ],
+        "height_m": 6.4
+      }
+    ],
+    "centroid": [
+      41.52787492019493,
+      -8.622440130027838
+    ],
+    "bearing_deg": 99.4,
+    "extent_m": [
+      12.16,
+      6.44
+    ],
+    "height_m": 6.4,
+    "height_source": "osm building:levels×3.2",
+    "height_note": "Height derived from OSM height or building:levels tags.",
+    "exclude_outline": true
   }
 }

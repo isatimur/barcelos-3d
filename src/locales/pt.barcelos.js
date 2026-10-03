@@ -181,6 +181,32 @@ export const landmarks = {
     "tip": "Confirme horários e acesso no local; as estimativas do mapa não substituem a sinalização.",
     "year": "",
     "gallery": []
+  },
+  "capela-ponte": {
+    "name": "Capela de Nossa Senhora da Ponte",
+    "short": "Uma capela voltada para a ponte e o rio.",
+    "long": "A pequena capela fica em Barcelinhos, junto à cabeceira da ponte medieval. A sua dedicação liga o lugar à travessia do Cávado.\n\nO edifício pertence à paisagem ribeirinha e acompanha o caminho de quem entra na cidade pela margem oeste.",
+    "history": "A pequena capela fica em Barcelinhos, junto à cabeceira da ponte medieval. A sua dedicação liga o lugar à travessia do Cávado.\n\nO edifício pertence à paisagem ribeirinha e acompanha o caminho de quem entra na cidade pela margem oeste.",
+    "facts": [
+      "Junto à ponte, em Barcelinhos",
+      "Capela ribeirinha"
+    ],
+    "tip": "Confirme horários e acesso no local; as estimativas do mapa não substituem a sinalização.",
+    "year": "",
+    "gallery": []
+  },
+  "casa-azenha": {
+    "name": "Casa de Azenha",
+    "short": "Uma casa antiga à beira-rio.",
+    "long": "A Casa de Azenha situa-se junto ao Cávado, perto da ponte. O topónimo recorda os engenhos de água que aproveitavam a corrente do rio.\n\nObserve a implantação do edifício em relação à margem: a água foi, durante séculos, força de trabalho e via de transporte.",
+    "history": "A Casa de Azenha situa-se junto ao Cávado, perto da ponte. O topónimo recorda os engenhos de água que aproveitavam a corrente do rio.\n\nObserve a implantação do edifício em relação à margem: a água foi, durante séculos, força de trabalho e via de transporte.",
+    "facts": [
+      "Casa junto ao Cávado",
+      "Memória dos moinhos de água"
+    ],
+    "tip": "Confirme horários e acesso no local; as estimativas do mapa não substituem a sinalização.",
+    "year": "",
+    "gallery": []
   }
 };
 export const routes = {

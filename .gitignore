@@ -9,3 +9,4 @@ videos/
 .DS_Store
 *.log
 output/
+.vercel

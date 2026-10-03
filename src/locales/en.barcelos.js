@@ -181,6 +181,32 @@ export const landmarks = {
     "tip": "Check opening hours and access locally; map estimates do not replace signs on site.",
     "year": "",
     "gallery": []
+  },
+  "capela-ponte": {
+    "name": "Chapel of Our Lady of the Bridge",
+    "short": "A chapel facing the bridge and the river.",
+    "long": "The small chapel stands in Barcelinhos at the head of the medieval bridge. Its dedication ties the place to the crossing of the Cávado.\n\nIt belongs to the riverside landscape and marks the route of those entering the town from the west bank.",
+    "history": "The small chapel stands in Barcelinhos at the head of the medieval bridge. Its dedication ties the place to the crossing of the Cávado.\n\nIt belongs to the riverside landscape and marks the route of those entering the town from the west bank.",
+    "facts": [
+      "At the bridge, in Barcelinhos",
+      "Riverside chapel"
+    ],
+    "tip": "Check opening hours and access locally; map estimates do not replace signs on site.",
+    "year": "",
+    "gallery": []
+  },
+  "casa-azenha": {
+    "name": "Azenha House",
+    "short": "An old house by the river.",
+    "long": "Azenha House stands by the Cávado near the bridge. Its name recalls the water mills that once used the river’s current.\n\nNote how the building sits against the bank: for centuries the river was both power and transport route.",
+    "history": "Azenha House stands by the Cávado near the bridge. Its name recalls the water mills that once used the river’s current.\n\nNote how the building sits against the bank: for centuries the river was both power and transport route.",
+    "facts": [
+      "House by the Cávado",
+      "Memory of water mills"
+    ],
+    "tip": "Check opening hours and access locally; map estimates do not replace signs on site.",
+    "year": "",
+    "gallery": []
   }
 };
 export const routes = {

@@ -47,6 +47,8 @@ export const LANDMARK_SPECS = {
   'igreja-santa-cruz': { type: 'church', h: 16, yaw: 0 },
   'franqueira': { type: 'sanctuary', h: 22, yaw: 0 },
   'igreja-barcelinhos': { type: 'church', h: 16, yaw: 0 },
+  'capela-ponte': { type: 'chapel', h: 12, yaw: 0 },
+  'casa-azenha': { type: 'manor', h: 9, yaw: 0 },
 };
 
 const DETAILED = detailedBuilders;

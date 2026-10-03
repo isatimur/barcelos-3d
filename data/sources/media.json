@@ -134,5 +134,23 @@
       "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
     },
     "retrieved": "2026-10-03"
+  },
+  "capela-ponte": {
+    "src": "assets/img/capela-ponte.jpg",
+    "credit": {
+      "author": "Krzysztof Golik",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+    },
+    "retrieved": "2026-10-03"
+  },
+  "casa-azenha": {
+    "src": "assets/img/casa-azenha.jpg",
+    "credit": {
+      "author": "Halley Oliveira",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_visto_de_Barcelinhos_(45703458555).jpg"
+    },
+    "retrieved": "2026-10-03"
   }
 }
