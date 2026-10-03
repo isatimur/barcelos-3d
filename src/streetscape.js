@@ -87,10 +87,10 @@ vec3 calcada(vec2 p, vec3 pat) {
     float band = 1.0 - smoothstep(0.4 - px, 0.4 + px, e);
     m = max(m, mix(band, 0.4 / max(pat.z, 0.4) * 0.5, smoothstep(0.15, 0.5, px)));
   }
-  vec3 lime = vec3(0.56, 0.54, 0.48);
-  vec3 bas = vec3(0.075, 0.075, 0.08);
+  vec3 lime = vec3(0.49, 0.475, 0.43);
+  vec3 bas = vec3(0.085, 0.085, 0.09);
   // the sidewalks: a little greyer, worn
-  if (k > 2.5 && k < 3.5) lime = vec3(0.47, 0.455, 0.41);
+  if (k > 2.5 && k < 3.5) lime = vec3(0.43, 0.42, 0.385);
   vec3 col = mix(lime, bas, m);
   // a soft mottling up to the middle distance
   col *= mix(1.0, 0.86 + 0.26 * cNoise(p * 1.3), 1.0 - smoothstep(0.08, 0.45, px));

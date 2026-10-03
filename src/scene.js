@@ -321,12 +321,12 @@ const PRESETS = {
     env: 0.65, exposure: 1.25, density: 0.00026, falloff: 0.0035, night: 0,
   },
   day: {
-    az: 165, el: 50,
-    light: 0xfff2df, lightI: 3.6,
-    zenith: 0x2d5fa8, mid: 0x86abd8, haze: 0xc7d3df, scatter: 0xfff1da, scatterK: 0.35, scatterP: 8,
+    az: 158, el: 38,
+    light: 0xfff0d6, lightI: 4.0,
+    zenith: 0x2d5fa8, mid: 0x8fb2da, haze: 0xccd5de, scatter: 0xffedd2, scatterK: 0.4, scatterP: 8,
     disk: 0xfffaf0, diskI: 6,
-    hemiSky: 0xcbd9ee, hemiGround: 0x5b5040, hemiI: 0.2,
-    env: 0.8, exposure: 1.0, density: 0.00014, falloff: 0.003, night: 0,
+    hemiSky: 0xc6d6ee, hemiGround: 0x5b5040, hemiI: 0.17,
+    env: 0.78, exposure: 1.12, density: 0.00015, falloff: 0.003, night: 0,
   },
   sunset: {
     az: 242, el: 12,

@@ -853,6 +853,23 @@ if (vWall.y >= 0.0 && vWall.w >= 0.0) {
 
   // the far grid: darken by the window share, fading in as the grid fades out
   col *= 1.0 - 0.3 * bFar * (1.0 - aa) * step(bSt, 5.5);
+
+  // wall micro-detail: a low-frequency mottle and a fine grain so plaster and
+  // granite are not a flat fill up close, plus a little weathering darkening
+  // under the eave. Fades out with distance; skipped in light mode.
+  #ifndef BRG_WIN_LITE
+  {
+    float gk = 1.0 - smoothstep(140.0, 320.0, bDist);
+    if (gk > 0.0) {
+      float mot = bHash(floor(vec2(bX / 5.5, bY / 5.5)) + vec2(bSd * 41.0, 3.0));
+      float grn = bHash(floor(vec2(bX / 0.35, bY / 0.35)) + vec2(bSd * 97.0, 13.0));
+      col *= mix(1.0, 0.95 + 0.09 * mot, gk * 0.6);
+      col *= mix(1.0, 0.975 + 0.05 * grn, gk * 0.5);
+      col *= 1.0 - 0.06 * smoothstep(bH * 0.55, bH, bY) * gk; // eave weathering
+    }
+  }
+  #endif
+
   diffuseColor.rgb = col;
 
   // the lights only after dusk (a uniform branch: by day no hashes run)
