@@ -107,5 +107,32 @@
       "source_url": "https://commons.wikimedia.org/wiki/File%3AJardim%20das%20Barrocas%20-%20panoramio.jpg"
     },
     "retrieved": "2026-10-02"
+  },
+  "pacos-concelho": {
+    "src": "assets/img/pacos-concelho.jpg",
+    "credit": {
+      "author": "GualdimG",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:C%C3%A2mara_Municipal_de_Barcelos_02.jpg"
+    },
+    "retrieved": "2026-10-03"
+  },
+  "mercado-municipal": {
+    "src": "assets/img/mercado-municipal.jpg",
+    "credit": {
+      "author": "GiovanniPen",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
+    },
+    "retrieved": "2026-10-03"
+  },
+  "parque-cidade": {
+    "src": "assets/img/parque-cidade.jpg",
+    "credit": {
+      "author": "Joseolgon",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
+    },
+    "retrieved": "2026-10-03"
   }
 }

@@ -310,9 +310,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/pacos-concelho.jpg",
+    "image_credit": {
+      "author": "GualdimG",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:C%C3%A2mara_Municipal_de_Barcelos_02.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -490,9 +494,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/parque-cidade.jpg",
+    "image_credit": {
+      "author": "Joseolgon",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
@@ -578,9 +586,13 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": null,
-    "image_credit": null,
-    "media_status": "not-curated",
+    "image": "assets/img/mercado-municipal.jpg",
+    "image_credit": {
+      "author": "GiovanniPen",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
+    },
+    "media_status": "curated",
     "gallery": [],
     "panorama": null,
     "videos": []
