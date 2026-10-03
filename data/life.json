@@ -1,0 +1,193 @@
+{
+  "generated": "2026-10-03",
+  "funicular": null,
+  "fountains": [
+    {
+      "id": "fountain-n1204549529",
+      "name": "Chafariz do Campo da Feira",
+      "lat": 41.532833,
+      "lon": -8.61809,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n1204549529",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n1230513876",
+      "name": "Chafariz do Largo da Porta Nova",
+      "lat": 41.531304,
+      "lon": -8.619329,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n1230513876",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n1481502519",
+      "name": "Chafariz",
+      "lat": 41.525562,
+      "lon": -8.622152,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n1481502519",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n4689247725",
+      "name": "Fonte do Souto",
+      "lat": 41.557352,
+      "lon": -8.629192,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n4689247725",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n4689326438",
+      "name": "Fonte do Faial",
+      "lat": 41.552453,
+      "lon": -8.627153,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n4689326438",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n4701475657",
+      "name": "Fonte da Costa Má",
+      "lat": 41.559366,
+      "lon": -8.625208,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n4701475657",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n4821370281",
+      "name": "Bebedouro do Bonfim",
+      "lat": 41.534884,
+      "lon": -8.621338,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n4821370281",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n5543366561",
+      "name": "Chafariz",
+      "lat": 41.530994,
+      "lon": -8.618111,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n5543366561",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n5543366563",
+      "name": "Chafariz",
+      "lat": 41.531488,
+      "lon": -8.61822,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n5543366563",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n5709023247",
+      "name": "Chafariz do Jardim São Bento",
+      "lat": 41.532887,
+      "lon": -8.62173,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n5709023247",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n6221475882",
+      "name": "Chafariz",
+      "lat": 41.541967,
+      "lon": -8.618509,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n6221475882",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n7595642190",
+      "name": "Chafariz",
+      "lat": 41.546168,
+      "lon": -8.604786,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n7595642190",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n12474967398",
+      "name": "Chafariz",
+      "lat": 41.529412,
+      "lon": -8.622707,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n12474967398",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-n12478783119",
+      "name": "Chafariz",
+      "lat": 41.531062,
+      "lon": -8.62121,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "n12478783119",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-w553299926",
+      "name": "Chafariz",
+      "lat": 41.54058,
+      "lon": -8.614725,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "w553299926",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-w578483104",
+      "name": "Chafariz",
+      "lat": 41.541284,
+      "lon": -8.616818,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "w578483104",
+      "source": "osm amenity=fountain"
+    },
+    {
+      "id": "fountain-w1247821769",
+      "name": "Chafariz",
+      "lat": 41.537036,
+      "lon": -8.618348,
+      "kind": "jet",
+      "h": 3,
+      "r": 3,
+      "osm": "w1247821769",
+      "source": "osm amenity=fountain"
+    }
+  ]
+}
