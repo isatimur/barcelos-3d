@@ -69,13 +69,18 @@ export function lisbonClock(date, out = { hour: 0, secs: 0, weekday: 0, ymd: 0 }
 }
 
 // ---- axes
-export const AXIS_IDS = ['liberdade', 'n101', 'a11'];
-// Segments in world units: [x0, z0, x1, z1] per segment, and the axis (1..3)
+// The corridors the traffic model slows on. Braga's three by default; a city
+// names its own in cities/<id>.json traffic.axis_ids (Barcelos: the EN 205,
+// EN 103 and A 11). Read at call time: CITY is filled after this module loads.
+const DEFAULT_AXIS_IDS = ['liberdade', 'n101', 'a11'];
+export const axisIds = () => (CITY.traffic?.axis_ids?.length ? CITY.traffic.axis_ids : DEFAULT_AXIS_IDS);
+// Segments in world units: [x0, z0, x1, z1] per segment, and the axis (1..N)
 export function decodeAxes(project) {
+  const ids0 = axisIds();
   const seg = [];
   const ids = [];
   const ll = [];
-  AXIS_IDS.forEach((id, k) => {
+  ids0.forEach((id, k) => {
     const code = AXES?.axes?.[id];
     if (!code) return;
     // integers in 1e-4 deg from `base` (the old Braga file has none: 41.5 N, -8.5 E)
