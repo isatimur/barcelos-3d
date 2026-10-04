@@ -162,7 +162,8 @@
       "evidence": [
         "commit 8284981 (wow round — opening view, Cávado river, bridge, cinema, photos)",
         "commit 45406d3 (realism pass — wall micro-detail, softer calçada, warmer daylight)",
-        "real CC0 Poly Haven materials (ground/wall/roof) sampled triplanar; wall grain, warmer daylight"
+        "real CC0 Poly Haven materials (ground/wall/roof) sampled triplanar; wall grain, warmer daylight",
+        "Poly Haven normal maps: triplanar relief on ground, walls and roofs"
       ],
       "notes": ""
     },

@@ -12,3 +12,7 @@ All CC0 (public domain); downloaded 1K and downscaled to 512 px.
 - `cobble.jpg` — Poly Haven `cobblestone_floor_04` (CC0)
 
 https://polyhaven.com/ — CC0 1.0.
+
+Normal maps (`*_nor.jpg`, same Poly Haven CC0 assets): `ground_nor`, `wall_plaster_nor`,
+`wall_granite_nor`, `roof_tiles_nor`, `cobble_nor` — used as triplanar surface relief in
+`src/materials-tex.js` (`brgTriplanarNormal`), injected in the ground and building shaders.

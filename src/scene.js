@@ -1006,7 +1006,9 @@ uniform vec4 uLandRectW;
 uniform float uHasLandW;
 uniform vec4 uDemRect; // x0, zN, x1, zS: outside it there is no DEM data
 uniform sampler2D tGroundTex; // real CC0 ground material (Poly Haven)
+uniform sampler2D tGroundNor; // its normal map
 uniform float uTexG;
+uniform float uTexGN;
 varying vec3 vTWorld;
 float demOutside(vec2 p) {
   vec2 o = max(max(uDemRect.xy - p, p - uDemRect.zw), 0.0);
@@ -1218,7 +1220,9 @@ export function createGround(terrain) {
     uHasLandW: { value: 0 },
     uDemRect: { value: new THREE.Vector4(b.x0, b.zN, b.x1, b.zS) },
     tGroundTex: { value: TEX.ground || blank },
+    tGroundNor: { value: TEX.groundN || blank },
     uTexG: { value: 1 },
+    uTexGN: { value: 1 },
   };
   const mat = new THREE.MeshStandardMaterial({
     vertexColors: true,

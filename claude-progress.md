@@ -84,3 +84,16 @@ updates it automatically.
   - PASS build, tests, data contract, geo, dimensions, 1:1 fit, traffic, models — verify OK
 - Evidence: `check:data` OK (16 landmarks, 37 gallery photos, 32 videos, 3 routes); `npm run verify` OK.
 - Known risk or unresolved issue: none blocking; a few places have a single gallery photo (warn only).
+
+### Session 004
+
+- Date: 2026-10-04
+- Goal: Materials realism — normal-map surface relief.
+- Completed:
+  - Poly Haven CC0 normal maps for ground/plaster/granite/roof (`assets/tex/*_nor.jpg`).
+  - `src/materials-tex.js`: `TRIPLANAR_NORMAL` + `brgTriplanarNormal` (tangent-free triplanar
+    normal blend, world space).
+  - Ground shader and building shader (`FACADE_NORMAL` at `<normal_fragment_maps>`) perturb
+    the lit normal up close; distance-faded, light-mode guarded.
+- Verification run: `npm run verify` → OK (build, tests, data, geo, dimensions, fit, traffic, models).
+- Evidence: textured tower shows granite relief; 0 console errors; live healthy.

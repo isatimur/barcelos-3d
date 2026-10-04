@@ -1,4 +1,4 @@
-import { TEX, loadMaterials, TRIPLANAR } from './materials-tex.js';
+import { TEX, loadMaterials, TRIPLANAR, TRIPLANAR_NORMAL } from './materials-tex.js';
 // Ordinary buildings up close: pitched roofs and facades by district.
 // DOM-free (the tile worker imports it through buildings.js).
 //
@@ -640,9 +640,14 @@ uniform sampler2D tPlaster;
 uniform sampler2D tGranite;
 uniform sampler2D tRoof;
 uniform float uTexB;
+uniform sampler2D tPlasterNor;
+uniform sampler2D tGraniteNor;
+uniform sampler2D tRoofNor;
+uniform float uTexBN;
 varying vec4 vWall;
 varying vec3 vBW;
 ${TRIPLANAR}
+${TRIPLANAR_NORMAL}
 float bHash(vec2 p) {
   vec3 q = fract(vec3(p.xyx) * 0.1031);
   q += dot(q, q.yzx + 33.33);
@@ -929,4 +934,31 @@ else if (bNear > 0.0) {
 }
 #endif
 }
+`;
+
+// Normal-map relief on the generated walls and roofs (injected at
+// <normal_fragment_maps>). World-space triplanar; `normal` is view-space here,
+// so convert with the camera rotation (its transpose).
+export const FACADE_NORMAL = /* glsl */ `
+#ifndef BRG_WIN_LITE
+{
+  vec3 wn = normalize(transpose(mat3(viewMatrix)) * normal);
+  float bDistN = length(vViewPosition);
+  float k = uTexBN * (1.0 - smoothstep(55.0, 150.0, bDistN));
+  if (k > 0.0) {
+    bool wallN = vWall.y >= 0.0;
+    vec3 pN;
+    if (wallN) {
+      float st = floor(vWall.w * 0.5);
+      pN = (st > 0.5 && st < 2.5)
+        ? brgTriplanarNormal(tGraniteNor, vBW, wn, 0.30, 0.7)
+        : brgTriplanarNormal(tPlasterNor, vBW, wn, 0.24, 0.4);
+    } else {
+      pN = brgTriplanarNormal(tRoofNor, vBW, wn, 0.55, 0.55);
+    }
+    wn = normalize(mix(wn, pN, k * 0.85));
+    normal = normalize(mat3(viewMatrix) * wn);
+  }
+}
+#endif
 `;

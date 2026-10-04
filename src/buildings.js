@@ -10,7 +10,7 @@
 // the facade shader live in src/facades.js.
 import * as THREE from 'three';
 import { S } from './geo.js';
-import { setFacadeConfig, facadeStyle, wallBase, roofBase, roofPlan, extrudeRoofed, STYLE, FACADE_VERT_PARS, FACADE_VERT, FACADE_FRAG_PARS, FACADE_FRAG } from './facades.js';
+import { setFacadeConfig, facadeStyle, wallBase, roofBase, roofPlan, extrudeRoofed, STYLE, FACADE_VERT_PARS, FACADE_VERT, FACADE_FRAG_PARS, FACADE_FRAG, FACADE_NORMAL } from './facades.js';
 import { TEX } from './materials-tex.js';
 
 const TILE_M = 1000; // 1 km: about 60 draw calls for the city, not 230
@@ -36,6 +36,10 @@ export const BUILDING_UNIFORMS = {
   tGranite: { value: TEX.granite || null },
   tRoof: { value: TEX.roof || null },
   uTexB: { value: 1 },
+  tPlasterNor: { value: TEX.plasterN || null },
+  tGraniteNor: { value: TEX.graniteN || null },
+  tRoofNor: { value: TEX.roofN || null },
+  uTexBN: { value: 1 },
   // seconds, for the streamed tiles' fade-in (src/tiles.js advances it)
   uClock: { value: 0 },
 };
@@ -221,6 +225,7 @@ export function createBuildingMaterial({ fade = false } = {}) {
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', `#include <common>\n${FACADE_FRAG_PARS}\n${FADE_FRAG_PARS}`)
       .replace('#include <clipping_planes_fragment>', FADE_FRAG)
+      .replace('#include <normal_fragment_maps>', '#include <normal_fragment_maps>\n' + FACADE_NORMAL)
       .replace('#include <emissivemap_fragment>', FACADE_FRAG);
   };
   return material;
