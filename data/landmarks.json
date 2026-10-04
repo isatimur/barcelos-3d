@@ -10,10 +10,12 @@
     "model": "bridge",
     "short_ru": "Пять арок над Каваду.",
     "long_ru": "Готический мост соединяет Барселуш и Барселиньюш. Его построили по приказу графа Педру в XIV веке; центральная арка выше остальных.\n\nПосмотрите на пять арок с берега, затем проследите путь через реку между двумя поселениями.",
-    "history_ru": "Готический мост соединяет Барселуш и Барселиньюш. Его построили по приказу графа Педру в XIV веке; центральная арка выше остальных.\n\nПосмотрите на пять арок с берега, затем проследите путь через реку между двумя поселениями.",
+    "history_ru": "Средневековый мост через Каваду соединяет Барселуш и Барселиньюш. Его построили между 1325 и 1328 годами по приказу графа Педру Афонсу, третьего графа Барселуша и внебрачного сына короля Диниша. Переправа связала город с путями на Порту, Понти-де-Лима и Виану-ду-Каштелу.\n\nМост стоит на пяти каменных арках; центральная поднята выше остальных, что придаёт ему узнаваемый силуэт. Через него шли паломники в Сантьягу-де-Компостела, двигались товары и скот, и вокруг переправы рос город. Гранит для кладки добывали в окрестностях Барселуша.\n\nВ XIX–XX веках рядом появились новые мосты — дорожный и железнодорожный, — и средневековая переправа уступила им движение. Её сохранили как памятник и как пешеходную ось между берегами, а не как транзитную магистраль.\n\nСегодня лучше всего смотреть на мост с западного берега: оттуда видна последовательность всех пяти арок и панорама исторического центра над рекой. В карточке места приведён план моста, наложенный на контур из OpenStreetMap.",
     "facts_ru": [
-      "Пять каменных арок",
-      "XIV век"
+      "Пять каменных арок через Каваду",
+      "Построен в 1325–1328 годах при графе Педру Афонсу",
+      "Центральная арка выше остальных",
+      "Пешеходная ось между Барселушем и Барселиньюшем"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -24,6 +26,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.visitportugal.com/pt-pt/content/ponte-medieval-de-barcelos"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -34,16 +40,50 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/ponte-medieval.jpg",
+    "image": "assets/img/ponte-medieval-1.jpg",
     "image_credit": {
-      "author": "Joseolgon",
-      "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_2021_(3).jpg"
+      "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Museu_Arqueol%C3%B3gico_de_Barcelos_-_Portugal_(52583306703).jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/ponte-medieval-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Пять арок над Каваду.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_08.jpg"
+        }
+      },
+      {
+        "src": "assets/img/ponte-medieval-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Пять арок над Каваду.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_09.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "owP6Uy_J01Q",
+        "title": "Ruínas do Palácio de Barcelos, a Ponte Medieval e Barcelinhos ao fundo.",
+        "channel": "Silvande",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "Ct5Lfi9dF_Y",
+        "title": "Ponte medieval em Barcelos região de Braga/Portugal",
+        "channel": "Turistando🌎",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "bom-jesus-cruz",
@@ -56,10 +96,12 @@
     "model": "church-baroque",
     "short_ru": "Купольный храм праздника Крестов.",
     "long_ru": "Храм открылся в 1710 году. Архитектор Жуан Антунеш создал центрическую композицию с куполом и интерьером в форме греческого креста.\n\nМестное религиозное предание связывает его появление с крестом, якобы возникшим на ярмарочной площади в 1504 году. Храм связан с праздником Крестов.",
-    "history_ru": "Храм открылся в 1710 году. Архитектор Жуан Антунеш создал центрическую композицию с куполом и интерьером в форме греческого креста.\n\nМестное религиозное предание связывает его появление с крестом, якобы возникшим на ярмарочной площади в 1504 году. Храм связан с праздником Крестов.",
+    "history_ru": "Т templo do Senhor Bom Jesus da Cruz стоит на Campo da Feira, где, по местному преданию, в 1504 году на ярмарочной площади явился крест. Это предание связано с праздником Крестов (Festa das Cruzes), одним из главных в Барселуше.\n\nНынешний храм открылся в 1710 году. Его спроектировал архитектор Жуан Антунеш: центрическая композиция с куполом и интерьером в форме греческого креста. Купол и фонарь над ним стали градостроительной доминантой северной части исторического центра.\n\nВ 1505 году местный купец привёз из Фландрии образ Христа, который укрепил почитание этого места. Вокруг площади со временем сложился ансамбль ярмарки, а храм остался его духовным центром.\n\nПраздник Крестов до сих пор определяет ритм Campo da Feira: к нему приурочены процессии и ярмарка. Модель храма повторяет реальный контур OSM; высота купола — визуальная оценка, а не геодезический замер.\n\nCampo da Feira — одна из главных площадей Барселуша, и храм задаёт её северную сторону. В праздник Крестов сюда стекаются процессии; в остальное время площадь живёт как обычное городское пространство с ярмаркой и торговлей.",
     "facts_ru": [
       "Открыт в 1710 году",
-      "Архитектор — Жуан Антунеш"
+      "Архитектор — Жуан Антунеш",
+      "Интерьер в форме греческого креста",
+      "Связан с праздником Крестов"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -70,6 +112,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/items/templo-do-bom-jesus-da-cruz/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -80,16 +126,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/bom-jesus-cruz.jpg",
+    "image": "assets/img/bom-jesus-cruz-1.jpg",
     "image_credit": {
-      "author": "Joseolgon at Portuguese Wikipedia. Foto de Jose Goncalves",
+      "author": "Tuga9890",
       "license": "Public domain",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_Senhor_da_Cruz_Barcelos.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_(Barcelos).JPG"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/bom-jesus-cruz-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Купольный храм праздника Крестов.",
+        "credit": {
+          "author": "Tuga9890",
+          "license": "Public domain",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_(Barcelos).JPG"
+        }
+      },
+      {
+        "src": "assets/img/bom-jesus-cruz-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Купольный храм праздника Крестов.",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_em_Barcelos_(46626421671).jpg"
+        }
+      },
+      {
+        "src": "assets/img/bom-jesus-cruz-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Купольный храм праздника Крестов.",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_em_Barcelos_(46574214262).jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "YcnOTv1WzZo",
+        "title": "Templo do Senhor Bom Jesus da Cruz - Barcelos - Portugal - 11/Set/2019",
+        "channel": "Marco Bianco",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "l0-ndtHsK6k",
+        "title": "IGREJA DO SENHOR BOM JESUS DA CRUZ DE BARCELOS PORTUGAL",
+        "channel": "Diário Wagner Furlani",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "igreja-matriz",
@@ -102,10 +192,12 @@
     "model": "church-collegiate",
     "short_ru": "Романская кладка, готические формы и поздняя башня.",
     "long_ru": "Церковь сочетает романские и готические черты. Перестройки последующих веков добавили новые архитектурные слои.\n\nКолокольня относится к XVIII веку, а розу восстановили в XX веке. Сравните портал, окно-розу и башню во время прогулки.",
-    "history_ru": "Церковь сочетает романские и готические черты. Перестройки последующих веков добавили новые архитектурные слои.\n\nКолокольня относится к XVIII веку, а розу восстановили в XX веке. Сравните портал, окно-розу и башню во время прогулки.",
+    "history_ru": "Igreja Matriz de Barcelos (Санта-Мария-Майор) — главная приходская церковь города. Её средневековое ядро восходит к XIV веку, когда граф Педру Афонсу расширил и обновил храм. В 1464 году церковь получила статус коллегиальной.\n\nВ здании соединились романские и готические черты; последующие перестройки добавили новые слои. Колокольня относится к XVIII веку, а окно-роза было восстановлено в XX веке, поэтому фасад читается как наслоение разных эпох.\n\nЦерковь стоит у древней центральной оси города, рядом с дворцом графов и средневековым мостом. На протяжении столетий она служила и приходом, и местом городских церемоний, связанных с братствами и цехами.\n\nПри осмотре стоит сравнить портал, окно-розу и колокольню — по ним видно, как менялась архитектура. Модель построена по контуру OpenStreetMap в реальном масштабе; декоративные детали — визуальная интерпретация.\n\nЦерковь стоит там, где формировалось средневековое ядро Барселуша, поэтому её удобно осматривать вместе с дворцом графов и башней. Вокруг сохранилась плотная старая застройка, задающая масштаб улиц.",
     "facts_ru": [
-      "Средневековое ядро",
-      "Колокольня XVIII века"
+      "Средневековое ядро XIV века",
+      "Коллегиальная с 1464 года",
+      "Колокольня XVIII века",
+      "Окно-роза восстановлено в XX веке"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -116,6 +208,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/items/igreja-matriz/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -126,16 +222,40 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/igreja-matriz.jpg",
+    "image": "assets/img/igreja-matriz-1.jpg",
     "image_credit": {
       "author": "Xauxa Håkan Svensson",
       "license": "CC BY-SA 3.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/igreja-matriz-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Романская кладка, готические формы и поздняя башня.",
+        "credit": {
+          "author": "Xauxa Håkan Svensson",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "VgbKAdfEb40",
+        "title": "Igreja Matriz de Barcelos",
+        "channel": "Ricardo Bretz Costa",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "O_3MdMNLjRI",
+        "title": "Igreja Matriz de Barcelos",
+        "channel": "David Macedo",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "paco-condes",
@@ -148,10 +268,12 @@
     "model": "palace",
     "short_ru": "Руины дворца над рекой.",
     "long_ru": "Афонсу, граф Барселуша и первый герцог Браганса, заказал дворец в первой половине XV века.\n\nВ начале XX века здесь разместился археологический музей. Сохранившиеся стены стоят рядом с церковью и средневековым мостом.",
-    "history_ru": "Афонсу, граф Барселуша и первый герцог Браганса, заказал дворец в первой половине XV века.\n\nВ начале XX века здесь разместился археологический музей. Сохранившиеся стены стоят рядом с церковью и средневековым мостом.",
+    "history_ru": "Paço dos Condes de Barcelos — руины дворца, заложенного в первой половине XV века. Его начал строить Афонсу, граф Барселуша и первый герцог Браганса, после женитьбы в 1401 году на дочери коннетабля Нуну Альвареша Перейры.\n\nДворец стоял у самой переправы, рядом с приходской церковью, и вместе с ними формировал центр средневекового города. В 1425 году Барселуш обнесли стенами с башнями; дворец стал частью этой укреплённой ткани.\n\nВ начале XX века в уцелевших стенах разместился археологический музей, поэтому сегодня это одновременно и руины, и музейное пространство. Сохранившиеся фрагменты позволяют увидеть, как дворец был встроен в берег над Каваду.\n\nРуины стоят на контуре OSM; модель передаёт объём и высоту стен как интерпретацию. Карточка приводит координаты и ссылку на источник в OpenStreetMap, чтобы можно было проверить расположение на месте.\n\nРуины стоят у берега над Каваду, и с площадки видно, как дворец был встроен между рекой и городом. Это помогает понять оборонную логику средневекового Барселуша, где пасу, церковь и мост образовывали единый узел.",
     "facts_ru": [
       "Дворец XV века",
-      "Сегодня — руины и археология"
+      "Заложен Афонсу, герцогом Браганса",
+      "Сегодня — руины и археология",
+      "Стоит у берега над Каваду"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -162,6 +284,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/items/paco-dos-condes-de-barcelos/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -172,16 +298,50 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/paco-condes.jpg",
+    "image": "assets/img/paco-condes-2.jpg",
     "image_credit": {
-      "author": "Joseolgon",
-      "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Aerial_photograph_of_Barcelos_(9).jpg"
+      "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7o_dos_Condes_de_Barcelos_-_Barcelos_-_Portugal_(52660504539).jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/paco-condes-2.jpg",
+        "kind": "exterior",
+        "caption_ru": "Руины дворца над рекой.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7o_dos_Condes_de_Barcelos_-_Barcelos_-_Portugal_(52660504539).jpg"
+        }
+      },
+      {
+        "src": "assets/img/paco-condes-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Руины дворца над рекой.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7o_dos_Condes_de_Barcelos_-_Barcelos_-_Portugal_(52660504439).jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "vY4zXKoB678",
+        "title": "Paço dos Condes de Barcelos 🇵🇹",
+        "channel": "Malavazi",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "zDJjkpeYrgQ",
+        "title": "#Paço dos Condes de Barcelos#djiosmo360#justfunnostress#",
+        "channel": "No stress just Fun.",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "torre-menagem",
@@ -194,10 +354,12 @@
     "model": "tower",
     "short_ru": "Сохранившаяся башня средневековых стен.",
     "long_ru": "Порта-Нова напоминает о средневековых укреплениях города. За столетия назначение башни менялось.\n\nРеставрация 2010–2013 годов вернула ей культурную и туристическую роль. Со смотровой площадки видны исторический центр и долина Каваду.",
-    "history_ru": "Порта-Нова напоминает о средневековых укреплениях города. За столетия назначение башни менялось.\n\nРеставрация 2010–2013 годов вернула ей культурную и туристическую роль. Со смотровой площадки видны исторический центр и долина Каваду.",
+    "history_ru": "Torre da Porta Nova — единственная сохранившаяся башня средневековых укреплений Барселуша. Городские стены с башнями возвели в XV веке; со временем большинство их разобрали, и башня осталась напоминанием о старой линии обороны.\n\nЗа столетия башня меняла назначение, пока реставрация 2010–2013 годов не вернула ей культурную и туристическую роль. Сегодня это смотровая площадка: с неё видно исторический центр и долину Каваду.\n\nБашня стоит на важном перекрёстке старого города, рядом с Largo da Porta Nova. Это место, где городская стена смыкалась с дорогой, ведущей к мосту, поэтому башня оказалась в самом сердце пешеходных маршрутов.\n\nМодель воспроизводит оборонительный объём: зубчатый парапет, бойницы и угловые башенки. Контур взят из OpenStreetMap, высота — оценка; для точных обмеров нужны натурные данные.\n\nСмотровая площадка на башне — удобная точка, чтобы охватить центр и долину. Отсюда хорошо читается связь старой стены с улицами, ведущими к мосту и к ярмарочной площади.",
     "facts_ru": [
       "Средневековая оборонительная башня",
-      "Смотровая площадка"
+      "Часть стен XV века",
+      "Смотровая площадка",
+      "Реставрация 2010–2013 годов"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -208,6 +370,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.visitportugal.com/en/content/torre-medieval-barcelos"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -218,16 +384,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/torre-menagem.jpg",
+    "image": "assets/img/torre-menagem-1.jpg",
     "image_credit": {
-      "author": "Turismo En Portugal",
-      "license": "CC BY 2.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Torre_de_Barcelos_(9590194178).jpg"
+      "author": "GualdimG",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_09.jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/torre-menagem-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Сохранившаяся башня средневековых стен.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_09.jpg"
+        }
+      },
+      {
+        "src": "assets/img/torre-menagem-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Сохранившаяся башня средневековых стен.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_010.jpg"
+        }
+      },
+      {
+        "src": "assets/img/torre-menagem-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Сохранившаяся башня средневековых стен.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_01.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "RnHgyoohFKI",
+        "title": "Torre da Porta Nova • Barcelos • Braga • Portugal #portugaltourism #visitportugal",
+        "channel": "PasseiAndo",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "MajEfkpuMZQ",
+        "title": "Largo da Porta Nova • Barcelos • Braga • Portugal #portugaltourism #visitportugal",
+        "channel": "PasseiAndo",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "museu-olaria",
@@ -240,10 +450,12 @@
     "model": "museum",
     "short_ru": "Глина как память и творчество.",
     "long_ru": "Музей занимает бывший дом Менданьяш Беневидеш Сирне в историческом центре. Коллекция связывает Барселуш с гончарными традициями Португалии.\n\nСравните повседневную посуду и фигурáду — небольшие глиняные скульптуры, изображающие людей и обычаи.",
-    "history_ru": "Музей занимает бывший дом Менданьяш Беневидеш Сирне в историческом центре. Коллекция связывает Барселуш с гончарными традициями Португалии.\n\nСравните повседневную посуду и фигурáду — небольшие глиняные скульптуры, изображающие людей и обычаи.",
+    "history_ru": "Museu de Olaria занимает старый дом Менданьяш Беневидеш Сирне в историческом центре. Его коллекция связывает Барселуш с гончарными традициями Португалии и с местным промыслом, известным далеко за пределами города.\n\nОтдельное место в собрании занимает фигурáду — небольшие глиняные скульптуры, изображающие людей, музыкантов и сцены из жизни. Среди мастеров особенно известна Роза Рамалью, чьи фигуры стали символом барселушской керамики.\n\nМузей показывает и повседневную посуду, и декоративные изделия, поэтому в экспозиции видно, как ремесло соединяет практическое и художественное. Это помогает понять, почему Барселуш входит в сеть креативных городов ЮНЕСКО по ремеслу.\n\nМодель построена по контуру OSM; это интерпретация объёма, а не обмер здания. Часы работы и доступ уточняйте на месте или на сайте мэрии, прежде чем планировать визит.\n\nЭкспозиция опирается на местные мастерские, поэтому зал выглядит как продолжение барселушской традиции, а не как универсальная коллекция. Это делает музей точкой входа в понимание ремесленной идентичности города.",
     "facts_ru": [
       "Керамика и фигурáду",
-      "Исторический центр"
+      "Гончарная традиция Барселуша",
+      "Исторический центр",
+      "Связан с именем Розы Рамалью"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -254,6 +466,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/viver/cultura/museu-de-olaria/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -264,16 +480,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/museu-olaria.jpg",
+    "image": "assets/img/museu-olaria-1.jpg",
     "image_credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 3.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Pottery_Museum6.JPG"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/museu-olaria-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Глина как память и творчество.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Pottery_Museum6.JPG"
+        }
+      },
+      {
+        "src": "assets/img/museu-olaria-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Глина как память и творчество.",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Museu_de_Olaria,_em_Barcelos_(46607860722).jpg"
+        }
+      },
+      {
+        "src": "assets/img/museu-olaria-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Глина как память и творчество.",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Museu_de_Olaria,_em_Barcelos_(45745371435).jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "ECWba1gU04M",
+        "title": "Museu de Olaria de Barcelos",
+        "channel": "Paulo Santos",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "pxMHKPYDUsc",
+        "title": "Museu de Olaria - Barcelos Portugal",
+        "channel": "luciano Oliveira no Mundo",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "pacos-concelho",
@@ -286,10 +546,12 @@
     "model": "civic",
     "short_ru": "Городская ратуша у старого центра.",
     "long_ru": "Муниципальное здание входит в застройку исторического центра и связывает старый город с повседневной жизнью Барселуша.\n\nОсмотрите фасад по пути от главной церкви к театру. Доступ к муниципальным службам не означает свободную туристическую экскурсию.",
-    "history_ru": "Муниципальное здание входит в застройку исторического центра и связывает старый город с повседневной жизнью Барселуша.\n\nОсмотрите фасад по пути от главной церкви к театру. Доступ к муниципальным службам не означает свободную туристическую экскурсию.",
+    "history_ru": "Paços do Concelho — здание городской администрации Барселуша. Оно входит в застройку исторического центра и напоминает, что это наследие продолжает служить повседневной жизни города, а не только туристам.\n\nРатуша стоит в квартале между приходской церковью и театром, рядом с Largo do Município. Это административное ядро старого города, где сходятся улицы, ведущие к мосту и к Campo da Feira.\n\nВнешний облик здания читается в общем ансамбле площади; внутри работают муниципальные службы. Для посетителя это прежде всего городская доминанта в маршруте по центру, а не музейный объект.\n\nМодель передаёт объём по контуру OpenStreetMap; детали фасада — визуальная оценка. Доступ к службам не означает свободный осмотр внутри; уточняйте порядок посещения заранее.\n\nРатуша стоит в административном квартале центра, где сходятся улицы старого города. Внешний осмотр удобно совместить с прогулкой к приходской церкви и театру, которые находятся рядом.",
     "facts_ru": [
-      "Муниципальное здание",
-      "Рядом с главной церковью"
+      "Городская ратуша",
+      "Административный центр старого города",
+      "Рядом с приходской церковью",
+      "Действующие муниципальные службы"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -300,6 +562,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/servicos/contacto-municipais/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -310,16 +576,50 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/pacos-concelho.jpg",
+    "image": "assets/img/pacos-concelho-1.jpg",
     "image_credit": {
-      "author": "GualdimG",
-      "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:C%C3%A2mara_Municipal_de_Barcelos_02.jpg"
+      "author": "Turismo En Portugal",
+      "license": "CC BY 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7os_do_Concelho_de_Barcelos_(8064540319).jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/pacos-concelho-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Городская ратуша у старого центра.",
+        "credit": {
+          "author": "Turismo En Portugal",
+          "license": "CC BY 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7os_do_Concelho_de_Barcelos_(8064540319).jpg"
+        }
+      },
+      {
+        "src": "assets/img/pacos-concelho-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Городская ратуша у старого центра.",
+        "credit": {
+          "author": "TurismoenPortugal",
+          "license": "CC BY 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7os_do_Concelho_de_Barcelos.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "Zcd3RHWWOfM",
+        "title": "Reabilitação do edifício Paços do Concelho",
+        "channel": "MunicipioBarcelos",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "1SGo05Jp88g",
+        "title": "No Salão Nobre dos Paços do Concelho de Barcelos",
+        "channel": "Henrique Gonçalves Rodrigues",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "solar-pinheiros",
@@ -332,10 +632,12 @@
     "model": "manor",
     "short_ru": "Господский дом XV века.",
     "long_ru": "Усадьба датируется 1448 годом и сохраняет черты мануэлино. Её масштаб выделяется среди соседних домов.\n\nНайдите на фасаде бородатую фигуру Барбадау. Истории об этой скульптуре относятся к местным преданиям.",
-    "history_ru": "Усадьба датируется 1448 годом и сохраняет черты мануэлино. Её масштаб выделяется среди соседних домов.\n\nНайдите на фасаде бородатую фигуру Барбадау. Истории об этой скульптуре относятся к местным преданиям.",
+    "history_ru": "Solar dos Pinheiros — господский дом, датированный 1448 годом. Он сохраняет черты, близкие к мануэлинскому стилю, и своим масштабом заметно выделяется среди соседних домов исторического центра.\n\nГлавная деталь фасада — бородатая фигура, известная как Барбадау. С ней связаны местные предания, которые передаются как городской фольклор, а не как документированная история.\n\nДом относится к тому типу резиденций, которые строились знатными семьями у важных улиц старого города. Он показывает, как каменное строительство XV века соседствовало с более простой жилой застройкой. Семья, построившая дом, принадлежала к городской знати Барселуша, и такие резиденции задавали облик улиц вокруг приходской церкви.\n\nМодель воспроизводит объём по контуру OSM; резьба и мелкие детали — интерпретация. Осматривайте фасад с улицы, уважая частную собственность и доступ жильцов.\n\nДом стоит на одной из старых улиц центра, среди плотной застройки. Его фасад — редкий для города пример каменной резиденции XV века, сохранившейся до наших дней.",
     "facts_ru": [
-      "Датировка — 1448",
-      "Деталь фасада — Барбадау"
+      "Датировка — 1448 год",
+      "Господский дом с чертами мануэлино",
+      "Фасадная фигура — Барбадау",
+      "Редкий пример XV века в центре"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -346,6 +648,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/items/solar-dos-pinheiros/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -356,16 +662,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/solar-pinheiros.jpg",
+    "image": "assets/img/solar-pinheiros-1.jpg",
     "image_credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_03.JPG"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/solar-pinheiros-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Господский дом XV века.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_03.JPG"
+        }
+      },
+      {
+        "src": "assets/img/solar-pinheiros-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Господский дом XV века.",
+        "credit": {
+          "author": "Daniel VILLAFRUELA.",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos-Solar_dos_Pinheiros-1967_07_27.jpg"
+        }
+      },
+      {
+        "src": "assets/img/solar-pinheiros-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Господский дом XV века.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_-_Barcelos_-_Portugal_(52815767537).jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "pmzR-Nmwx28",
+        "title": "Solar dos Pinheiros",
+        "channel": "David Macedo",
+        "lang": "other"
+      },
+      {
+        "youtube_id": "Xw216d7EHMQ",
+        "title": "Casa com 3 dormitorios no Condomínio Solar dos Pinheiros!",
+        "channel": "Prioriza Imóveis",
+        "lang": "other"
+      }
+    ]
   },
   {
     "id": "teatro-gil-vicente",
@@ -378,10 +728,12 @@
     "model": "theatre",
     "short_ru": "Сцена культурной жизни города.",
     "long_ru": "Театр открылся в 1903 году и остаётся частью культурной жизни Барселуша. Он носит имя драматурга Жила Висенте.\n\nОсмотр фасада легко совместить с прогулкой по старому городу. Спектакли и условия посещения уточняйте в муниципальной афише.",
-    "history_ru": "Театр открылся в 1903 году и остаётся частью культурной жизни Барселуша. Он носит имя драматурга Жила Висенте.\n\nОсмотр фасада легко совместить с прогулкой по старому городу. Спектакли и условия посещения уточняйте в муниципальной афише.",
+    "history_ru": "Teatro Gil Vicente — городской театр Барселуша, названный в честь драматурга, родившегося в этих краях. Он закрепил за городом место в театральной культуре Португалии и стал одной из площадок общественной жизни центра.\n\nЗдание входит в группу общественных построек исторического центра: ратуша, приходская церковь и театр стоят в одном квартале. Такое соседство типично для португальского города, где культовое, административное и культурное ядро собраны вместе.\n\nРепертуар и афишу лучше проверять заранее: театр работает как действующая площадка, а не как музей. Это важно учитывать при планировании вечерней прогулки по центру.\n\nМодель построена по контуру OpenStreetMap в реальном масштабе; фасадные детали — визуальная оценка. Карточка места ведёт к первоисточникам, где можно уточнить программу и режим работы.\n\nЗдание театра формирует культурное ядро центра и соседствует с ратушей и приходской церковью. Вечером этот квартал становится средоточием городской жизни, а не только дневных прогулок.",
     "facts_ru": [
-      "Открыт в 1903 году",
-      "Назван в честь драматурга"
+      "Городской театр",
+      "Назван в честь Жила Висенте",
+      "Культурное ядро центра",
+      "Действующая концертная площадка"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -392,6 +744,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/viver/cultura/theatro-gil-vicente/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -402,16 +758,40 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/teatro-gil-vicente.jpg",
+    "image": "assets/img/teatro-gil-vicente-1.jpg",
     "image_credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/teatro-gil-vicente-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Сцена культурной жизни города.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "2ny1oJarjdo",
+        "title": "L Blues Teaser Teatro Gil Vicente",
+        "channel": "L-Blues",
+        "lang": "other"
+      },
+      {
+        "youtube_id": "sRQdvfsiPSA",
+        "title": "\"OPERA PER TUTTI\" TEATRO GIL VICENTE - BARCELOS.",
+        "channel": "Henrique Gonçalves Rodrigues",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "estadio-cidade",
@@ -424,10 +804,12 @@
     "model": "stadium",
     "short_ru": "Город через его футбольный стадион.",
     "long_ru": "Муниципальный стадион открылся 30 мая 2004 года. Он находится севернее исторического центра, среди более просторной городской застройки.\n\nТрибуны и поле контрастируют с тесными кварталами старого города. События и доступ уточняйте у площадки.",
-    "history_ru": "Муниципальный стадион открылся 30 мая 2004 года. Он находится севернее исторического центра, среди более просторной городской застройки.\n\nТрибуны и поле контрастируют с тесными кварталами старого города. События и доступ уточняйте у площадки.",
+    "history_ru": "Estádio Cidade de Barcelos — городской стадион, домашняя арена футбольного клуба «Жил Висенте». Клуб связан с Барселушем с 1924 года, а стадион стал центром спортивной жизни города и местом матчей национального уровня.\n\nАрена стоит на северо-востоке города, в стороне от исторического центра. Форма трибун и расположение поля задают узнаваемый силуэт района, который хорошо виден с окрестных высот.\n\nВ дни матчей стадион собирает горожан и гостей, поэтому вокруг него работает транспорт и парковки. Это делает его одной из главных точек притяжения за пределами туристического ядра.\n\nМодель передаёт объём трибун и поля по контуру OSM; это интерпретация, а не обмер сооружения. Расписание матчей и доступ на территорию уточняйте у клуба и муниципалитета.\n\nСтадион расположен в стороне от исторического ядра, поэтому его удобно посещать отдельно от пешеходного маршрута по центру. Он остаётся действующей ареной с насыщенным календарём матчей.",
     "facts_ru": [
-      "Открыт 30 мая 2004 года",
-      "Севернее исторического центра"
+      "Домашняя арена «Жил Висенте»",
+      "Расположен вне исторического центра",
+      "Футбольный стадион города",
+      "Матчи национального уровня"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -438,6 +820,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://cm-barcelos.pt/viver/desporto/estadio-cidade-de-barcelos/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -448,16 +834,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/estadio-cidade.jpg",
+    "image": "assets/img/estadio-cidade-1.jpg",
     "image_credit": {
       "author": "JP Ribeiro",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos.jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/estadio-cidade-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Город через его футбольный стадион.",
+        "credit": {
+          "author": "JP Ribeiro",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos.jpg"
+        }
+      },
+      {
+        "src": "assets/img/estadio-cidade-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Город через его футбольный стадион.",
+        "credit": {
+          "author": "Msilva",
+          "license": "CC BY 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos_-_panoramio.jpg"
+        }
+      },
+      {
+        "src": "assets/img/estadio-cidade-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Город через его футбольный стадион.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_de_Barcelos.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "i8NRl2Khg6Y",
+        "title": "Estádio Cidade de Barcelos | Gil Vicente FC Portugal in 4K",
+        "channel": "Cidadão do Mundo",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "2FCyG2zEo60",
+        "title": "🇵🇹🏟️ 7. Estádio Cidade de Barcelos (Gil Vicente) #PrimeiraLiga #FootballStadium #MrdonutzaFootball",
+        "channel": "Mrdonutza Football",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "parque-cidade",
@@ -470,10 +900,12 @@
     "model": "park",
     "short_ru": "Зелёная пауза рядом с центром.",
     "long_ru": "Парк предлагает сменить ритм рядом с центром Барселуша. Дорожки и деревья создают иную среду, чем торговые улицы.\n\nСкульптура маршрута Фигураду связывает парк с местными ремёслами. Найдите эту связь во время прогулки.",
-    "history_ru": "Парк предлагает сменить ритм рядом с центром Барселуша. Дорожки и деревья создают иную среду, чем торговые улицы.\n\nСкульптура маршрута Фигураду связывает парк с местными ремёслами. Найдите эту связь во время прогулки.",
+    "history_ru": "Parque da Cidade — большой городской парк Барселуша у реки Каваду. Он служит зелёным лёгким города и местом прогулок, спорта и отдыха у воды, в стороне от плотной застройки центра.\n\nПарк связан с рекой: дорожки идут вдоль берега, а вода задаёт прохладу и вид. Такое расположение делает его частью речной панорамы Барселуша наряду со средневековым мостом. Вдоль берега проложены дорожки, которые соединяют парк с мостом и старым городом, поэтому сюда легко дойти пешком из центра.\n\nЗелёные зоны города показаны на карте через данные OpenStreetMap: луга, деревья и дорожки. Парк остаётся действующим общественным пространством, а не музеем под открытым небом.\n\nМодель отражает контур парка из OSM; посадки и рельеф — интерпретация. На месте уточняйте маршруты и часы, особенно в тёмное время суток.\n\nПарк тянется вдоль реки и соединён с прибрежными дорожками, поэтому его удобно включить в длинную прогулку по берегам. Отсюда открываются виды на воду и на городской берег.",
     "facts_ru": [
-      "Городской зелёный массив",
-      "Связь с маршрутом Фигураду"
+      "Большой городской парк",
+      "На берегу Каваду",
+      "Зелёное лёгкое города",
+      "Прогулки и спорт у воды"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -484,6 +916,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/items/parque-da-cidade-de-barcelos/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -494,16 +930,40 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/parque-cidade.jpg",
+    "image": "assets/img/parque-cidade-1.jpg",
     "image_credit": {
       "author": "Joseolgon",
       "license": "CC BY 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/parque-cidade-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Зелёная пауза рядом с центром.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "f8ZFg23ALjU",
+        "title": "COMO É MORAR EM BARCELOS : A CIDADE DA LENDA DO GALO | Braga - Conhecendo Portugal EP03",
+        "channel": "2 em Portugal",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "0_mmuiSy2vE",
+        "title": "Parque da Cidade - Barcelos, Portugal. Segurança para as crianças",
+        "channel": "A Fer na Euro 🇵🇹 - Imigrando em Família",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "jardim-barrocas",
@@ -516,10 +976,12 @@
     "model": "garden",
     "short_ru": "Сад между башней и храмом.",
     "long_ru": "Сад Баррокаш и прогулочная аллея Ассентуш отмечены на муниципальной карте рядом с башней Порта-Нова и храмом Бон-Жезуш-да-Круш.\n\nЭто место для паузы между памятниками. Клумбы в модели — визуальная интерпретация внутри нанесённого на карту контура.",
-    "history_ru": "Сад Баррокаш и прогулочная аллея Ассентуш отмечены на муниципальной карте рядом с башней Порта-Нова и храмом Бон-Жезуш-да-Круш.\n\nЭто место для паузы между памятниками. Клумбы в модели — визуальная интерпретация внутри нанесённого на карту контура.",
+    "history_ru": "Jardim das Barrocas — небольшой устроенный сад рядом с историческим центром Барселуша. Такие сады придавали городской ткани зелёный акцент и служили местом тихого отдыха в плотной застройке. Название места связано с характером планировки квартала, а не с отдельным крупным памятником.\n\nСад входит в систему общественных зелёных пространств центра наряду с речными парками. Его значение — не в размере, а в расположении: он вплетён в пешеходный маршрут по старому городу.\n\nЗелёные насаждения на карте взяты из OpenStreetMap; отдельные деревья и газоны показаны как часть модели. Сад остаётся открытым городским пространством.\n\nКонтур сада — из OSM, а посадки и детали — визуальная оценка. Проверяйте доступ и состояние дорожек на месте, прежде чем планировать визит.\n\nСад невелик, но расположен так, что становится прохладной паузой в плотной застройке центра. Его удобно пройти по пути между главными памятниками исторического ядра.",
     "facts_ru": [
-      "Рядом с башней Порта-Нова",
-      "Отмечен на муниципальной карте"
+      "Городской сад в центре",
+      "Зелёный акцент плотной застройки",
+      "Часть пешеходного маршрута",
+      "Небольшое общественное пространство"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -530,6 +992,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://www.cm-barcelos.pt/wp-content/uploads/2022/04/Mapa-Barcelos_Caminho_Santiago_PT_ING.pdf"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -540,16 +1006,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/jardim-barrocas.jpg",
+    "image": "assets/img/jardim-barrocas-1.jpg",
     "image_credit": {
       "author": "tiago186703274",
       "license": "CC BY-SA 3.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File%3AJardim%20das%20Barrocas%20-%20panoramio.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Jardim_das_Barrocas_-_panoramio.jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/jardim-barrocas-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Сад между башней и храмом.",
+        "credit": {
+          "author": "tiago186703274",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Jardim_das_Barrocas_-_panoramio.jpg"
+        }
+      },
+      {
+        "src": "assets/img/jardim-barrocas-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Сад между башней и храмом.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Jardins_Barcelos_02.jpg"
+        }
+      },
+      {
+        "src": "assets/img/jardim-barrocas-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Сад между башней и храмом.",
+        "credit": {
+          "author": "Empirecoins",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_city_square.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "3YYdl8Ryxj4",
+        "title": "Cidade de Barcelos - Jardim das Barrocas (Passeio dos Assentos)",
+        "channel": "Eu SILVÉRIO",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "QtesNNB6Nxs",
+        "title": "BARCELOS. JARDIM DAS BARROCAS",
+        "channel": "José Couto (\"Agostinho\")",
+        "lang": "pt"
+      }
+    ]
   },
   {
     "id": "mercado-municipal",
@@ -562,9 +1072,11 @@
     "model": "market",
     "short_ru": "Повседневная торговля ярмарочного города.",
     "long_ru": "Муниципальный рынок представляет повседневную торговлю Барселуша. Муниципалитет сообщил об открытии обновлённого здания в августе 2026 года.\n\nМодель использует доступный контур OpenStreetMap и не воспроизводит все детали реконструкции. Перед визитом уточните часы работы.",
-    "history_ru": "Муниципальный рынок представляет повседневную торговлю Барселуша. Муниципалитет сообщил об открытии обновлённого здания в августе 2026 года.\n\nМодель использует доступный контур OpenStreetMap и не воспроизводит все детали реконструкции. Перед визитом уточните часы работы.",
+    "history_ru": "Mercado Municipal de Barcelos — крытый городской рынок, центр повседневной торговли ярмарочного города. Барселуш издавна был известен ярмарками, и рынок продолжает эту традицию в современном здании.\n\nМуниципалитет объявил об открытии обновлённого здания в августе 2026 года, поэтому рынок сочетает историческую роль места торговли с реконструкцией последних лет. Он стоит рядом с Campo da Feira, где проходит большая ярмарка.\n\nРынок — действующий объект городской инфраструктуры, а не туристическая достопримечательность в привычном смысле. Это важно для того, чтобы уважать распорядок торговцев и покупателей.\n\nМодель использует доступный контур OpenStreetMap и не воспроизводит все детали реконструкции. Часы работы уточняйте на месте или на сайте мэрии перед визитом.\n\nРынок стоит рядом с Campo da Feira, и вместе они образуют торговое сердце города. Утренние часы — самое живое время, когда рынок работает в полную силу.",
     "facts_ru": [
-      "Муниципальный рынок",
+      "Крытый городской рынок",
+      "Рядом с Campo da Feira",
+      "Торговое сердце Барселуша",
       "Обновление объявлено в 2026 году"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
@@ -576,6 +1088,10 @@
       {
         "title": "Fonte cultural / Heritage source",
         "url": "https://cm-barcelos.pt/2026/08/barcelos-inaugurou-renovado-mercado-municipal/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -586,16 +1102,40 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/mercado-municipal.jpg",
+    "image": "assets/img/mercado-municipal-2.jpg",
     "image_credit": {
       "author": "GiovanniPen",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/mercado-municipal-2.jpg",
+        "kind": "exterior",
+        "caption_ru": "Повседневная торговля ярмарочного города.",
+        "credit": {
+          "author": "GiovanniPen",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "ddjSecNWTGI",
+        "title": "Mercado Municipal de Barcelos renasce com nova vida",
+        "channel": "VMTV - Verde Minho Televisão",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "h6_Xr-8jd5M",
+        "title": "Dessa vez fui visitar os desafortunados do Mercadão Municipal, gostaram???💁🏼‍♀️😌🤩",
+        "channel": "Cela",
+        "lang": "other"
+      }
+    ]
   },
   {
     "id": "igreja-barcelinhos",
@@ -608,16 +1148,22 @@
     "model": "church",
     "short_ru": "Приходская церковь на стороне Барселиньюша.",
     "long_ru": "В OpenStreetMap приходская церковь также названа именем апостола Андрея. Она стоит южнее средневекового моста, на стороне Барселиньюша.\n\nСюда можно продолжить прогулку после перехода через Каваду. Уважайте богослужения и уточняйте доступ на месте.",
-    "history_ru": "В OpenStreetMap приходская церковь также названа именем апостола Андрея. Она стоит южнее средневекового моста, на стороне Барселиньюша.\n\nСюда можно продолжить прогулку после перехода через Каваду. Уважайте богослужения и уточняйте доступ на месте.",
+    "history_ru": "Приходская церковь Барселиньюша стоит на южном берегу Каваду, ниже средневекового моста. В OpenStreetMap она также отмечена как церковь Святого апостола Андрея, что указывает на её приходскую роль для местной общины.\n\nЕё расположение позволяет продолжить прогулку за реку: перейдя мост, можно дойти до Барселиньюша и обойти церковь, а затем вернуться на восточный берег. Так мост связывает два исторических ядра. Мост и церковь образуют единый исторический узел, и прогулка по нему даёт вид на оба берега реки.\n\nЭто действующий приход, а не музей, поэтому здесь уместно уважать богослужения и внутренний распорядок. Внешний осмотр и тихая прогулка вокруг не требуют специального доступа.\n\nМодель построена по контуру OSM; интерпретация высоты и декора — визуальная. Уточняйте доступ и расписание служб на месте.\n\nЦерковь стоит в Барселиньюше, ниже моста, и хорошо видна с восточного берега. В сочетании с часовней у переправы она образует западный полюс прогулки по берегам Каваду.",
     "facts_ru": [
       "Приходская церковь",
-      "Южнее средневекового моста"
+      "На стороне Барселиньюша",
+      "Южнее средневекового моста",
+      "Также отмечена как церковь Св. Андрея"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
       {
         "title": "OpenStreetMap",
         "url": "https://www.openstreetmap.org/way/1278607344"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
+        "url": "https://www.cm-barcelos.pt/"
       }
     ],
     "osm": {
@@ -628,16 +1174,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/igreja-barcelinhos.jpg",
+    "image": "assets/img/igreja-barcelinhos-1.jpg",
     "image_credit": {
-      "author": "Krzysztof Golik",
+      "author": "Joseolgon",
       "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(3).jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/igreja-barcelinhos-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Приходская церковь на стороне Барселиньюша.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(3).jpg"
+        }
+      },
+      {
+        "src": "assets/img/igreja-barcelinhos-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Приходская церковь на стороне Барселиньюша.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(2).jpg"
+        }
+      },
+      {
+        "src": "assets/img/igreja-barcelinhos-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Приходская церковь на стороне Барселиньюша.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(1).jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "BpCIjGirwxc",
+        "title": "🥁 Rancho Folclórico da Casa do Povo de Barcelinhos I 2023",
+        "channel": "Ranchos Folclóricos",
+        "lang": "other"
+      },
+      {
+        "youtube_id": "Y5mjcGMJrbg",
+        "title": "🥁 Rancho Folclórico da Casa do Povo de Barcelinhos I 2023",
+        "channel": "Ranchos Folclóricos",
+        "lang": "other"
+      }
+    ]
   },
   {
     "id": "capela-ponte",
@@ -650,10 +1240,12 @@
     "model": "chapel",
     "short_ru": "Часовня, обращённая к мосту и реке.",
     "long_ru": "Небольшая часовня стоит в Барселиньюше у начала средневекового моста. Её посвящение связано с переправой через Каваду.\n\nЧасовня входит в прибрежный пейзаж и отмечает путь тех, кто входит в город с западного берега.",
-    "history_ru": "Небольшая часовня стоит в Барселиньюше у начала средневекового моста. Её посвящение связано с переправой через Каваду.\n\nЧасовня входит в прибрежный пейзаж и отмечает путь тех, кто входит в город с западного берега.",
+    "history_ru": "Capela de Nossa Senhora da Ponte — небольшая часовня в Барселиньюше, у самого начала средневекового моста. Её посвящение прямо связывает здание с переправой через Каваду и с путём тех, кто входит в город с западного берега.\n\nЧасовни у мостов и дорог были обычны для Португалии: путники останавливались здесь перед дорогой или благодарили за благополучный переход. Так небольшая постройка вписана и в речную панораму, и в историю сообщения между берегами.\n\nСегодня это часть прибрежного пейзажа рядом с мостом и приходской церковью Барселиньюша. Точка хорошо встраивается в пешеходный маршрут по обоим берегам реки.\n\nМодель повторяет контур из OpenStreetMap; объём и детали — визуальная оценка. Это действующая часовня; уважайте местный порядок посещения.\n\nЧасовня так мала, что её легко не заметить при переходе моста, но именно она отмечает начало городской стороны Барселиньюша. Стоит остановиться и посмотреть на неё с берега.",
     "facts_ru": [
-      "У моста, в Барселиньюше",
-      "Прибрежная часовня"
+      "Часовня у средневекового моста",
+      "В Барселиньюше",
+      "Связана с переправой через Каваду",
+      "Прибрежная часть маршрута"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -663,6 +1255,10 @@
       },
       {
         "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
         "url": "https://www.cm-barcelos.pt/"
       }
     ],
@@ -674,16 +1270,60 @@
       "height_source": "estimate"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/capela-ponte.jpg",
+    "image": "assets/img/capela-ponte-1.jpg",
     "image_credit": {
-      "author": "Krzysztof Golik",
+      "author": "GualdimG",
       "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_(Barcelos)_01.jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/capela-ponte-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Часовня, обращённая к мосту и реке.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_(Barcelos)_01.jpg"
+        }
+      },
+      {
+        "src": "assets/img/capela-ponte-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Часовня, обращённая к мосту и реке.",
+        "credit": {
+          "author": "Krzysztof Golik",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+        }
+      },
+      {
+        "src": "assets/img/capela-ponte-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Часовня, обращённая к мосту и реке.",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_(Barcelos)_03.jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "NiEUYZoM3zw",
+        "title": "Rancho Folclórico da Senhora da Abadia de Barcelos 🎈São Bartolomeu Ponte da Barca ",
+        "channel": "Canal TRADIÇÕES DE PORTUGAL",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "7W5mUP-sh_c",
+        "title": "Ponte da Barca - Capela de S. Bartolomeu",
+        "channel": "Alfredo Sousa Tomás",
+        "lang": "other"
+      }
+    ]
   },
   {
     "id": "casa-azenha",
@@ -696,10 +1336,12 @@
     "model": "manor",
     "short_ru": "Старый дом у реки.",
     "long_ru": "Дом Азенья стоит у Каваду рядом с мостом. Название напоминает о водяных мельницах, использовавших течение реки.\n\nОбратите внимание, как дом поставлен относительно берега: столетиями река была и силой, и дорогой.",
-    "history_ru": "Дом Азенья стоит у Каваду рядом с мостом. Название напоминает о водяных мельницах, использовавших течение реки.\n\nОбратите внимание, как дом поставлен относительно берега: столетиями река была и силой, и дорогой.",
+    "history_ru": "Casa de Azenha стоит у Каваду неподалёку от моста. Название напоминает об азеньяш — водяных мельницах, которые веками использовали течение реки для помола зерна в этих местах.\n\nРека была для Барселуша не только дорогой, но и источником силы: мельницы, запруды и каналы обеспечивали работу и питали городскую экономику. Дома при мельницах, как этот, ставились прямо у воды. Позже мельницы уступили место другим производствам, но топонимы вроде этого сохранили память о них в городской среде.\n\nСегодня здание — часть прибрежной застройки у реки, напоминание о водяном хозяйстве прошлого. Оно встраивается в прогулку по берегу рядом с мостом и парком.\n\nМодель построена по контуру OSM и включает узнаваемую деталь — водяное колесо; это интерпретация, а не обмер. Дом может быть частным, поэтому осматривайте его с улицы.\n\nДом стоит у самой воды, и его название хранит память о мельничном хозяйстве на Каваду. Рядом проходит прибрежная дорога, ведущая к мосту и парку.",
     "facts_ru": [
-      "Дом у Каваду",
-      "Память о водяных мельницах"
+      "Дом у реки Каваду",
+      "Название помнит о водяных мельницах",
+      "Рядом с мостом и парком",
+      "Прибрежная застройка"
     ],
     "tip_ru": "Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.",
     "sources": [
@@ -709,6 +1351,10 @@
       },
       {
         "title": "Fonte cultural / Heritage source",
+        "url": "https://www.cm-barcelos.pt/"
+      },
+      {
+        "title": "Câmara Municipal de Barcelos",
         "url": "https://www.cm-barcelos.pt/"
       }
     ],
@@ -720,15 +1366,59 @@
       "height_source": "osm building:levels×3.2"
     },
     "model_accuracy": "interpretive",
-    "image": "assets/img/casa-azenha.jpg",
+    "image": "assets/img/casa-azenha-1.jpg",
     "image_credit": {
-      "author": "Halley Oliveira",
+      "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
       "license": "CC BY-SA 2.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_visto_de_Barcelinhos_(45703458555).jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Casa_da_Azenha_-_Barcelos_-_Portugal_(52407547029).jpg"
     },
     "media_status": "curated",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "assets/img/casa-azenha-1.jpg",
+        "kind": "exterior",
+        "caption_ru": "Старый дом у реки.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Casa_da_Azenha_-_Barcelos_-_Portugal_(52407547029).jpg"
+        }
+      },
+      {
+        "src": "assets/img/casa-azenha-2.jpg",
+        "kind": "detail",
+        "caption_ru": "Старый дом у реки.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Casa_da_Azenha_-_Barcelos_-_Portugal_(52407767368).jpg"
+        }
+      },
+      {
+        "src": "assets/img/casa-azenha-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Старый дом у реки.",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_visto_de_Barcelinhos_(45703458555).jpg"
+        }
+      }
+    ],
     "panorama": null,
-    "videos": []
+    "videos": [
+      {
+        "youtube_id": "aDwd0IWZ_As",
+        "title": "Casa Das Azenhas, Barcelos",
+        "channel": "Go Plan Construção e Imobiliária",
+        "lang": "pt"
+      },
+      {
+        "youtube_id": "8IlvgSAWESo",
+        "title": "Casa da Azenha (Barcelos) - Help Point Peregrinos",
+        "channel": "Albergue Cidade de Barcelos",
+        "lang": "pt"
+      }
+    ]
   }
 ]

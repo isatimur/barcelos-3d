@@ -4,8 +4,14 @@ import {places,routeDefs} from '../content/barcelos.mjs';
 import {minAreaRect,centroid,tagHeight} from './geo-lib.mjs';
 const read = p => JSON.parse(readFileSync(p,'utf8'));
 const write = (p,data) => writeFileSync(p,JSON.stringify(data,null,2)+'\n');
+const readOpt = p => (existsSync(p) ? read(p) : {});
+const HIST = readOpt('data/sources/history-ru.json');
+const FACTS = readOpt('data/sources/facts-ru.json');
+const GALLERY = readOpt('data/sources/gallery.json');
+const VIDEOS = readOpt('data/sources/videos.json');
 const raw=read('data/sources/landmark-osm.json');
 const osm=new Map(raw.elements.map(e=>[e.type[0]+e.id,e]));
+const videos=existsSync('data/sources/videos.json')?read('data/sources/videos.json'):{};
 const footprints={}, dimensions={}, landmarks=[], translations={pt:{landmarks:{},routes:{}},en:{landmarks:{},routes:{}}};
 const langs=['pt','en','ru'];
 const tips=['Confirme horários e acesso no local; as estimativas do mapa não substituem a sinalização.','Check opening hours and access locally; map estimates do not replace signs on site.','Уточняйте часы и доступ на месте; оценки карты не заменяют указатели.'];
@@ -32,7 +38,7 @@ for(const p of places){
     tagged?{paths:['height_m.total'],url,fact:heightNote,value:String(height)}:{paths:['height_m.total'],source:'estimate',fact:'Visual interpretation only',reasoning:heightNote}
   ]};
   const media=existsSync(`data/sources/media.json`)?read('data/sources/media.json')[p.id]:null;
-  const record={id:p.id,name_pt:p.name[0],name_ru:p.name[2],category:p.category,lat:+centre[0].toFixed(7),lon:+centre[1].toFixed(7),year:p.year,model:p.model,short_ru:p.short[2],long_ru:p.text[2],history_ru:p.text[2],facts_ru:p.facts[0],tip_ru:tips[2],sources:[{title:'OpenStreetMap',url},...(p.source!==url?[{title:'Fonte cultural / Heritage source',url:p.source}]:[])],osm:metadata,model_accuracy:'interpretive',image:media?.src||null,image_credit:media?.credit||null,media_status:media?'curated':'not-curated',gallery:[],panorama:null,videos:[]};
+  const record={id:p.id,name_pt:p.name[0],name_ru:p.name[2],category:p.category,lat:+centre[0].toFixed(7),lon:+centre[1].toFixed(7),year:p.year,model:p.model,short_ru:p.short[2],long_ru:p.text[2],history_ru:(HIST[p.id]?.length?HIST[p.id].join('\n\n'):p.text[2]),facts_ru:(FACTS[p.id]?.length?FACTS[p.id]:p.facts[0]),tip_ru:tips[2],sources:[{title:'OpenStreetMap',url},...(p.source&&p.source!==url?[{title:'Fonte cultural / Heritage source',url:p.source}]:[]),{title:'Câmara Municipal de Barcelos',url:'https://www.cm-barcelos.pt/'}],osm:metadata,model_accuracy:'interpretive',image:media?.src||null,image_credit:media?.credit||null,media_status:media?'curated':'not-curated',gallery:(media?.images||[]).map((im,i)=>({src:im.src,kind:i===0?'exterior':'detail',caption_ru:p.short[2],credit:im.credit})),panorama:null,videos:videos[p.id]||[]};
   landmarks.push(record);
   for(const [i,lang] of langs.entries()) if(lang!=='ru') translations[lang].landmarks[p.id]={name:p.name[i],short:p.short[i],long:p.text[i],history:p.text[i],facts:p.facts[i===0?1:2],tip:tips[i],year:p.year,gallery:[]};
 }

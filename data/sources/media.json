@@ -1,156 +1,484 @@
 {
   "torre-menagem": {
-    "src": "assets/img/torre-menagem.jpg",
+    "src": "assets/img/torre-menagem-1.jpg",
     "credit": {
-      "author": "Turismo En Portugal",
-      "license": "CC BY 2.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Torre_de_Barcelos_(9590194178).jpg"
+      "author": "GualdimG",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_09.jpg"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q9088866"
+    "wikidata": "Q9088866",
+    "images": [
+      {
+        "src": "assets/img/torre-menagem-1.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_09.jpg"
+        }
+      },
+      {
+        "src": "assets/img/torre-menagem-2.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_010.jpg"
+        }
+      },
+      {
+        "src": "assets/img/torre-menagem-3.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Torre_da_Porta_Nova_Barcelos_01.jpg"
+        }
+      }
+    ]
   },
   "bom-jesus-cruz": {
-    "src": "assets/img/bom-jesus-cruz.jpg",
+    "src": "assets/img/bom-jesus-cruz-1.jpg",
     "credit": {
-      "author": "Joseolgon at Portuguese Wikipedia. Foto de Jose Goncalves",
+      "author": "Tuga9890",
       "license": "Public domain",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_Senhor_da_Cruz_Barcelos.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_(Barcelos).JPG"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q10300883"
+    "wikidata": "Q10300883",
+    "images": [
+      {
+        "src": "assets/img/bom-jesus-cruz-1.jpg",
+        "credit": {
+          "author": "Tuga9890",
+          "license": "Public domain",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_(Barcelos).JPG"
+        }
+      },
+      {
+        "src": "assets/img/bom-jesus-cruz-2.jpg",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_em_Barcelos_(46626421671).jpg"
+        }
+      },
+      {
+        "src": "assets/img/bom-jesus-cruz-3.jpg",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Templo_do_Senhor_Bom_Jesus_da_Cruz_em_Barcelos_(46574214262).jpg"
+        }
+      }
+    ]
   },
   "igreja-matriz": {
-    "src": "assets/img/igreja-matriz.jpg",
+    "src": "assets/img/igreja-matriz-1.jpg",
     "credit": {
       "author": "Xauxa Håkan Svensson",
       "license": "CC BY-SA 3.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q5993993"
+    "wikidata": "Q5993993",
+    "images": [
+      {
+        "src": "assets/img/igreja-matriz-1.jpg",
+        "credit": {
+          "author": "Xauxa Håkan Svensson",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
+        }
+      }
+    ]
   },
   "paco-condes": {
-    "src": "assets/img/paco-condes.jpg",
+    "src": "assets/img/paco-condes-2.jpg",
     "credit": {
-      "author": "Joseolgon",
-      "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Aerial_photograph_of_Barcelos_(9).jpg"
+      "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7o_dos_Condes_de_Barcelos_-_Barcelos_-_Portugal_(52660504539).jpg"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q10347027"
+    "wikidata": "Q10347027",
+    "images": [
+      {
+        "src": "assets/img/paco-condes-2.jpg",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7o_dos_Condes_de_Barcelos_-_Barcelos_-_Portugal_(52660504539).jpg"
+        }
+      },
+      {
+        "src": "assets/img/paco-condes-3.jpg",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7o_dos_Condes_de_Barcelos_-_Barcelos_-_Portugal_(52660504439).jpg"
+        }
+      }
+    ]
   },
   "museu-olaria": {
-    "src": "assets/img/museu-olaria.jpg",
+    "src": "assets/img/museu-olaria-1.jpg",
     "credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 3.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Pottery_Museum6.JPG"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q10333855"
+    "wikidata": "Q10333855",
+    "images": [
+      {
+        "src": "assets/img/museu-olaria-1.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Pottery_Museum6.JPG"
+        }
+      },
+      {
+        "src": "assets/img/museu-olaria-2.jpg",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Museu_de_Olaria,_em_Barcelos_(46607860722).jpg"
+        }
+      },
+      {
+        "src": "assets/img/museu-olaria-3.jpg",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Museu_de_Olaria,_em_Barcelos_(45745371435).jpg"
+        }
+      }
+    ]
   },
   "solar-pinheiros": {
-    "src": "assets/img/solar-pinheiros.jpg",
+    "src": "assets/img/solar-pinheiros-1.jpg",
     "credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_03.JPG"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q66813160"
+    "wikidata": "Q66813160",
+    "images": [
+      {
+        "src": "assets/img/solar-pinheiros-1.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_03.JPG"
+        }
+      },
+      {
+        "src": "assets/img/solar-pinheiros-2.jpg",
+        "credit": {
+          "author": "Daniel VILLAFRUELA.",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos-Solar_dos_Pinheiros-1967_07_27.jpg"
+        }
+      },
+      {
+        "src": "assets/img/solar-pinheiros-3.jpg",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Solar_dos_Pinheiros_-_Barcelos_-_Portugal_(52815767537).jpg"
+        }
+      }
+    ]
   },
   "teatro-gil-vicente": {
-    "src": "assets/img/teatro-gil-vicente.jpg",
+    "src": "assets/img/teatro-gil-vicente-1.jpg",
     "credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q10378848"
+    "wikidata": "Q10378848",
+    "images": [
+      {
+        "src": "assets/img/teatro-gil-vicente-1.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
+        }
+      }
+    ]
   },
   "ponte-medieval": {
-    "src": "assets/img/ponte-medieval.jpg",
+    "src": "assets/img/ponte-medieval-1.jpg",
+    "credit": {
+      "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Museu_Arqueol%C3%B3gico_de_Barcelos_-_Portugal_(52583306703).jpg"
+    },
+    "retrieved": "2026-10-02",
+    "wikidata": "Q7228129",
+    "images": [
+      {
+        "src": "assets/img/ponte-medieval-1.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_08.jpg"
+        }
+      },
+      {
+        "src": "assets/img/ponte-medieval-2.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_09.jpg"
+        }
+      }
+    ]
+  },
+  "igreja-barcelinhos": {
+    "src": "assets/img/igreja-barcelinhos-1.jpg",
     "credit": {
       "author": "Joseolgon",
       "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Ponte_de_Barcelos_2021_(3).jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(3).jpg"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q7228129"
-  },
-  "igreja-barcelinhos": {
-    "src": "assets/img/igreja-barcelinhos.jpg",
-    "credit": {
-      "author": "Krzysztof Golik",
-      "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
-    },
-    "retrieved": "2026-10-02",
-    "wikidata": "Q95590325"
+    "wikidata": "Q95590325",
+    "images": [
+      {
+        "src": "assets/img/igreja-barcelinhos-1.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(3).jpg"
+        }
+      },
+      {
+        "src": "assets/img/igreja-barcelinhos-2.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(2).jpg"
+        }
+      },
+      {
+        "src": "assets/img/igreja-barcelinhos-3.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Igreja_de_Barcelinhos_(1).jpg"
+        }
+      }
+    ]
   },
   "estadio-cidade": {
-    "src": "assets/img/estadio-cidade.jpg",
+    "src": "assets/img/estadio-cidade-1.jpg",
     "credit": {
       "author": "JP Ribeiro",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos.jpg"
     },
     "retrieved": "2026-10-02",
-    "wikidata": "Q1167583"
+    "wikidata": "Q1167583",
+    "images": [
+      {
+        "src": "assets/img/estadio-cidade-1.jpg",
+        "credit": {
+          "author": "JP Ribeiro",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos.jpg"
+        }
+      },
+      {
+        "src": "assets/img/estadio-cidade-2.jpg",
+        "credit": {
+          "author": "Msilva",
+          "license": "CC BY 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_Cidade_de_Barcelos_-_panoramio.jpg"
+        }
+      },
+      {
+        "src": "assets/img/estadio-cidade-3.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Est%C3%A1dio_de_Barcelos.jpg"
+        }
+      }
+    ]
   },
   "jardim-barrocas": {
-    "src": "assets/img/jardim-barrocas.jpg",
+    "src": "assets/img/jardim-barrocas-1.jpg",
     "credit": {
       "author": "tiago186703274",
       "license": "CC BY-SA 3.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File%3AJardim%20das%20Barrocas%20-%20panoramio.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Jardim_das_Barrocas_-_panoramio.jpg"
     },
-    "retrieved": "2026-10-02"
+    "retrieved": "2026-10-02",
+    "images": [
+      {
+        "src": "assets/img/jardim-barrocas-1.jpg",
+        "credit": {
+          "author": "tiago186703274",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Jardim_das_Barrocas_-_panoramio.jpg"
+        }
+      },
+      {
+        "src": "assets/img/jardim-barrocas-2.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Jardins_Barcelos_02.jpg"
+        }
+      },
+      {
+        "src": "assets/img/jardim-barrocas-3.jpg",
+        "credit": {
+          "author": "Empirecoins",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_city_square.jpg"
+        }
+      }
+    ]
   },
   "pacos-concelho": {
-    "src": "assets/img/pacos-concelho.jpg",
+    "src": "assets/img/pacos-concelho-1.jpg",
     "credit": {
-      "author": "GualdimG",
-      "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:C%C3%A2mara_Municipal_de_Barcelos_02.jpg"
+      "author": "Turismo En Portugal",
+      "license": "CC BY 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7os_do_Concelho_de_Barcelos_(8064540319).jpg"
     },
-    "retrieved": "2026-10-03"
+    "retrieved": "2026-10-03",
+    "images": [
+      {
+        "src": "assets/img/pacos-concelho-1.jpg",
+        "credit": {
+          "author": "Turismo En Portugal",
+          "license": "CC BY 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7os_do_Concelho_de_Barcelos_(8064540319).jpg"
+        }
+      },
+      {
+        "src": "assets/img/pacos-concelho-2.jpg",
+        "credit": {
+          "author": "TurismoenPortugal",
+          "license": "CC BY 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pa%C3%A7os_do_Concelho_de_Barcelos.jpg"
+        }
+      }
+    ]
   },
   "mercado-municipal": {
-    "src": "assets/img/mercado-municipal.jpg",
+    "src": "assets/img/mercado-municipal-2.jpg",
     "credit": {
       "author": "GiovanniPen",
       "license": "CC BY-SA 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
     },
-    "retrieved": "2026-10-03"
+    "retrieved": "2026-10-03",
+    "images": [
+      {
+        "src": "assets/img/mercado-municipal-2.jpg",
+        "credit": {
+          "author": "GiovanniPen",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
+        }
+      }
+    ]
   },
   "parque-cidade": {
-    "src": "assets/img/parque-cidade.jpg",
+    "src": "assets/img/parque-cidade-1.jpg",
     "credit": {
       "author": "Joseolgon",
       "license": "CC BY 4.0",
       "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
     },
-    "retrieved": "2026-10-03"
+    "retrieved": "2026-10-03",
+    "images": [
+      {
+        "src": "assets/img/parque-cidade-1.jpg",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
+        }
+      }
+    ]
   },
   "capela-ponte": {
-    "src": "assets/img/capela-ponte.jpg",
+    "src": "assets/img/capela-ponte-1.jpg",
     "credit": {
-      "author": "Krzysztof Golik",
+      "author": "GualdimG",
       "license": "CC BY-SA 4.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_(Barcelos)_01.jpg"
     },
-    "retrieved": "2026-10-03"
+    "retrieved": "2026-10-03",
+    "images": [
+      {
+        "src": "assets/img/capela-ponte-1.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_(Barcelos)_01.jpg"
+        }
+      },
+      {
+        "src": "assets/img/capela-ponte-2.jpg",
+        "credit": {
+          "author": "Krzysztof Golik",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_in_Barcelinhos.jpg"
+        }
+      },
+      {
+        "src": "assets/img/capela-ponte-3.jpg",
+        "credit": {
+          "author": "GualdimG",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capela_de_Nossa_Senhora_da_Ponte_(Barcelos)_03.jpg"
+        }
+      }
+    ]
   },
   "casa-azenha": {
-    "src": "assets/img/casa-azenha.jpg",
+    "src": "assets/img/casa-azenha-1.jpg",
     "credit": {
-      "author": "Halley Oliveira",
+      "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
       "license": "CC BY-SA 2.0",
-      "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_visto_de_Barcelinhos_(45703458555).jpg"
+      "source_url": "https://commons.wikimedia.org/wiki/File:Casa_da_Azenha_-_Barcelos_-_Portugal_(52407547029).jpg"
     },
-    "retrieved": "2026-10-03"
+    "retrieved": "2026-10-03",
+    "images": [
+      {
+        "src": "assets/img/casa-azenha-1.jpg",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Casa_da_Azenha_-_Barcelos_-_Portugal_(52407547029).jpg"
+        }
+      },
+      {
+        "src": "assets/img/casa-azenha-2.jpg",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Casa_da_Azenha_-_Barcelos_-_Portugal_(52407767368).jpg"
+        }
+      },
+      {
+        "src": "assets/img/casa-azenha-3.jpg",
+        "credit": {
+          "author": "Halley Oliveira",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_visto_de_Barcelinhos_(45703458555).jpg"
+        }
+      }
+    ]
   }
 }

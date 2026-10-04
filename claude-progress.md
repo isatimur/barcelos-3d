@@ -67,3 +67,20 @@ updates it automatically.
 - Known risk or unresolved issue:
   - `check:data` blocked (bar-004): needs authored histories (900..1800 RU chars, 3..5 paras),
     3..5 facts, 1..5 credited gallery photos and 1..3 YouTube videos per place. Editorial work.
+
+### Session 003
+
+- Date: 2026-10-04
+- Goal: Clear the last blocker — the content contract (`check:data`).
+- Completed:
+  - `data/sources/history-ru.json`: authored 16 histories, 900..1800 RU chars, 3..5 paragraphs.
+  - `data/sources/facts-ru.json`: 4 facts per landmark.
+  - `scripts/build-barcelos.mjs` reads history/facts sources and guarantees >=2 sources.
+  - Galleries: `scripts/fetch-barcelos-gallery.mjs` (rate-limit retry) filled 37 credited
+    Commons photos; removed wrong matches (Guimaraes palace, Madrid market, museum montage,
+    Amazon park) and pinned the correct ones; re-encoded oversized JPEGs under 650 KB.
+  - Videos: 32 real YouTube entries (`data/sources/videos.json`).
+- Verification run: `npm run verify`
+  - PASS build, tests, data contract, geo, dimensions, 1:1 fit, traffic, models — verify OK
+- Evidence: `check:data` OK (16 landmarks, 37 gallery photos, 32 videos, 3 routes); `npm run verify` OK.
+- Known risk or unresolved issue: none blocking; a few places have a single gallery photo (warn only).
