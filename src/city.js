@@ -91,12 +91,15 @@ export function applyCityShell() {
   }
   const brand = document.querySelector('.cinema-brand');
   if (brand?.firstChild?.nodeType === Node.TEXT_NODE) brand.firstChild.textContent = `${name} `;
-  if (CITY.domain) {
-    set('link[rel="canonical"]', 'href', `${CITY.domain}/`);
-    set('meta[property="og:url"]', 'content', `${CITY.domain}/`);
+  // While the production domain does not resolve, the page served from
+  // *.vercel.app names itself as canonical (index.html does the same).
+  const base = /\.vercel\.app$/.test(globalThis.location?.hostname || '') ? globalThis.location.origin : CITY.domain;
+  if (base) {
+    set('link[rel="canonical"]', 'href', `${base}/`);
+    set('meta[property="og:url"]', 'content', `${base}/`);
     if (CITY.og_image) {
-      set('meta[property="og:image"]', 'content', `${CITY.domain}${CITY.og_image}`);
-      set('meta[name="twitter:image"]', 'content', `${CITY.domain}${CITY.og_image}`);
+      set('meta[property="og:image"]', 'content', `${base}${CITY.og_image}`);
+      set('meta[name="twitter:image"]', 'content', `${base}${CITY.og_image}`);
     }
   }
   set('meta[property="og:site_name"]', 'content', `${CITY.name.en} 3D`);
