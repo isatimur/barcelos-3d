@@ -239,6 +239,36 @@
           "license": "CC BY-SA 3.0",
           "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-view01.jpg"
         }
+      },
+      {
+        "src": "assets/img/igreja-matriz-2.jpg",
+        "kind": "exterior",
+        "caption_ru": "Романская кладка, готические формы и поздняя башня.",
+        "credit": {
+          "author": "Inês Almendra",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fachada_Principal_da_Igreja_Matriz.jpg"
+        }
+      },
+      {
+        "src": "assets/img/igreja-matriz-3.jpg",
+        "kind": "interior",
+        "caption_ru": "Романская кладка, готические формы и поздняя башня.",
+        "credit": {
+          "author": "Xauxa Håkan Svensson",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-nave01.jpg"
+        }
+      },
+      {
+        "src": "assets/img/igreja-matriz-4.jpg",
+        "kind": "interior",
+        "caption_ru": "Романская кладка, готические формы и поздняя башня.",
+        "credit": {
+          "author": "Xauxa Håkan Svensson",
+          "license": "CC BY-SA 3.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos_Igreja_Matriz-altar01.jpg"
+        }
       }
     ],
     "panorama": null,
@@ -775,6 +805,26 @@
           "license": "CC BY-SA 4.0",
           "source_url": "https://commons.wikimedia.org/wiki/File:Theatro_Gil_Vicente.JPG"
         }
+      },
+      {
+        "src": "assets/img/teatro-gil-vicente-2.jpg",
+        "kind": "interior",
+        "caption_ru": "Сцена культурной жизни города.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Teatro_Gil_Vicente_2021_(2).jpg"
+        }
+      },
+      {
+        "src": "assets/img/teatro-gil-vicente-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Сцена культурной жизни города.",
+        "credit": {
+          "author": "Joseolgon",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Teatro_Gil_Vicente_2021_(1).jpg"
+        }
       }
     ],
     "panorama": null,
@@ -947,6 +997,26 @@
           "license": "CC BY 4.0",
           "source_url": "https://commons.wikimedia.org/wiki/File:Parque_de_Barcelos.jpg"
         }
+      },
+      {
+        "src": "assets/img/parque-cidade-2.jpg",
+        "kind": "exterior",
+        "caption_ru": "Зелёная пауза рядом с центром.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Parque_Marginal_de_Barcelos_-_Portugal_(52710038440).jpg"
+        }
+      },
+      {
+        "src": "assets/img/parque-cidade-3.jpg",
+        "kind": "exterior",
+        "caption_ru": "Зелёная пауза рядом с центром.",
+        "credit": {
+          "author": "Vitor Oliveira from Torres Vedras, PORTUGAL",
+          "license": "CC BY-SA 2.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Parque_Marginal_de_Barcelos_-_Portugal_(52710103643).jpg"
+        }
       }
     ],
     "panorama": null,
@@ -1118,6 +1188,26 @@
           "author": "GiovanniPen",
           "license": "CC BY-SA 4.0",
           "source_url": "https://commons.wikimedia.org/wiki/File:Barcelos,_Vila_Boa_e_Vila_Frescainha_(S%C3%A3o_Martinho_e_S%C3%A3o_Pedro)_-_Mercado_Municipal_de_Barcelos_-_nov2024.jpeg"
+        }
+      },
+      {
+        "src": "assets/img/mercado-municipal-3.jpg",
+        "kind": "detail",
+        "caption_ru": "Повседневная торговля ярмарочного города.",
+        "credit": {
+          "author": "Sqjaques",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Feira_de_Barcelos_(05Set)_038.jpg"
+        }
+      },
+      {
+        "src": "assets/img/mercado-municipal-4.jpg",
+        "kind": "detail",
+        "caption_ru": "Повседневная торговля ярмарочного города.",
+        "credit": {
+          "author": "Sqjaques",
+          "license": "CC BY-SA 4.0",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Feira_de_Barcelos_(05Set)_050.jpg"
         }
       }
     ],
