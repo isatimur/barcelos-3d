@@ -146,13 +146,13 @@
       "matches_osm": true
     },
     "height_m": {
-      "total": 24
+      "total": 20
     },
     "elements": {},
     "facade_azimuth_deg": 21,
     "facade_faces": "none",
-    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing.",
-    "confidence": "low",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing. The gate in the photographed front faces the OSM front edge.",
+    "confidence": "medium",
     "sources": [
       {
         "paths": [
@@ -168,9 +168,9 @@
         "paths": [
           "height_m.total"
         ],
-        "source": "estimate",
-        "fact": "Visual interpretation only",
-        "reasoning": "Interpretive model height (24 m), not a surveyed measurement. Chosen for the building or landscape type; verify before measurement use."
+        "url": "https://www.visitarportugal.pt/braga/barcelos/barcelos/torre-porta-nova",
+        "fact": "Torre da Porta Nova: early 15th-century granite tower with a square base, four storeys; replaces the earlier 24 m estimate (search-indexed text; the page did not load in the fetch tool). The front-face photo (assets/img/torre-menagem.jpg) scales to about 19 m to the merlon tips.",
+        "value": "cerca de 20 metros de altura"
       }
     ]
   },

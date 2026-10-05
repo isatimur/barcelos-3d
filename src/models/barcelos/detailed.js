@@ -9,6 +9,7 @@ import { win, pediment, flutedColumn, tablet, bellTower } from '../parts.js';
 // Landmarks with their own builder file (one file per landmark).
 import igrejaMatriz from './igreja-matriz.js';
 import pacoCondes from './paco-condes.js';
+import torreMenagem from './torre-menagem.js';
 
 function wrap(fn) {
   fn.metric = true;
@@ -430,7 +431,7 @@ export const detailedBuilders = {
   'bom-jesus-cruz': domeChurch,
   ...igrejaMatriz,
   ...pacoCondes,
-  'torre-menagem': tower,
+  ...torreMenagem,
   'museu-olaria': civic,
   'pacos-concelho': civic,
   'solar-pinheiros': house,
