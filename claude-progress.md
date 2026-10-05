@@ -11,7 +11,7 @@ updates it automatically.
 - Repository root: `~/Dev/barcelos-3d`
 - Standard startup path: `./init.sh`
 - Standard verification path: `npm run verify`
-- Current highest-priority unfinished feature: none; the next candidate is guarded SSAO.
+- Current highest-priority unfinished feature: none; next candidates are individual builders for the other archetype landmarks and a performance governor.
 - Current blocker: none.
 
 ## Session Log
@@ -125,3 +125,15 @@ updates it automatically.
 - Evidence: A/B close-up shows added contact occlusion on architecture; overview remains clean;
   browser screenshots had no console errors.
 - Known risk or unresolved issue: working tree is uncommitted; no deploy was run for this change.
+
+### Session 007
+
+- Date: 2026-10-05
+- Goal: Follow up the sibling review: commit the realism work, fix the Braga defaults, add content, SEO and two individual models, deploy.
+- Completed:
+  - Committed the roughness, SSAO and 1K texture work; SSAO now stays off on the low tier.
+  - API default city and `city.js`/`i18n.js` default are `barcelos`; console tags read `[barcelos]`; cinema order has `capela-ponte` and `casa-azenha`.
+  - Story has 10 chapters; four landmarks gained 2-4 Commons photos; `robots.txt`, `sitemap.xml`, JSON-LD and hreflang added.
+  - Own builders for `igreja-matriz` and `paco-condes`.
+- Verification run: `npm run verify` -> OK; `npm test` 5/5; headless run with no errors and no cinema warning.
+- Known risk or unresolved issue: `barcelos-3d.com` does not resolve, so canonical URLs use `barcelos-3d.vercel.app`; share pages `/p/` are missing for `capela-ponte` and `casa-azenha`; fit drift warnings stay under 15 %.

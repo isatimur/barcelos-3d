@@ -1,6 +1,6 @@
 {
   "project": "barcelos-3d",
-  "last_updated": "2026-10-04",
+  "last_updated": "2026-10-05",
   "rules": {
     "single_active_feature": true,
     "passing_requires_evidence": true,
@@ -266,7 +266,51 @@
         "Half-resolution ten-direction horizon kernel with depth-weighted blur; fades 170..520 world units; night-scaled; ?ao=1/?ao=0 override",
         "Close-up A/B shows contact shadowing on the town-hall base, facade, and roof; no console errors"
       ],
-      "notes": "Uncommitted working tree; deploy has not been run for this change."
+      "notes": "Committed 2026-10-05; SSAO also forced off on the low tier (lowTier flag from main.js); deployed with bar-016..019."
+    },
+    {
+      "id": "bar-016",
+      "priority": 16,
+      "area": "integration",
+      "title": "Barcelos is the default city everywhere (API, city.js, console tags, cinema order)",
+      "user_visible_behavior": "Bare /api/adsb and /api/route resolve to Barcelos; console tags read [barcelos]; cinema includes capela-ponte and casa-azenha without warning.",
+      "status": "passing",
+      "verification": ["Bare adsb handler call returns aircraft", "Headless console run has no cinema warning", "npm test", "npm run verify"],
+      "evidence": ["api/_city.js DEFAULT_CITY = barcelos", "Headless run: no errors, no CINEMA_ORDER warning"],
+      "notes": "Storage keys and the window.__braga debug global keep the engine names."
+    },
+    {
+      "id": "bar-017",
+      "priority": 17,
+      "area": "content",
+      "title": "Story mode: ten chapters with sources",
+      "user_visible_behavior": "Story mode tells ten chapters in RU/EN/PT, each with 2-4 sources and its own camera framing.",
+      "status": "passing",
+      "verification": ["data/story.json has 10 chapters", "Screenshots of two new chapters", "npm run verify"],
+      "evidence": ["New chapters: origens-condes, duques-braganca, galo-de-barcelos, muralha-porta-nova, feira-quinta", "Facts from pt/en Wikipedia, cm-barcelos.pt, UNESCO; the 2012 Monument of Public Interest claim was dropped (one source only)"],
+      "notes": "Only two of the five new camera presets were checked by screenshot."
+    },
+    {
+      "id": "bar-018",
+      "priority": 18,
+      "area": "content",
+      "title": "Gallery photos and SEO basics",
+      "user_visible_behavior": "igreja-matriz, teatro-gil-vicente, parque-cidade and mercado-municipal have 3-4 photos; robots.txt, sitemap.xml, JSON-LD and hreflang are served.",
+      "status": "passing",
+      "verification": ["npm run check:data has no warnings", "Photos read before use", "dist has robots.txt and sitemap.xml"],
+      "evidence": ["9 Commons photos (CC BY / CC BY-SA), credits in data/CREDITS.md", "Canonical host is barcelos-3d.vercel.app until barcelos-3d.com resolves"],
+      "notes": "mercado-municipal and parque-cidade photos show the Feira and the riverside park next to the buildings, not the buildings themselves. Share pages /p/ exist for 14 of 16 landmarks."
+    },
+    {
+      "id": "bar-019",
+      "priority": 19,
+      "area": "models",
+      "title": "Individual builders for igreja-matriz and paco-condes",
+      "user_visible_behavior": "The collegiate church shows its west front, rose window, tower and flanks; the Paco dos Condes is a roofless granite ruin on its terrace.",
+      "status": "passing",
+      "verification": ["npm run check:fit", "npm run check:models", "Screenshots compared with photos", "npm run verify"],
+      "evidence": ["igreja-matriz 11,189 tris at 104-107 % of OSM; paco-condes 6,236 tris at 101-109 %; total 182,801 of 600,000"],
+      "notes": "Fourteen landmarks still use shared archetypes. The two sites have separate flattening pads, so the ruin sits lower than the church."
     }
   ]
 }
