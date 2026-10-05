@@ -300,13 +300,13 @@ export function createCinema(ctx) {
   const pose = { pos: new THREE.Vector3(), look: new THREE.Vector3(), cut: false };
   const tmp = { pos: new THREE.Vector3(), look: new THREE.Vector3() };
   const byId = new Map(ctx.items.map((it) => [it.data.id, it]));
-  const cityOrder = CITY.cinema_order || (CITY.id === 'braga' ? CINEMA_ORDER : []);
+  const cityOrder = CITY.cinema_order || [];
   const order = cityOrder.filter((o) => byId.has(o.id));
   const dropped = cityOrder.filter((o) => !byId.has(o.id)).map((o) => o.id);
   // (another city has none of Braga's ids: its film order is a later step)
-  if (dropped.length && ctx.items.length) console.warn('[braga] cinema: no landmark for', dropped.join(', '));
+  if (dropped.length && ctx.items.length) console.warn('[barcelos] cinema: no landmark for', dropped.join(', '));
   const missing = ctx.items.filter((it) => !cityOrder.some((o) => o.id === it.data.id)).map((it) => it.data.id);
-  if (missing.length) console.warn('[braga] cinema: not in CINEMA_ORDER:', missing.join(', '));
+  if (missing.length) console.warn('[barcelos] cinema: not in CINEMA_ORDER:', missing.join(', '));
   // the button title counts the places the film really shows
   const toggle = document.getElementById('cinema-toggle');
   if (toggle) {

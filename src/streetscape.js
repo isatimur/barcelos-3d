@@ -513,12 +513,12 @@ export function createStreetscape(ctx) {
         stats.buildMs = Math.round(performance.now() - t0);
       } catch (e) {
         stats.status = `failed: ${e.message}`;
-        console.warn('[braga] streetscape failed', e);
+        console.warn('[barcelos] streetscape failed', e);
       }
     })
     .catch((e) => {
       stats.status = `no data: ${e.message}`;
-      console.info(`[braga] ${dataPath('streetscape.json')} unavailable (${e.message}); no street level.`);
+      console.info(`[barcelos] ${dataPath('streetscape.json')} unavailable (${e.message}); no street level.`);
     });
   return {
     object: group,

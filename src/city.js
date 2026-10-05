@@ -27,8 +27,8 @@ function withDefaults(cfg) {
     id,
     name: { pt: cfg.name?.pt || cfg.name?.en || id, en: cfg.name?.en || id, ru },
     name_ru_cases: { gen: ru, prep: ru, ins: ru, ...(cfg.name_ru_cases || {}) },
-    data_dir: (cfg.data_dir || (id === 'braga' ? 'data' : `data/${id}`)).replace(/\/$/, ''),
-    landmarks_file: cfg.landmarks_file || `${cfg.data_dir || (id === 'braga' ? 'data' : `data/${id}`)}/landmarks.json`,
+    data_dir: (cfg.data_dir || (id === 'barcelos' ? 'data' : `data/${id}`)).replace(/\/$/, ''),
+    landmarks_file: cfg.landmarks_file || `${cfg.data_dir || (id === 'barcelos' ? 'data' : `data/${id}`)}/landmarks.json`,
     timezone: cfg.timezone || 'Europe/Lisbon',
     weather: cfg.weather || cfg.origin,
     aircraft: { radius_nm: 40, ...(cfg.aircraft || cfg.origin) },
@@ -68,7 +68,7 @@ export function cityT(source) {
 
 // Query string to reach the API functions for this city ('' for Braga, so
 // its CDN cache keys stay as they were).
-export const cityQuery = () => (CITY.id === 'braga' ? '' : `city=${CITY.id}`);
+export const cityQuery = () => (CITY.id === 'barcelos' ? '' : `city=${CITY.id}`);
 
 // The static shell (index.html) is written for Braga so crawlers see a
 // full page. Once the config is here, the visible city strings are set

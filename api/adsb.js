@@ -112,7 +112,7 @@ async function getJson(url, ua, ms = 5000) {
 }
 
 // The core, without the HTTP wrapper (node tests call it directly).
-export async function fetchAircraft(cfg = cityConfig('braga')) {
+export async function fetchAircraft(cfg = cityConfig()) {
   const errors = [];
   const ua = userAgent(cfg);
   for (const s of sourcesFor(cfg)) {
@@ -149,7 +149,7 @@ export default async function handler(req, res) {
     return;
   }
   const url = String(req.url || '');
-  let cfg = cityConfig('braga');
+  let cfg = cityConfig();
   if (url.includes('?')) {
     let q = null;
     try {

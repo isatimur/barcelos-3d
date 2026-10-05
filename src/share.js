@@ -113,7 +113,7 @@ function applySocialTags() {
 // ------------------------------------------------------------ service worker
 if (import.meta.env.PROD && 'serviceWorker' in navigator && !uiOff) {
   const register = () =>
-    navigator.serviceWorker.register('./sw.js').catch((err) => console.warn('[braga] service worker not registered', err));
+    navigator.serviceWorker.register('./sw.js').catch((err) => console.warn('[barcelos] service worker not registered', err));
   if (document.readyState === 'complete') register();
   else window.addEventListener('load', register, { once: true });
 }
@@ -356,8 +356,8 @@ export function installShare(ctx) {
     const title = lm?.name || rt?.name || tr('city');
     const subtitle = lm || rt ? tr('country') : '';
     const card = compose(frame, W, H, { title, subtitle, date: d.long, credit: creditLine(debug.projection?.terrain) });
-    const id = lm?.id || rt?.id || 'braga';
-    return { canvas: card, name: `braga-${id === 'braga' ? 'city' : id}-${d.iso}.png`, W, H, preset };
+    const id = lm?.id || rt?.id || 'barcelos';
+    return { canvas: card, name: `barcelos-${id === 'barcelos' ? 'city' : id}-${d.iso}.png`, W, H, preset };
   }
 
   // Download (or, on phones, the share sheet with the file).
@@ -482,7 +482,7 @@ export function installShare(ctx) {
       try {
         await postcard(btn.dataset.preset);
       } catch (err) {
-        console.error('[braga] postcard failed', err);
+        console.error('[barcelos] postcard failed', err);
         toast(tr('failed'), 4000);
       } finally {
         btn.removeAttribute('aria-busy');

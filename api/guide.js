@@ -2,7 +2,7 @@
 // question, grounded in this site's own verified place data.
 //
 // Request (JSON, at most 4 KB):
-//   { city: 'braga', lang: 'ru' | 'en' | 'pt', question: '<= 300 chars',
+//   { city: 'barcelos', lang: 'ru' | 'en' | 'pt', question: '<= 300 chars',
 //     context: { placeId?, viewCentre?: { lat, lon }, time?, weather? } }
 // Reply 200:
 //   { answer, actions: [{ type: 'fly_to' | 'route_to', placeId, name, lat, lon }],
@@ -86,7 +86,7 @@ function readJson(rel) {
 // src/i18n.js loadTranslations). null when there is none.
 async function translations(cityId, lang) {
   if (lang !== 'en' && lang !== 'pt') return null;
-  const file = join(ROOT, 'src', 'locales', cityId === 'braga' ? `${lang}.js` : `${lang}.${cityId}.js`);
+  const file = join(ROOT, 'src', 'locales', `${lang}.${cityId}.js`);
   if (!existsSync(file)) return null;
   try {
     return await import(pathToFileURL(file).href);
@@ -160,7 +160,7 @@ export function loadPack(cityId, lang) {
 }
 async function buildPack(cityId, lang) {
   const cfg = readJson(`cities/${cityId}.json`) || {};
-  const dataDir = String(cfg.data_dir || (cityId === 'braga' ? 'data' : `data/${cityId}`)).replace(/\/$/, '');
+  const dataDir = String(cfg.data_dir || (cityId === 'barcelos' ? 'data' : `data/${cityId}`)).replace(/\/$/, '');
   const lmFile = cfg.landmarks_file || `${dataDir}/landmarks.json`;
   const raw = readJson(lmFile);
   const list = Array.isArray(raw) ? raw : Array.isArray(raw?.landmarks) ? raw.landmarks : [];
@@ -353,7 +353,7 @@ const SHORT_TEXT = /^[\p{L}\p{N} °%.,:;+\-/()]{0,60}$/u;
 export function validate(body) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return 'body must be a JSON object';
   for (const k of Object.keys(body)) if (!['city', 'lang', 'question', 'context'].includes(k)) return `unknown field ${k}`;
-  const city = body.city ?? 'braga';
+  const city = body.city ?? 'barcelos';
   if (typeof city !== 'string' || !ID_RE.test(city) || !cityConfig(city)) return 'city must be a known city id';
   if (!LANGS.has(body.lang)) return 'lang must be ru, en or pt';
   if (typeof body.question !== 'string') return 'question must be a string';

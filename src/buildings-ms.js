@@ -432,7 +432,7 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
       if (!Array.isArray(doc?.buildings)) throw new Error('no buildings[]');
     } catch (e) {
       stats.errors++;
-      console.warn(`[braga] ms: ${dataPath('buildings-ms.json')} unavailable (${e.message}); no MS buildings in the core`);
+      console.warn(`[barcelos] ms: ${dataPath('buildings-ms.json')} unavailable (${e.message}); no MS buildings in the core`);
       coreDone = true;
       return;
     }
@@ -501,7 +501,7 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
       if (!Array.isArray(doc?.tiles)) throw new Error('no tiles[]');
     } catch (e) {
       stats.errors++;
-      console.warn(`[braga] ms: ${dataPath('tiles-ms/index.json')} unavailable (${e.message}); no MS buildings in the ring`);
+      console.warn(`[barcelos] ms: ${dataPath('tiles-ms/index.json')} unavailable (${e.message}); no MS buildings in the ring`);
       return;
     }
     for (const t of doc.tiles) {
@@ -532,7 +532,7 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
       T.tries++;
       T.state = T.tries >= 3 ? 'failed' : 'idle';
       T.retryAt = clock + 5 * T.tries;
-      if (T.tries === 1) console.warn(`[braga] ms: tile ${T.key} failed (${e.message})`);
+      if (T.tries === 1) console.warn(`[barcelos] ms: tile ${T.key} failed (${e.message})`);
       return;
     }
     fetching--;

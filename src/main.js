@@ -661,9 +661,9 @@ async function start() {
     if (r) {
       if (routeById.has(r)) {
         if (route?.route.id !== r) openRoute(r);
-      } else console.warn(`[braga] #route=${r}: no such route`);
+      } else console.warn(`[barcelos] #route=${r}: no such route`);
     } else if (p) {
-      if (!indexById.has(p)) console.warn(`[braga] #place=${p}: no such place`);
+      if (!indexById.has(p)) console.warn(`[barcelos] #place=${p}: no such place`);
       else if (indexById.get(p) !== active) select(indexById.get(p));
     }
   }
@@ -1477,7 +1477,7 @@ async function start() {
           // storage may be blocked
         }
       }
-      console.info(`[braga] ${avgMs.toFixed(1)} ms per frame: effects off, smaller shadow map${LITE ? '' : '; light mode from the next visit'}`);
+      console.info(`[barcelos] ${avgMs.toFixed(1)} ms per frame: effects off, smaller shadow map${LITE ? '' : '; light mode from the next visit'}`);
     }
     probe = null;
   }
@@ -1525,7 +1525,7 @@ async function start() {
     };
     debug.stats = stats;
     console.info(
-      `[braga] stats: ${stats.drawCalls} draw calls, ${stats.frameTriangles} triangles this frame; scene ${stats.sceneTriangles} triangles in ${meshes} meshes; buildings ${city.stats.built} in ${city.stats.tiles} tiles (${city.stats.triangles} tris), skipped ${city.stats.skippedOutline + city.stats.skippedPlan} under landmarks`,
+      `[barcelos] stats: ${stats.drawCalls} draw calls, ${stats.frameTriangles} triangles this frame; scene ${stats.sceneTriangles} triangles in ${meshes} meshes; buildings ${city.stats.built} in ${city.stats.tiles} tiles (${city.stats.triangles} tris), skipped ${city.stats.skippedOutline + city.stats.skippedPlan} under landmarks`,
     );
     console.table(marks.report);
   }
@@ -1584,7 +1584,7 @@ async function start() {
       try {
         fn();
       } catch (e) {
-        console.error(`[braga] ${name} failed`, e);
+        console.error(`[barcelos] ${name} failed`, e);
       }
     };
     await step('nature', buildNatureLayer);
@@ -1633,7 +1633,7 @@ loadCity()
     return start();
   })
   .catch((err) => {
-    console.error('[braga] start failed', err);
+    console.error('[barcelos] start failed', err);
     stopBoot?.();
     const msg = /webgl|context/i.test(err.message || '')
       ? t('Не удалось запустить карту. Нужен браузер с поддержкой WebGL.')

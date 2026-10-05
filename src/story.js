@@ -83,7 +83,7 @@ export function createStory(ctx) {
     dots.replaceChildren();
     const intro = el('section', 'story-ch story-intro');
     intro.append(
-      el('p', 'story-era', pick(data, 'kicker') || (CITY.id === 'braga' ? t('Бракара-Аугуста — Брага') : cityName())),
+      el('p', 'story-era', pick(data, 'kicker') || cityName()),
       el('h2', 'story-title story-title-main', pick(data, 'title')),
       el('p', 'story-text', pick(data, 'subtitle')),
       el('p', 'story-hint', mobile() ? t('Листайте карточки вбок') : t('Прокрутите вниз, чтобы начать')),
@@ -332,12 +332,12 @@ export function createStory(ctx) {
       try {
         data = await ctx.load();
       } catch (err) {
-        console.error('[braga] story.json failed to load', err);
+        console.error('[barcelos] story.json failed to load', err);
         ctx.onError?.(err);
         return;
       }
       if (!Array.isArray(data?.chapters) || !data.chapters.length) {
-        console.error('[braga] story.json has no chapters');
+        console.error('[barcelos] story.json has no chapters');
         ctx.onError?.(new Error('no chapters'));
         return;
       }

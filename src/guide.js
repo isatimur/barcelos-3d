@@ -361,7 +361,7 @@ export function createGuide({ landmarks, select, getActive, project, rig, reduce
     const wait = h('p', { class: 'guide-msg guide-wait' }, t('Гид думает…'));
     log.append(wait);
     scrollDown();
-    const payload = { city: CITY.id || 'braga', lang: language, question: q, context: context() };
+    const payload = { city: CITY.id || 'barcelos', lang: language, question: q, context: context() };
     const res = await post(payload);
     wait.remove();
     pending = false;

@@ -166,7 +166,7 @@ export function createSearch({ landmarks, routes, roads, project, heightAt, scen
       }
       if (input.value.trim()) render();
     } catch (err) {
-      console.warn('[braga] search: other-language names not loaded', err);
+      console.warn('[barcelos] search: other-language names not loaded', err);
     }
   }
 

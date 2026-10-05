@@ -12,15 +12,9 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.braga-3d.com" }],
-      "destination": "https://braga-3d.com/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "braga-3d.vercel.app" }],
-      "destination": "https://braga-3d.com/$1",
-      "permanent": true
+      "has": [{ "type": "host", "value": "www.barcelos-3d.com" }],
+      "destination": "https://barcelos-3d.com/$1",
+      "permanent": false
     }
   ],
   "headers": [

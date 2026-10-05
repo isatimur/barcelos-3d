@@ -59,9 +59,9 @@ export function initLanguage() {
 // others. Russian is the source language in the data files. A city without
 // a file gets null: the data's own (Russian / Portuguese) names show.
 const LOCALES = import.meta.glob('./locales/{en,pt}*.js');
-export async function loadTranslations(lang = language, city = 'braga') {
+export async function loadTranslations(lang = language, city = 'barcelos') {
   if (lang !== 'en' && lang !== 'pt') return null;
-  const file = city === 'braga' ? `./locales/${lang}.js` : `./locales/${lang}.${city}.js`;
+  const file = `./locales/${lang}.${city}.js`;
   if (!LOCALES[file]) return null;
   return await LOCALES[file]();
 }
