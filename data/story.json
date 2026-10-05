@@ -2,13 +2,43 @@
   "kicker_pt": "Barcelos · rio, pedra e barro",
   "kicker_en": "Barcelos · river, stone and clay",
   "kicker_ru": "Барселуш · река, камень и глина",
-  "title_pt": "Uma cidade em cinco lugares",
-  "title_en": "A city in five places",
-  "title_ru": "Город в пяти местах",
+  "title_pt": "Uma cidade em dez lugares",
+  "title_en": "A city in ten places",
+  "title_ru": "Город в десяти местах",
   "subtitle_pt": "Percorra os lugares, leia as fontes e descubra as ligações entre eles.",
   "subtitle_en": "Move through the places, read their sources and discover the connections.",
   "subtitle_ru": "Пройдите по местам, изучите источники и найдите связи между ними.",
   "chapters": [
+    {
+      "id": "origens-condes",
+      "focus": [
+        "igreja-matriz"
+      ],
+      "time": "day",
+      "sources": [
+        {
+          "title": "Wikipedia (EN): Barcelos, Portugal",
+          "url": "https://en.wikipedia.org/wiki/Barcelos,_Portugal"
+        },
+        {
+          "title": "Wikipedia (EN): Count of Barcelos",
+          "url": "https://en.wikipedia.org/wiki/Count_of_Barcelos"
+        },
+        {
+          "title": "Wikipedia (PT): Condado de Barcelos",
+          "url": "https://pt.wikipedia.org/wiki/Condado_de_Barcelos"
+        }
+      ],
+      "era_pt": "1298",
+      "title_pt": "Origens e Condes de Barcelos",
+      "text_pt": "Há vestígios de ocupação humana no concelho desde a pré-história, e uma villa romana existiu em Vila Cova. A vila medieval só surge depois da fundação de Portugal, no século XII, num ponto de passagem do caminho entre o Porto e Ponte de Lima.\n\nEm 1298, D. Dinis criou o título de Conde de Barcelos, o primeiro em Portugal, a favor de João Afonso Telo. Mais tarde, o conde D. Pedro Afonso, filho natural do rei, mandou ampliar a igreja paroquial.",
+      "era_en": "1298",
+      "title_en": "Origins and the Counts of Barcelos",
+      "text_en": "People have lived in the municipality since prehistory, and a Roman villa stood at Vila Cova. The medieval town appears only after Portugal’s foundation in the 12th century, at a crossing on the road from Porto to Ponte de Lima.\n\nIn 1298 King Denis created the title Count of Barcelos, the first of its kind in Portugal. João Afonso Telo held it first. Later, Count Pedro Afonso, the king’s natural son, had the parish church enlarged.",
+      "era_ru": "1298",
+      "title_ru": "Истоки и графы Барселуша",
+      "text_ru": "Люди жили на землях нынешнего муниципалитета с доисторических времён, а в Вила-Кова стояла римская вилла. Средневековый город появился лишь после основания Португалии, в XII веке, у переправы на дороге из Порту в Понте-де-Лима.\n\nВ 1298 году король Динис учредил титул графа Барселуша, первый такой титул в Португалии. Первым его получил Жуан Афонсу Телу. Позже граф Педру Афонсу, внебрачный сын короля, расширил приходскую церковь."
+    },
     {
       "id": "ponte-medieval",
       "focus": [
@@ -70,6 +100,104 @@
       "text_ru": "Афонсу, граф Барселуша и первый герцог Браганса, заказал дворец в первой половине XV века.\n\nВ начале XX века здесь разместился археологический музей. Сохранившиеся стены стоят рядом с церковью и средневековым мостом."
     },
     {
+      "id": "duques-braganca",
+      "focus": [
+        "paco-condes"
+      ],
+      "time": "day",
+      "sources": [
+        {
+          "title": "Wikipedia (EN): Count of Barcelos",
+          "url": "https://en.wikipedia.org/wiki/Count_of_Barcelos"
+        },
+        {
+          "title": "Wikipedia (PT): Paço dos Condes de Barcelos",
+          "url": "https://pt.wikipedia.org/wiki/Paço_dos_Condes_de_Barcelos"
+        },
+        {
+          "title": "Wikipedia (EN): Barcelos, Portugal",
+          "url": "https://en.wikipedia.org/wiki/Barcelos,_Portugal"
+        },
+        {
+          "title": "Câmara Municipal de Barcelos: Paço dos Condes",
+          "url": "https://www.cm-barcelos.pt/items/paco-dos-condes-de-barcelos/"
+        }
+      ],
+      "era_pt": "1401–1872",
+      "title_pt": "Dos condes aos duques",
+      "text_pt": "Em 1401, D. Afonso, filho de D. João I, casou com D. Beatriz, filha de Nuno Álvares Pereira, e recebeu o condado de Barcelos. Em 1442, D. Afonso V fez dele duque de Bragança. Os seus descendentes subiram ao trono depois de 1640.\n\nA família mudou-se para um paço maior, em Guimarães. O paço de Barcelos entrou em declínio. A torre, talvez muito danificada pelo sismo de 1755, ruiu em 1801. Em 1872 a câmara mandou demolir as ruínas, mas os protestos da população impediram que a demolição se concluísse.",
+      "era_en": "1401–1872",
+      "title_en": "From Counts to Dukes",
+      "text_en": "In 1401 Afonso, a son of King John I, married Beatriz, daughter of Nuno Álvares Pereira, and received the county of Barcelos. In 1442 King Afonso V made him Duke of Braganza. His descendants took the throne after 1640.\n\nThe family moved to a larger palace in Guimarães, and the Barcelos palace declined. Its tower, probably badly hurt in the 1755 earthquake, fell in 1801. In 1872 the council ordered the ruins demolished, but public protest stopped the work before it finished.",
+      "era_ru": "1401–1872",
+      "title_ru": "От графов к герцогам",
+      "text_ru": "В 1401 году Афонсу, сын короля Жуана I, женился на Беатриш, дочери Нуну Алвариша Перейры, и получил графство Барселуш. В 1442 году король Афонсу V сделал его герцогом Браганса. Его потомки взошли на трон после 1640 года.\n\nСемья переехала в больший дворец в Гимарайнше, а дворец в Барселуше пришёл в упадок. Его башня, вероятно сильно пострадавшая при землетрясении 1755 года, рухнула в 1801 году. В 1872 году совет решил снести руины, но протесты жителей остановили работы до их завершения."
+    },
+    {
+      "id": "galo-de-barcelos",
+      "focus": [
+        "paco-condes"
+      ],
+      "time": "day",
+      "sources": [
+        {
+          "title": "Wikipedia (EN): Rooster of Barcelos",
+          "url": "https://en.wikipedia.org/wiki/Rooster_of_Barcelos"
+        },
+        {
+          "title": "Wikipedia (PT): Galo de Barcelos",
+          "url": "https://pt.wikipedia.org/wiki/Galo_de_Barcelos"
+        },
+        {
+          "title": "Câmara Municipal de Barcelos: Cruzeiro do Galo",
+          "url": "https://www.cm-barcelos.pt/items/cruzeiro-do-galo/"
+        },
+        {
+          "title": "UNESCO Creative Cities Network: Barcelos",
+          "url": "https://www.unesco.org/en/creative-cities/barcelos"
+        }
+      ],
+      "era_pt": "XVII",
+      "title_pt": "A lenda do Galo",
+      "text_pt": "Um peregrino galego a caminho de Santiago foi condenado à forca por um crime que negava. Disse ao juiz que o galo assado na mesa cantaria para provar a sua inocência. Quando o enforcavam, o galo ergueu-se e cantou. O nó estava mal feito e o homem foi libertado.\n\nO Cruzeiro do Senhor do Galo, monumento seiscentista ligado à lenda, está no interior do Museu Arqueológico, nas ruínas do paço. Existem outras versões da história.",
+      "era_en": "XVII",
+      "title_en": "The Legend of the Rooster",
+      "text_en": "A Galician pilgrim on his way to Santiago was condemned to hang for a crime he denied. He told the judge that the roast rooster on the table would crow to prove his innocence. As he was hanged, the rooster stood up and crowed. The knot was badly tied, and the man went free.\n\nThe Cruzeiro do Senhor do Galo, a 17th-century monument tied to the tale, stands inside the Archaeological Museum in the palace ruins. Other versions of the story exist.",
+      "era_ru": "XVII",
+      "title_ru": "Легенда о петухе",
+      "text_ru": "Галисийский паломник, шедший в Сантьяго, был приговорён к повешению за преступление, которого не признавал. Он сказал судье, что жареный петух на столе запоёт и докажет его невиновность. Когда паломника вешали, петух встал и запел. Узел был плохо затянут, и человека освободили.\n\nКрусейру-ду-Сеньор-ду-Галу, памятник XVII века, связанный с легендой, стоит внутри Археологического музея в руинах дворца. Существуют и другие версии рассказа."
+    },
+    {
+      "id": "muralha-porta-nova",
+      "focus": [
+        "torre-menagem"
+      ],
+      "time": "day",
+      "sources": [
+        {
+          "title": "Câmara Municipal de Barcelos: Torre Medieval",
+          "url": "https://www.cm-barcelos.pt/items/torre-da-porta-nova/"
+        },
+        {
+          "title": "Wikipedia (PT): Torre do Cimo da Vila",
+          "url": "https://pt.wikipedia.org/wiki/Torre_do_Cimo_da_Vila"
+        },
+        {
+          "title": "Wikipedia (EN): Barcelos, Portugal",
+          "url": "https://en.wikipedia.org/wiki/Barcelos,_Portugal"
+        }
+      ],
+      "era_pt": "1425",
+      "title_pt": "A muralha e a Torre da Porta Nova",
+      "text_pt": "No início do século XV, D. Afonso, 8.º conde de Barcelos, empenhou-se numa cerca urbana sofisticada; em 1425 a vila estava cercada por muralhas com torres. Das três portas principais, só a Torre da Porta Nova chegou até hoje. As paredes de granito têm até dois metros de espessura no lado norte.\n\nUma cadeia ocupou a torre do fim do século XVII até 1932. O sismo de 1755 derrubou parte das muralhas e o crescimento do século XX removeu a maior parte do resto. Monumento Nacional desde 1926, a torre tem hoje um miradouro sobre o centro histórico e o Cávado.",
+      "era_en": "1425",
+      "title_en": "The Wall and the Porta Nova Tower",
+      "text_en": "In the early 15th century Afonso, 8th Count of Barcelos, built a sophisticated wall around the town; by 1425 it stood enclosed by walls with towers. Of its three main gates, only the Torre da Porta Nova survives. Its granite walls are up to two metres thick on the north side.\n\nA jail used the tower from the late 17th century until 1932. The 1755 earthquake brought down part of the walls, and 20th-century growth removed most of the rest. A National Monument since 1926, the tower now has a lookout over the old town and the Cávado.",
+      "era_ru": "1425",
+      "title_ru": "Стена и башня Порта-Нова",
+      "text_ru": "В начале XV века Афонсу, 8-й граф Барселуша, построил вокруг города сложную систему укреплений; к 1425 году город был окружён стенами с башнями. Из трёх главных ворот сохранилась только Торре-да-Порта-Нова. Её гранитные стены с северной стороны достигают двух метров толщины.\n\nС конца XVII века до 1932 года в башне находилась тюрьма. Землетрясение 1755 года обрушило часть стен, а рост города в XX веке уничтожил большую часть остальных. С 1926 года башня — национальный памятник; с её смотровой площадки видны старый город и река Каваду."
+    },
+    {
       "id": "bom-jesus-cruz",
       "focus": [
         "bom-jesus-cruz"
@@ -98,6 +226,40 @@
       "era_ru": "1710",
       "title_ru": "Бон-Жезуш-да-Круш",
       "text_ru": "Храм открылся в 1710 году. Архитектор Жуан Антунеш создал центрическую композицию с куполом и интерьером в форме греческого креста.\n\nМестное религиозное предание связывает его появление с крестом, якобы возникшим на ярмарочной площади в 1504 году. Храм связан с праздником Крестов."
+    },
+    {
+      "id": "feira-quinta",
+      "focus": [
+        "mercado-municipal"
+      ],
+      "time": "morning",
+      "sources": [
+        {
+          "title": "Câmara Municipal de Barcelos: Feira de Barcelos",
+          "url": "https://www.cm-barcelos.pt/items/feira-de-barcelos/"
+        },
+        {
+          "title": "Wikipedia (PT): Feira de Barcelos",
+          "url": "https://pt.wikipedia.org/wiki/Feira_de_Barcelos"
+        },
+        {
+          "title": "Wikipedia (PT): Figurado de Barcelos",
+          "url": "https://pt.wikipedia.org/wiki/Figurado_de_Barcelos"
+        },
+        {
+          "title": "UNESCO Creative Cities Network: Barcelos",
+          "url": "https://www.unesco.org/en/creative-cities/barcelos"
+        }
+      ],
+      "era_pt": "1412",
+      "title_pt": "A Feira de Barcelos",
+      "text_pt": "Todas as quintas-feiras há feira no Campo da República, também chamado Campo da Feira. Segundo a Câmara, a sua história pode vir do século XIII. Os primeiros documentos são de 1412: o rei D. João, a pedido do filho D. Afonso, conde de Barcelos, concedeu uma feira anual de quinze dias.\n\nAs bancas oferecem cestaria, ferro, artesanato de madeira e uma ampla área de olaria e figurado, do Galo às ocarinas e aos cucos. Barcelos é Cidade Criativa da UNESCO para o Artesanato e as Artes Populares desde 2017.",
+      "era_en": "1412",
+      "title_en": "The Barcelos Fair",
+      "text_en": "Every Thursday the town holds its fair on the Campo da República, also called Campo da Feira. The council says its history may reach back to the 13th century. The first documents date from 1412, when King John, at the request of his son Afonso, Count of Barcelos, granted a yearly fair of fifteen days.\n\nStalls offer baskets, ironwork, wood crafts and a wide area of pottery and figurado, from the Rooster to ocarinas and cuckoo whistles. Barcelos has been a UNESCO Creative City of Crafts and Folk Art since 2017.",
+      "era_ru": "1412",
+      "title_ru": "Ярмарка Барселуша",
+      "text_ru": "Каждый четверг на площади Кампу-да-Република, которую называют и Кампу-да-Фейра, проходит ярмарка. По данным городского совета, её история может восходить к XIII веку. Первые документы датированы 1412 годом: король Жуан по просьбе сына Афонсу, графа Барселуша, разрешил ежегодную ярмарку на пятнадцать дней.\n\nНа прилавках — корзины, кованые изделия, деревянные поделки и обширный ряд керамики и фигурáду, от петуха до окарин и свистулек-кукушек. С 2017 года Барселуш входит в Сеть творческих городов ЮНЕСКО как город ремёсел и народного искусства."
     },
     {
       "id": "museu-olaria",

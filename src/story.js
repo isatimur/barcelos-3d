@@ -38,6 +38,11 @@ const VIEWS = {
   sameiro: { az: -0.2, elev: 0.28, k: 1.25, primary: true },
   stadium: { az: 0.25, elev: 0.42, k: 1.1 },
   unesco: { az: -0.35, elev: 0.3, k: 0.9, frame: 2 },
+  'origens-condes': { az: 0.25, elev: 0.36, k: 1.15, primary: true },
+  'duques-braganca': { az: -0.45, elev: 0.4, k: 1.1, primary: true },
+  'galo-de-barcelos': { az: 0.7, elev: 0.5, k: 1.0, primary: true },
+  'muralha-porta-nova': { az: 0.3, elev: 0.34, k: 1.2, primary: true },
+  'feira-quinta': { az: 0.2, elev: 0.5, k: 1.5, primary: true },
 };
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
