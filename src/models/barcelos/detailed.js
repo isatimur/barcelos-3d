@@ -10,6 +10,7 @@ import { win, pediment, flutedColumn, tablet, bellTower } from '../parts.js';
 import igrejaMatriz from './igreja-matriz.js';
 import pacoCondes from './paco-condes.js';
 import torreMenagem from './torre-menagem.js';
+import pacosConcelho from './pacos-concelho.js';
 
 function wrap(fn) {
   fn.metric = true;
@@ -433,7 +434,7 @@ export const detailedBuilders = {
   ...pacoCondes,
   ...torreMenagem,
   'museu-olaria': civic,
-  'pacos-concelho': civic,
+  ...pacosConcelho,
   'solar-pinheiros': house,
   'teatro-gil-vicente': theatre,
   'estadio-cidade': stadium,
