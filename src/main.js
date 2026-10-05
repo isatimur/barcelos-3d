@@ -494,7 +494,7 @@ async function start() {
   // On by default on desktop; off on phones and under reduced motion.
   // ?fx=1 / ?fx=0 forces it (tests, screenshots). The user's own choice is
   // saved; the automatic low-end downgrade below never is.
-  const fx = createEffects(renderer, scene, camera, { reducedMotion });
+  const fx = createEffects(renderer, scene, camera, { reducedMotion, lowTier: LITE });
   const fxParam = new URLSearchParams(location.search).get('fx');
   let fxSaved = null;
   try {

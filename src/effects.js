@@ -396,7 +396,7 @@ const FinishShader = {
 };
 
 // ------------------------------------------------------------ public
-export function createEffects(renderer, scene, camera, { reducedMotion = false } = {}) {
+export function createEffects(renderer, scene, camera, { reducedMotion = false, lowTier = false } = {}) {
   const size = renderer.getSize(new THREE.Vector2());
   const target = new THREE.WebGLRenderTarget(size.x || 1, size.y || 1, {
     type: THREE.HalfFloatType,
@@ -535,7 +535,7 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false }
       const dist = focus ? camera.position.distanceTo(focus) : 300;
       const close = 1 - THREE.MathUtils.smoothstep(dist, 275, 950);
       const aoBase = aoForced === true ? 0.7 : aoForced === false ? 0 : 0.6;
-      occlusion.enabled = aoBase > 0 && close > 0.01 && night < 0.9;
+      occlusion.enabled = !lowTier && aoBase > 0 && close > 0.01 && night < 0.9;
       occlusion.compMat.uniforms.uStrength.value = aoBase * (1 - night * 0.25) * close;
       // at the overview the glowing roads cover much of the frame and the
       // pins are a few pixels: a lower, tighter bloom with a slightly higher
