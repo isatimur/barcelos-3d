@@ -1,6 +1,8 @@
 // Post-processing: one EffectComposer, linear HDR until the OutputPass.
 //
 //   RenderPass        scene into a half-float target with a depth texture
+//   ContactShadowPass depth-only SSAO: contact occlusion at close range,
+//                     faded out before the city overview
 //   SunRaysPass       sun shafts (3d-sky-rays): bright open sky near the
 //                     visible sun, marched radially toward it at half
 //                     resolution, so towers, ridges and crowns cut the
@@ -40,6 +42,150 @@ const QUAD_VERT = /* glsl */ `
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`;
+
+// ------------------------------------------------- contact shadows
+// Depth-only screen-space occlusion for close views. The ten-direction
+// horizon kernel is static (no temporal shimmer), the mask is half
+// resolution, and the composite is bilateral in depth so occlusion does not
+// leak across silhouettes. `?ao=1` forces it; `?ao=0` skips it.
+class ContactShadowPass extends Pass {
+  constructor(camera) {
+    super();
+    this.needsSwap = true;
+    this.camera = camera;
+    this.enabled = true;
+    const opts = { type: THREE.HalfFloatType, depthBuffer: false };
+    this.maskRT = new THREE.WebGLRenderTarget(1, 1, opts);
+    this.maskMat = new THREE.ShaderMaterial({
+      uniforms: {
+        tDepth: { value: null },
+        uProjInv: { value: new THREE.Matrix4() },
+        uTexel: { value: new THREE.Vector2(1, 1) },
+        uRadius: { value: 2.2 },
+      },
+      vertexShader: QUAD_VERT,
+      fragmentShader: /* glsl */ `
+        uniform sampler2D tDepth;
+        uniform mat4 uProjInv;
+        uniform vec2 uTexel;
+        uniform float uRadius;
+        varying vec2 vUv;
+        vec3 brgView(vec2 uv) {
+          float d = texture2D(tDepth, uv).x;
+          vec4 clip = vec4(uv * 2.0 - 1.0, d * 2.0 - 1.0, 1.0);
+          vec4 p = uProjInv * clip;
+          return p.xyz / max(p.w, 1e-5);
+        }
+        float brgIGN(vec2 p) {
+          vec3 m = vec3(0.06711056, 0.00583715, 52.9829189);
+          return fract(m.z * fract(dot(p, m.xy)));
+        }
+        void main() {
+          if (texture2D(tDepth, vUv).x >= 0.9999) { gl_FragColor = vec4(0.0, 2000.0, 1.0, 1.0); return; }
+          vec3 P = brgView(vUv);
+          vec3 Pr = brgView(vUv + vec2(uTexel.x, 0.0));
+          vec3 Pu = brgView(vUv + vec2(0.0, uTexel.y));
+          vec3 N = normalize(cross(Pr - P, Pu - P));
+          if (N.z < 0.0) N = -N;
+          float rot = brgIGN(vUv * 147.0) * 6.2831853;
+          float occ = 0.0;
+          for (int d = 0; d < 10; d++) {
+            float ang = rot + float(d) * 0.6283185;
+            vec2 dir = vec2(cos(ang), sin(ang));
+            float peak = 0.0;
+            for (int s = 1; s <= 4; s++) {
+              vec2 suv = vUv + dir * ((float(s) - 0.5) / 4.0 * 7.5) * uTexel;
+              if (suv.x < 0.0 || suv.x > 1.0 || suv.y < 0.0 || suv.y > 1.0) continue;
+              if (texture2D(tDepth, suv).x >= 0.9999) continue;
+              vec3 Q = brgView(suv);
+              vec3 toQ = Q - P;
+              float L = length(toQ);
+              if (L < 1e-4 || L > uRadius) continue;
+              float rise = dot(toQ / L, N) * (1.0 - smoothstep(uRadius * 0.5, uRadius, L));
+              peak = max(peak, max(rise - 0.015, 0.0));
+            }
+            occ += clamp(peak, 0.0, 1.0) / 10.0;
+          }
+          gl_FragColor = vec4(occ, -P.z, 1.0, 1.0);
+        }`,
+      depthTest: false,
+      depthWrite: false,
+    });
+    this.compMat = new THREE.ShaderMaterial({
+      uniforms: {
+        tDiffuse: { value: null },
+        tMask: { value: null },
+        uMaskTexel: { value: new THREE.Vector2(1, 1) },
+        uStrength: { value: 0 },
+      },
+      vertexShader: QUAD_VERT,
+      fragmentShader: /* glsl */ `
+        uniform sampler2D tDiffuse;
+        uniform sampler2D tMask;
+        uniform vec2 uMaskTexel;
+        uniform float uStrength;
+        varying vec2 vUv;
+        void main() {
+          vec4 mc = texture2D(tMask, vUv);
+          float sum = 0.0;
+          float wsum = 0.0;
+          // 5x5 bilateral, depth-weighted blur: removes tap noise without
+          // bleeding occlusion across silhouettes.
+          for (int iy = -2; iy <= 2; iy++) {
+            for (int ix = -2; ix <= 2; ix++) {
+              vec2 f = vec2(float(ix), float(iy));
+              vec4 ms = texture2D(tMask, vUv + f * uMaskTexel);
+              float dw = 1.0 - smoothstep(0.0, 18.0, abs(ms.g - mc.g));
+              float gw = exp(-dot(f, f) / (2.0 * 1.21));
+              sum += ms.r * dw * gw;
+              wsum += dw * gw;
+            }
+          }
+          float occ = sum / max(wsum, 1e-4);
+          float fade = 1.0 - smoothstep(170.0, 520.0, mc.g);
+          vec4 c = texture2D(tDiffuse, vUv);
+          gl_FragColor = vec4(c.rgb * (1.0 - occ * uStrength * fade), c.a);
+        }`,
+      depthTest: false,
+      depthWrite: false,
+    });
+    this.quad = new FullScreenQuad();
+  }
+
+  setSize(w, h) {
+    const mw = Math.max(1, Math.floor(w / 2));
+    const mh = Math.max(1, Math.floor(h / 2));
+    this.maskRT.setSize(mw, mh);
+    this.maskMat.uniforms.uTexel.value.set(1 / Math.max(1, w), 1 / Math.max(1, h));
+    this.compMat.uniforms.uMaskTexel.value.set(1 / mw, 1 / mh);
+  }
+
+  setProjection(camera) {
+    this.maskMat.uniforms.uProjInv.value.copy(camera.projectionMatrixInverse);
+  }
+
+  render(renderer, writeBuffer, readBuffer) {
+    this.setSize(readBuffer.width, readBuffer.height);
+    this.setProjection(this.camera);
+    this.maskMat.uniforms.tDepth.value = readBuffer.depthTexture;
+    this.quad.material = this.maskMat;
+    renderer.setRenderTarget(this.maskRT);
+    this.quad.render(renderer);
+
+    this.compMat.uniforms.tDiffuse.value = readBuffer.texture;
+    this.compMat.uniforms.tMask.value = this.maskRT.texture;
+    this.quad.material = this.compMat;
+    renderer.setRenderTarget(this.renderToScreen ? null : writeBuffer);
+    this.quad.render(renderer);
+  }
+
+  dispose() {
+    this.maskRT.dispose();
+    this.maskMat.dispose();
+    this.compMat.dispose();
+    this.quad.dispose();
+  }
+}
 
 // ------------------------------------------------------------ sun rays
 class SunRaysPass extends Pass {
@@ -260,12 +406,14 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false }
   composer.setPixelRatio(renderer.getPixelRatio());
 
   const renderPass = new RenderPass(scene, camera);
+  const occlusion = new ContactShadowPass(camera);
   const rays = new SunRaysPass();
   const bloom = new UnrealBloomPass(new THREE.Vector2(size.x || 1, size.y || 1), 0.55, 0.55, BLOOM_THRESHOLD);
   const output = new OutputPass();
   const smaa = new SMAAPass();
   const finish = new ShaderPass(FinishShader);
   composer.addPass(renderPass);
+  composer.addPass(occlusion);
   composer.addPass(rays);
   composer.addPass(bloom);
   composer.addPass(output);
@@ -277,6 +425,8 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false }
   const _v = new THREE.Vector3();
   let sunSource = null; // the visible sun (scene.js skySunDir), when set
   let haze = 0;
+  const aoQuery = typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('ao');
+  const aoForced = aoQuery === '1' ? true : aoQuery === '0' ? false : null;
 
   // 0 at street and landmark distance, 1 at the city overview (camera to
   // orbit focus, world units; the default overview sits near 2950)
@@ -340,6 +490,7 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false }
     composer,
     bloom,
     rays,
+    occlusion,
     get enabled() {
       return enabled;
     },
@@ -380,6 +531,12 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false }
       if (!reducedMotion) rays.compMat.uniforms.uTime.value += dt;
       rays.compMat.uniforms.uNearFar.value.set(camera.near, camera.far);
       aim(sunDir, night);
+      const focus = camera.userData.focus;
+      const dist = focus ? camera.position.distanceTo(focus) : 300;
+      const close = 1 - THREE.MathUtils.smoothstep(dist, 275, 950);
+      const aoBase = aoForced === true ? 0.7 : aoForced === false ? 0 : 0.6;
+      occlusion.enabled = aoBase > 0 && close > 0.01 && night < 0.9;
+      occlusion.compMat.uniforms.uStrength.value = aoBase * (1 - night * 0.25) * close;
       // at the overview the glowing roads cover much of the frame and the
       // pins are a few pixels: a lower, tighter bloom with a slightly higher
       // threshold keeps the city crisp and the pins small (close-ups and
@@ -394,6 +551,7 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false }
     },
     dispose() {
       composer.dispose();
+      occlusion.dispose();
       rays.dispose();
     },
   };

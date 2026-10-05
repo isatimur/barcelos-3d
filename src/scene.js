@@ -16,7 +16,7 @@
 // line material shares it, including the landmark stone shader, so the far
 // hills fade into exactly the colour the sky has at the horizon.
 import * as THREE from 'three';
-import { TEX, loadMaterials } from './materials-tex.js';
+import { TEX, loadMaterials, TRIPLANAR_ROUGH } from './materials-tex.js';
 
 // ------------------------------------------------------------ shared fog uniforms
 // Plain objects (not Vector3) on purpose: UniformsUtils.clone copies three.js
@@ -1007,9 +1007,13 @@ uniform float uHasLandW;
 uniform vec4 uDemRect; // x0, zN, x1, zS: outside it there is no DEM data
 uniform sampler2D tGroundTex; // real CC0 ground material (Poly Haven)
 uniform sampler2D tGroundNor; // its normal map
+uniform sampler2D tGroundRough; // its roughness map
+uniform vec3 uRoughGround; // sampled midpoint, span, intensity
 uniform float uTexG;
 uniform float uTexGN;
+uniform float uTexGR;
 varying vec3 vTWorld;
+${TRIPLANAR_ROUGH}
 float demOutside(vec2 p) {
   vec2 o = max(max(uDemRect.xy - p, p - uDemRect.zw), 0.0);
   return smoothstep(0.0, 260.0, length(o));
@@ -1221,8 +1225,11 @@ export function createGround(terrain) {
     uDemRect: { value: new THREE.Vector4(b.x0, b.zN, b.x1, b.zS) },
     tGroundTex: { value: TEX.ground || blank },
     tGroundNor: { value: TEX.groundN || blank },
+    tGroundRough: { value: TEX.groundRough || blank },
+    uRoughGround: { value: new THREE.Vector3(0.809, 0.102, 0.24) },
     uTexG: { value: 1 },
     uTexGN: { value: 1 },
+    uTexGR: { value: 1 },
   };
   const mat = new THREE.MeshStandardMaterial({
     vertexColors: true,
@@ -1246,6 +1253,17 @@ export function createGround(terrain) {
       );
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', `#include <common>\n${GROUND_PARS}`)
+      .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
+{
+  vec3 brgGN = normalize(vTNormal);
+  float brgGRd = length(vViewPosition);
+  float brgGRk = uTexGR * (1.0 - smoothstep(45.0, 130.0, brgGRd));
+  if (brgGRk > 0.0) {
+    float brgGRr = brgTriplanarRough(tGroundRough, vTWorld, brgGN, 0.05);
+    float brgGRn = clamp((brgGRr - uRoughGround.x) / max(uRoughGround.y, 0.02), -1.0, 1.0);
+    roughnessFactor = clamp(roughnessFactor * (1.0 + uRoughGround.z * brgGRn), 0.12, 1.0);
+  }
+}`)
       .replace('#include <color_fragment>', GROUND_COLOR)
       .replace('#include <normal_fragment_maps>', GROUND_NORMAL);
   };

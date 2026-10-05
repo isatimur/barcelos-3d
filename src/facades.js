@@ -1,4 +1,4 @@
-import { TEX, loadMaterials, TRIPLANAR, TRIPLANAR_NORMAL } from './materials-tex.js';
+import { TEX, loadMaterials, TRIPLANAR, TRIPLANAR_NORMAL, TRIPLANAR_ROUGH } from './materials-tex.js';
 // Ordinary buildings up close: pitched roofs and facades by district.
 // DOM-free (the tile worker imports it through buildings.js).
 //
@@ -644,10 +644,18 @@ uniform sampler2D tPlasterNor;
 uniform sampler2D tGraniteNor;
 uniform sampler2D tRoofNor;
 uniform float uTexBN;
+uniform sampler2D tPlasterRough;
+uniform sampler2D tGraniteRough;
+uniform sampler2D tRoofRough;
+uniform vec3 uRoughPlaster; // sampled midpoint, span, intensity
+uniform vec3 uRoughGranite;
+uniform vec3 uRoughRoof;
+uniform float uTexBR;
 varying vec4 vWall;
 varying vec3 vBW;
 ${TRIPLANAR}
 ${TRIPLANAR_NORMAL}
+${TRIPLANAR_ROUGH}
 float bHash(vec2 p) {
   vec3 q = fract(vec3(p.xyx) * 0.1031);
   q += dot(q, q.yzx + 33.33);
@@ -958,6 +966,41 @@ export const FACADE_NORMAL = /* glsl */ `
     }
     wn = normalize(mix(wn, pN, k * 0.85));
     normal = normalize(mat3(viewMatrix) * wn);
+  }
+}
+#endif
+`;
+
+// Physical roughness variation for generated walls and roofs (injected at
+// <roughnessmap_fragment>, before lighting). Uses the same triplanar
+// orientation as the albedo detail and calibrates each map's measured spread
+// so its local pattern, not an arbitrary gray value, changes the specular response.
+export const FACADE_ROUGHNESS = /* glsl */ `
+#include <roughnessmap_fragment>
+#ifndef BRG_WIN_LITE
+{
+  vec3 brgWP = vBW;
+  vec3 brgWN = normalize(cross(dFdx(brgWP), dFdy(brgWP)));
+  float brgRD = length(vViewPosition);
+  float brgRK = uTexBR * (1.0 - smoothstep(55.0, 150.0, brgRD));
+  if (brgRK > 0.0) {
+    float brgR = 0.85;
+    vec3 brgCal = vec3(0.80, 0.35, 0.24);
+    if (vWall.y < 0.0) {
+      brgR = brgTriplanarRough(tRoofRough, brgWP, brgWN, 0.55);
+      brgCal = uRoughRoof;
+    } else {
+      float brgSt = floor(vWall.w * 0.5);
+      if (brgSt > 0.5 && brgSt < 2.5) {
+        brgR = brgTriplanarRough(tGraniteRough, brgWP, brgWN, 0.30);
+        brgCal = uRoughGranite;
+      } else {
+        brgR = brgTriplanarRough(tPlasterRough, brgWP, brgWN, 0.24);
+        brgCal = uRoughPlaster;
+      }
+    }
+    float brgN = clamp((brgR - brgCal.x) / max(brgCal.y, 0.02), -1.0, 1.0);
+    roughnessFactor = clamp(roughnessFactor * (1.0 + brgCal.z * brgN), 0.12, 1.0);
   }
 }
 #endif

@@ -11,8 +11,8 @@ updates it automatically.
 - Repository root: `~/Dev/barcelos-3d`
 - Standard startup path: `./init.sh`
 - Standard verification path: `npm run verify`
-- Current highest-priority unfinished feature: `bar-004` (content + photos)
-- Current blocker: `check:data` (81 errors — 0 gallery photos, 0 videos) and `check:models` (`casa-azenha` 969 tris < 4000)
+- Current highest-priority unfinished feature: none; the next candidate is guarded SSAO.
+- Current blocker: none.
 
 ## Session Log
 
@@ -97,3 +97,31 @@ updates it automatically.
     the lit normal up close; distance-faded, light-mode guarded.
 - Verification run: `npm run verify` → OK (build, tests, data, geo, dimensions, fit, traffic, models).
 - Evidence: textured tower shows granite relief; 0 console errors; live healthy.
+
+### Session 005
+
+- Date: 2026-10-05
+- Goal: Physical roughness variation for key surfaces and 1K close-range textures.
+- Completed:
+  - Added CC0 Poly Haven roughness maps for ground, plaster, granite, roof tiles and cobble.
+  - Added calibrated triplanar roughness/specular modulation before lighting on buildings,
+    ground and calçada.
+  - Restored original 1K diffuse/normal downloads for close ground, wall, roof and cobble detail.
+- Verification run: `npm run verify` → OK (build, tests, data, geo, dimensions, fit, traffic, models).
+- Evidence: production build passed; Barcelos sunset close-ups for `igreja-matriz` and `pacos-concelho`
+  rendered without console errors.
+- Known risk or unresolved issue: none; SSAO remains the next realism candidate.
+
+### Session 006
+
+- Date: 2026-10-05
+- Goal: Guarded contact shadows (SSAO) with calibrated roughness/specular and 1K textures.
+- Completed:
+  - Depth-based horizon occlusion on a half-resolution mask with depth-weighted blur.
+  - Automatic close-range activation, far fade, night scaling, and `?ao=1` / `?ao=0`.
+  - Calibrated triplanar roughness/specular on buildings, ground and cobbles.
+  - Restored original 1K diffuse/normal maps for close-range surfaces.
+- Verification run: `npm run verify` → OK (build, tests, data, geo, dimensions, fit, traffic, models).
+- Evidence: A/B close-up shows added contact occlusion on architecture; overview remains clean;
+  browser screenshots had no console errors.
+- Known risk or unresolved issue: working tree is uncommitted; no deploy was run for this change.

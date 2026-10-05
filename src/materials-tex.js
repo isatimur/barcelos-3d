@@ -31,6 +31,11 @@ export function loadMaterials() {
   TEX.graniteN = load('wall_granite_nor.jpg', { srgb: false });
   TEX.roofN = load('roof_tiles_nor.jpg', { srgb: false });
   TEX.cobbleN = load('cobble_nor.jpg', { srgb: false });
+  TEX.groundRough = load('ground_rough.jpg', { srgb: false });
+  TEX.plasterRough = load('wall_plaster_rough.jpg', { srgb: false });
+  TEX.graniteRough = load('wall_granite_rough.jpg', { srgb: false });
+  TEX.roofRough = load('roof_tiles_rough.jpg', { srgb: false });
+  TEX.cobbleRough = load('cobble_rough.jpg', { srgb: false });
   return TEX;
 }
 
@@ -62,5 +67,19 @@ vec3 brgTriplanarNormal(sampler2D tex, vec3 wp, vec3 n, float scale, float stren
   vec3 ty = vec3(ny.x * strength, ny.y * strength, ny.z);
   vec3 tz = vec3(nz.x * strength, nz.y * strength, nz.z);
   return normalize(tx * w.x + ty * w.y + tz * w.z);
+}
+`;
+
+// Scalar triplanar roughness sample. Uses the green channel, matching three's
+// conventional roughness-map packing, and returns a raw 0..1 value.
+export const TRIPLANAR_ROUGH = /* glsl */ `
+float brgTriplanarRough(sampler2D tex, vec3 wp, vec3 n, float scale) {
+  vec3 w = abs(normalize(n));
+  w = pow(w, vec3(4.0));
+  w /= (w.x + w.y + w.z);
+  float rx = texture2D(tex, wp.zy * scale).g;
+  float ry = texture2D(tex, wp.xz * scale).g;
+  float rz = texture2D(tex, wp.xy * scale).g;
+  return rx * w.x + ry * w.y + rz * w.z;
 }
 `;

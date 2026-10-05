@@ -10,7 +10,7 @@
 // the facade shader live in src/facades.js.
 import * as THREE from 'three';
 import { S } from './geo.js';
-import { setFacadeConfig, facadeStyle, wallBase, roofBase, roofPlan, extrudeRoofed, STYLE, FACADE_VERT_PARS, FACADE_VERT, FACADE_FRAG_PARS, FACADE_FRAG, FACADE_NORMAL } from './facades.js';
+import { setFacadeConfig, facadeStyle, wallBase, roofBase, roofPlan, extrudeRoofed, STYLE, FACADE_VERT_PARS, FACADE_VERT, FACADE_FRAG_PARS, FACADE_FRAG, FACADE_NORMAL, FACADE_ROUGHNESS } from './facades.js';
 import { TEX } from './materials-tex.js';
 
 const TILE_M = 1000; // 1 km: about 60 draw calls for the city, not 230
@@ -40,6 +40,14 @@ export const BUILDING_UNIFORMS = {
   tGraniteNor: { value: TEX.graniteN || null },
   tRoofNor: { value: TEX.roofN || null },
   uTexBN: { value: 1 },
+  tPlasterRough: { value: TEX.plasterRough || null },
+  tGraniteRough: { value: TEX.graniteRough || null },
+  tRoofRough: { value: TEX.roofRough || null },
+  // measured map midpoints, spans and intensity: plaster, granite, roof
+  uRoughPlaster: { value: new THREE.Vector3(0.8, 0.349, 0.26) },
+  uRoughGranite: { value: new THREE.Vector3(0.84, 0.078, 0.22) },
+  uRoughRoof: { value: new THREE.Vector3(0.93, 0.051, 0.16) },
+  uTexBR: { value: 1 },
   // seconds, for the streamed tiles' fade-in (src/tiles.js advances it)
   uClock: { value: 0 },
 };
@@ -225,6 +233,7 @@ export function createBuildingMaterial({ fade = false } = {}) {
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', `#include <common>\n${FACADE_FRAG_PARS}\n${FADE_FRAG_PARS}`)
       .replace('#include <clipping_planes_fragment>', FADE_FRAG)
+      .replace('#include <roughnessmap_fragment>', FACADE_ROUGHNESS)
       .replace('#include <normal_fragment_maps>', '#include <normal_fragment_maps>\n' + FACADE_NORMAL)
       .replace('#include <emissivemap_fragment>', FACADE_FRAG);
   };

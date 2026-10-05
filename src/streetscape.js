@@ -29,6 +29,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { S } from './geo.js';
 import { CITY, dataPath } from './city.js';
+import { TEX, loadMaterials, TRIPLANAR_ROUGH } from './materials-tex.js';
 import { buildNetwork } from './road-network.js';
 import { RIBBON_LIFT, SIDEWALK_R, WALKED, sidewalkM, lampSites, lampGlow, LAMP_HEIGHT_M } from './roads.js';
 import { loadPois, createPoiSigns, isOpenAtHour, guessOpen } from './pois.js';
@@ -111,18 +112,40 @@ vec3 calcada(vec2 p, vec3 pat) {
   }
 #endif
   return col;
-}`;
+}
+uniform sampler2D tCobbleRough;
+uniform vec3 uRoughCobble; // sampled midpoint, span, intensity
+uniform float uCobbleRK;
+${TRIPLANAR_ROUGH}`;
 
 export function calcadaMaterial({ polygonOffsetUnits = -2, roughness = 0.9, lite = false } = {}) {
+  if (typeof document !== 'undefined') loadMaterials();
   const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness, metalness: 0, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits });
   mat.customProgramCacheKey = () => `calcada:${lite ? 1 : 0}`;
   mat.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, {
+      tCobbleRough: { value: TEX.cobbleRough || TEX.cobble || null },
+      uRoughCobble: { value: new THREE.Vector3(0.627, 0.436, 0.32) },
+      uCobbleRK: { value: lite ? 0 : 1 },
+    });
     sh.vertexShader = sh.vertexShader
-      .replace('#include <common>', '#include <common>\nattribute vec3 aPat;\nvarying vec3 vPat;\nvarying vec2 vCalW;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvPat = aPat;\nvCalW = (modelMatrix * vec4(position, 1.0)).xz;');
+      .replace('#include <common>', '#include <common>\nattribute vec3 aPat;\nvarying vec3 vPat;\nvarying vec2 vCalW;\nvarying float vCalY;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvPat = aPat;\nvCalW = (modelMatrix * vec4(position, 1.0)).xz;\nvCalY = (modelMatrix * vec4(position, 1.0)).y;');
     sh.fragmentShader = sh.fragmentShader
-      .replace('#include <common>', `#include <common>\n${lite ? '#define CALCADA_LITE\n' : ''}varying vec3 vPat;\nvarying vec2 vCalW;\n${CALCADA_GLSL}`)
-      .replace('#include <color_fragment>', `#include <color_fragment>\nif (vPat.x > 0.5) diffuseColor.rgb = calcada(vCalW * ${(1 / S).toFixed(1)}, vPat);`);
+      .replace('#include <common>', `#include <common>\n${lite ? '#define CALCADA_LITE\n' : ''}varying vec3 vPat;\nvarying vec2 vCalW;\nvarying float vCalY;\n${CALCADA_GLSL}`)
+      .replace('#include <color_fragment>', `#include <color_fragment>\nif (vPat.x > 0.5) diffuseColor.rgb = calcada(vCalW * ${(1 / S).toFixed(1)}, vPat);`)
+      .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
+{
+  vec3 brgWP = vec3(vCalW.x, vCalY, vCalW.y) / ${S.toFixed(6)};
+  vec3 brgWN = normalize(cross(dFdx(brgWP), dFdy(brgWP)));
+  float brgRD = length(vViewPosition);
+  float brgRK = uCobbleRK * (1.0 - smoothstep(25.0, 80.0, brgRD));
+  if (brgRK > 0.0) {
+    float brgR = brgTriplanarRough(tCobbleRough, brgWP, brgWN, 0.6);
+    float brgN = clamp((brgR - uRoughCobble.x) / max(uRoughCobble.y, 0.02), -1.0, 1.0);
+    roughnessFactor = clamp(roughnessFactor * (1.0 + uRoughCobble.z * brgN), 0.12, 1.0);
+  }
+}`);
   };
   return mat;
 }

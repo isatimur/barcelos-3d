@@ -229,6 +229,44 @@
         "scripts/verify.mjs, package.json verify/check:* scripts, init.sh, .nvmrc, CI workflow"
       ],
       "notes": "Default city barcelos."
+    },
+    {
+      "id": "bar-014",
+      "priority": 14,
+      "area": "materials",
+      "title": "Physical roughness variation and 1K hero textures",
+      "user_visible_behavior": "Walls, roofs, ground, and cobbles show texture-driven specular variation, and close surfaces use 1K albedo/normal detail.",
+      "status": "passing",
+      "verification": [
+        "npm run build",
+        "Browser screenshot render with no console errors",
+        "npm run verify"
+      ],
+      "evidence": [
+        "Poly Haven CC0 roughness maps added for ground, plaster, granite, roof and cobble; calibrated triplanar roughness injected before lighting",
+        "Diffuse/normal albedo upgraded from 512 px to original 1K downloads",
+        "`npm run verify` OK after the change"
+      ],
+      "notes": "Roughness textures remain 512 px; only close-range diffuse/normals use the 1K downloads."
+    },
+    {
+      "id": "bar-015",
+      "priority": 15,
+      "area": "integration",
+      "title": "Guarded depth-based contact shadows (SSAO)",
+      "user_visible_behavior": "Close-up walls, streets, plazas, and landmarks have contact occlusion without harming far views or low-end GPUs.",
+      "status": "passing",
+      "verification": [
+        "Close-up render at day with AO on/off",
+        "City overview render",
+        "No browser console errors",
+        "npm run verify"
+      ],
+      "evidence": [
+        "Half-resolution ten-direction horizon kernel with depth-weighted blur; fades 170..520 world units; night-scaled; ?ao=1/?ao=0 override",
+        "Close-up A/B shows contact shadowing on the town-hall base, facade, and roof; no console errors"
+      ],
+      "notes": "Uncommitted working tree; deploy has not been run for this change."
     }
   ]
 }
