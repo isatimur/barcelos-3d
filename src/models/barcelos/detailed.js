@@ -6,6 +6,9 @@ import { bbox, edges, inside, offset, centroid } from '../geom.js';
 import { polyWindows, polyBand, polyCornice, roofOver, onEdge } from '../metric.js';
 import { corniceProfile } from '../kit.js';
 import { win, pediment, flutedColumn, tablet, bellTower } from '../parts.js';
+// Landmarks with their own builder file (one file per landmark).
+import igrejaMatriz from './igreja-matriz.js';
+import pacoCondes from './paco-condes.js';
 
 function wrap(fn) {
   fn.metric = true;
@@ -425,8 +428,8 @@ const azenha = wrap((k, { footprint: f, dims }) => {
 export const detailedBuilders = {
   'ponte-medieval': bridge,
   'bom-jesus-cruz': domeChurch,
-  'igreja-matriz': church,
-  'paco-condes': palace,
+  ...igrejaMatriz,
+  ...pacoCondes,
   'torre-menagem': tower,
   'museu-olaria': civic,
   'pacos-concelho': civic,
