@@ -16,6 +16,8 @@ import pacosConcelho from './pacos-concelho.js';
 import ponteMedieval from './ponte-medieval.js';
 import capelaPonte from './capela-ponte.js';
 import teatroGilVicente from './teatro-gil-vicente.js';
+import solarPinheiros from './solar-pinheiros.js';
+import casaAzenha from './casa-azenha.js';
 
 function wrap(fn) {
   fn.metric = true;
@@ -215,7 +217,7 @@ const chapel = wrap((k, { footprint: f, dims }) => {
   polyBand(k, f.outline, 0, 0.8, 0.12, 'graniteDark');
   polyCornice(k, f.outline, wallH - 0.1, EAVE, 'graniteLight');
   quoins(k, b, wallH, Math.max(0.35, Math.min(0.7, b.w * 0.05)), 'graniteLight');
-  polyWindows(k, f.outline, { storeys: [1.4, wallH * 0.6], bay: 2.6, minLen: 1.4, w: 1.1, h: 1.9, win: { arch: 'round', trim: 'graniteLight', pane: 'glass', sill: true, head: 'seg' } });
+  polyWindows(k, f.outline, { storeys: [1.4, wallH * 0.6], bay: 2.6, minLen: 1.4, w: 1.1, h: 1.9, win: { arch: 'round', trim: 'graniteLight', pane: 'glass', sill: false, head: 'seg' } });
   for (const e of edges(f.outline).filter((e) => e.len > 4)) {
     const n = Math.max(2, Math.floor(e.len / 3));
     for (let i = 1; i < n; i++) {
@@ -225,14 +227,15 @@ const chapel = wrap((k, { footprint: f, dims }) => {
     }
   }
   k.prism(offset(f.outline, 0.12), wallH, H - wallH, 'terracotta');
-  const front = FRONT_EDGE(f);
+  // the front is the longest edge that faces the local +z (rule.front), not the longest edge
+  const front = edges(f.outline).filter((e) => e.nz > 0.9).sort((a, c) => c.len - a.len)[0] ?? FRONT_EDGE(f);
   if (front) {
     onEdge(k, front);
-    const gw = Math.min(4.6, front.len * 0.24), gh = H * 0.26;
-    k.gate(gw, gh, 0.5, [{ x: 0, w: gw * 0.46, h: gh * 0.6, pointed: false }], 'plaster', 0, H - gh - 0.1, 0.2);
-    k.box(gw + 0.6, 0.3, 0.7, 'graniteLight', 0, H - 0.15, 0.2);
-    k.cone(gw * 0.34, 0.8, 4, 'graniteLight', 0, H - 0.1, 0.2);
-    win(k, 0, 0.05, 2.2, 3.4, 0.02, { trim: 'graniteLight', pane: 'wood', arch: 'round', bw: 0.35, sill: true });
+    const gw = Math.min(4.6, front.len * 0.5), gh = H * 0.26;
+    k.gate(gw, gh, 0.4, [{ x: 0, w: gw * 0.46, h: gh * 0.6, pointed: false }], 'plaster', 0, H - gh - 0.1, -0.2);
+    k.box(gw + 0.6, 0.3, 0.5, 'graniteLight', 0, H - 0.15, -0.1);
+    k.cone(gw * 0.34, 0.8, 4, 'graniteLight', 0, H - 0.1, -0.1);
+    win(k, 0, 0.05, 2.2, 3.4, 0.02, { trim: 'graniteLight', pane: 'wood', arch: 'round', bw: 0.35, sill: false });
     k.pop();
   }
   k.end('main');
@@ -283,7 +286,7 @@ export const detailedBuilders = {
   ...torreMenagem,
   'museu-olaria': civic,
   ...pacosConcelho,
-  'solar-pinheiros': house,
+  ...solarPinheiros,
   ...teatroGilVicente,
   'estadio-cidade': stadium,
   'parque-cidade': wrap((k, s) => garden(k, s, true)),
@@ -291,5 +294,5 @@ export const detailedBuilders = {
   'mercado-municipal': market,
   'igreja-barcelinhos': chapel,
   ...capelaPonte,
-  'casa-azenha': azenha,
+  ...casaAzenha,
 };
