@@ -25,27 +25,24 @@ export { PALETTE, MAT, triangleCount };
 
 // Per landmark: model type, legacy target height (unused by metric
 // builders) and yaw. `view` is the bearing offset (radians, relative to the
-// front) the camera prefers.
+// front) the camera prefers. One entry per landmark in data/landmarks.json;
+// places that are only candidates (cities/barcelos.json landmark_candidates:
+// Senhor do Galo, São Francisco, Mosteiro do Terço, ...) have no spec until
+// they get data, photos and content.
 export const LANDMARK_SPECS = {
   'ponte-medieval': { type: 'bridge', h: 8, yaw: 0, view: 0 },
   'bom-jesus-cruz': { type: 'church-baroque', h: 24, yaw: 0 },
   'igreja-matriz': { type: 'church-collegiate', h: 20, yaw: 0 },
   'paco-condes': { type: 'palace', h: 18, yaw: 0 },
   'torre-menagem': { type: 'tower', h: 30, yaw: 0 },
-  'senhor-galo': { type: 'stone-cross', h: 6, yaw: 0 },
   'museu-olaria': { type: 'museum', h: 10, yaw: 0 },
   'pacos-concelho': { type: 'civic', h: 14, yaw: 0 },
-  'largo-municipio': { type: 'plaza', h: 10, yaw: 0 },
-  'sao-francisco': { type: 'church', h: 18, yaw: 0 },
-  'mosteiro-terco': { type: 'monastery', h: 14, yaw: 0 },
   'solar-pinheiros': { type: 'manor', h: 12, yaw: 0 },
   'teatro-gil-vicente': { type: 'theatre', h: 16, yaw: 0 },
   'estadio-cidade': { type: 'stadium', h: 22, yaw: 0 },
   'parque-cidade': { type: 'park', h: 6, yaw: 0 },
   'jardim-barrocas': { type: 'garden', h: 6, yaw: 0 },
   'mercado-municipal': { type: 'market', h: 12, yaw: 0 },
-  'igreja-santa-cruz': { type: 'church', h: 16, yaw: 0 },
-  'franqueira': { type: 'sanctuary', h: 22, yaw: 0 },
   'igreja-barcelinhos': { type: 'church', h: 16, yaw: 0 },
   'capela-ponte': { type: 'chapel', h: 12, yaw: 0 },
   'casa-azenha': { type: 'manor', h: 9, yaw: 0 },
