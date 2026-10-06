@@ -25,7 +25,7 @@ import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js';
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 import { S } from './geo.js';
-import { buildNetwork, surfaceOf } from './road-network.js';
+import { buildNetwork, isBridgeModel, surfaceOf } from './road-network.js';
 import { bridgeGeometry, portalGeometry, quad as embankmentQuad } from './road-structures.js';
 import { language } from './i18n.js';
 import { calcadaMaterial, calcadaPatternOf, CALCADA } from './streetscape.js';
@@ -183,7 +183,7 @@ function dashes(T, net, w, off, halfM, dashM, gapM, lift, col) {
 // lite (light mode, main.js): the markings, sidewalks and islands only
 // within 450 units instead of 900. (The main-street glow stays: one draw,
 // and the golden streets are the look.)
-export function buildRoads(roads, project, heightAt, { waterRibbon = true, lite = false } = {}) {
+export function buildRoads(roads, project, heightAt, { waterRibbon = true, lite = false, bridgeModels = [] } = {}) {
   const DETAIL_U = lite ? 450 : 900;
   const group = new THREE.Group();
   group.name = 'roads';
@@ -218,7 +218,7 @@ export function buildRoads(roads, project, heightAt, { waterRibbon = true, lite 
     if (hint) hint.material.opacity = 0.32 * (0.4 + 0.6 * lastClose) * (1 - 0.3 * w);
   }
 
-  const net = buildNetwork(roads, project, heightAt);
+  const net = buildNetwork(roads, project, heightAt, { bridgeModels });
   const { X, Z, Y, G, HID } = net;
   const counts = {};
 
@@ -380,6 +380,8 @@ export function buildRoads(roads, project, heightAt, { waterRibbon = true, lite 
     for (let i = w.start; i < w.start + w.n; i++) pts.push({ x: X[i], z: Z[i], y: Y[i], g: G[i], s: net.C[i] });
     const arch = w.t.bs === 'arch' || ARCH.test(w.t.name || '') || ARCH.test(w.t.bn || '');
     if (arch) archBridges++;
+    // a landmark model draws this bridge's structure; the road ribbon stays
+    if (isBridgeModel(w.t, bridgeModels)) continue;
     // no piers standing in a street or on a railway under the deck
     const keepOut = w.crossings.filter((c) => !c.water).map((c) => {
       const cw = c.way >= 0 ? net.ways[c.way].widthM / 2 + 2.5 : 4;

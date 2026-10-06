@@ -10,6 +10,7 @@ The schema and the shared pipeline are inherited from braga-3d; the full table o
 | `core_bbox` | 41.505–41.560 × −8.675…−8.560 |
 | `wide_bbox` | 41.455–41.610 × −8.745…−8.490 |
 | `data_dir` / `landmarks_file` | `data` / `data/landmarks.json` |
+| `road.bridge_models` | bridges a landmark model draws: `match` (OSM name), `clearance_m` (deck above the river), `width_m` (roadway). The engine keeps only the road ribbon (Ponte Medieval: 6.2 m, 5.2 m wide) |
 | `landmark_candidates` | 19 places (bridge, Bom Jesus da Cruz, Counts' Palace, tower, rooster cross, museums, stadium…) |
 
 ## Pipeline

@@ -126,6 +126,16 @@
       "river": 60
     }
   },
+  "road": {
+    "bridge_models": [
+      {
+        "match": "Ponte Medieval",
+        "clearance_m": 6.2,
+        "width_m": 5.2,
+        "note": "src/models/barcelos/ponte-medieval.js draws this bridge. The road deck over the Cávado runs 6.2 m above the river (the model's deck, a hump rising 7 % from both ends) and the roadway is 5.2 m wide between the model's footways."
+      }
+    ]
+  },
   "start_view": {
     "landmark": "bom-jesus-cruz",
     "narrow_landmark": "torre-menagem",

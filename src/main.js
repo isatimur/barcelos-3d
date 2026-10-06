@@ -211,7 +211,7 @@ async function start() {
 
   loader.set(0.6, t('Прокладываем улицы'));
   await nextFrame();
-  const roadLayer = buildRoads(roads, project, heightAt, { waterRibbon: !loaded.nature, lite: LITE });
+  const roadLayer = buildRoads(roads, project, heightAt, { waterRibbon: !loaded.nature, lite: LITE, bridgeModels: CITY.road?.bridge_models || [] });
   scene.add(roadLayer.group);
   debug.roadSegments = roadLayer.counts;
   mark('roads');

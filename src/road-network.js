@@ -91,14 +91,21 @@ export const MIN_TUNNEL_M = 12;
 
 const memo = new WeakMap();
 
-export function buildNetwork(roads, project, heightAt) {
+// opts.bridgeModels: [{ match: 'Ponte Medieval', clearance_m: 6.2 }]. A
+// landmark model draws that bridge's structure (cities/<id>.json road.
+// bridge_models); the deck over water gets its own clearance, so the road
+// runs on the model's deck instead of 2.8 m above the river. The first call
+// for a roads object decides (roads.js builds the network first).
+export function buildNetwork(roads, project, heightAt, opts = {}) {
   if (memo.has(roads)) return memo.get(roads);
-  const net = build(roads, project, heightAt);
+  const net = build(roads, project, heightAt, opts);
   memo.set(roads, net);
   return net;
 }
 
-function build(roads, project, heightAt) {
+export const isBridgeModel = (t = {}, models = []) => models.find((m) => (t.bn || '').includes(m.match) || (t.name || '').includes(m.match)) || null;
+
+function build(roads, project, heightAt, opts = {}) {
   const S = 1 / 4;
   const X = [];
   const Z = [];
@@ -158,6 +165,9 @@ function build(roads, project, heightAt) {
     if (t.hw === 'pedestrian') widthM = 6;
     if (f.kind === 'foot') widthM = t.hw === 'steps' ? 2 : 3;
     if (f.kind === 'rail') widthM = 4.2;
+    // a bridge a landmark model draws is as wide as the model's roadway
+    const bm = isBridgeModel(t, opts.bridgeModels);
+    if (bm?.width_m) widthM = bm.width_m;
     const tu = t.tu;
     const roadTunnel = !!tu && ROAD_TUNNELS.has(tu) && f.kind !== 'water';
     ways.push({
@@ -396,7 +406,8 @@ function build(roads, project, heightAt) {
     const need = w.crossings.map((c) => {
       // what is under it, at its own surface (a deck or a ramp below counts)
       const base = c.way >= 0 ? Math.max(wayY(c.way, c.x, c.z), heightAt(c.x, c.z)) : heightAt(c.x, c.z);
-      const clr = c.water ? CLEAR_WATER[c.water] ?? CLEAR_WATER.other : CLEAR_WAY;
+      const model = c.water ? isBridgeModel(w.t, opts.bridgeModels) : null;
+      const clr = c.water ? model?.clearance_m ?? CLEAR_WATER[c.water] ?? CLEAR_WATER.other : CLEAR_WAY;
       // flat over what it spans, at least one point spacing so the deck
       // between two points never dips under the clearance
       const flat = Math.max(MAX_STEP, (c.way >= 0 ? ways[c.way].widthM / 2 + 3 : c.water === 'river' ? 10 : 3) * S);

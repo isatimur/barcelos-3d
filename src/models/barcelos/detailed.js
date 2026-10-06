@@ -11,6 +11,7 @@ import igrejaMatriz from './igreja-matriz.js';
 import pacoCondes from './paco-condes.js';
 import torreMenagem from './torre-menagem.js';
 import pacosConcelho from './pacos-concelho.js';
+import ponteMedieval from './ponte-medieval.js';
 
 function wrap(fn) {
   fn.metric = true;
@@ -428,7 +429,7 @@ const azenha = wrap((k, { footprint: f, dims }) => {
 });
 
 export const detailedBuilders = {
-  'ponte-medieval': bridge,
+  ...ponteMedieval,
   'bom-jesus-cruz': domeChurch,
   ...igrejaMatriz,
   ...pacoCondes,
