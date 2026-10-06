@@ -82,9 +82,12 @@ REVIEW.md       review notes
 
 ## Engine Lineage
 
-Forked from braga-3d (engine base recorded in `scripts/engine-base.txt`; see
-`README.md`). Braga is the engine source of truth. Use `scripts/sync-engine.sh`
-to report (or `--apply`) engine changes.
+Forked from braga-3d (engine base recorded in `scripts/engine-base.json`; see
+`README.md`). Braga is the engine source of truth. Use
+`node scripts/sync-engine.mjs` (3-way, hash-guarded: it never overwrites a file
+this fork changed) to report engine changes; `--apply` copies only the files
+the fork has not touched and writes `*.conflict` for the rest. Another fork can
+be the source: `BRAGA_DIR=../porto-3d ENGINE_BASE=<its fork commit>`.
 
 ## Hard Constraints
 

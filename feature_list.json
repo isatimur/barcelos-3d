@@ -190,12 +190,12 @@
       "user_visible_behavior": "Engine fixes can be ported from braga-3d in one documented step.",
       "status": "passing",
       "verification": [
-        "scripts/sync-engine.sh reports changes; scripts/engine-base.txt records the base"
+        "node scripts/sync-engine.mjs --dry-run prints the 3-way table; scripts/engine-base.json records the base"
       ],
       "evidence": [
-        "scripts/sync-engine.sh + scripts/engine-base.txt (base 1784ff3)"
+        "scripts/sync-engine.mjs + scripts/engine-base.json (base 1784ff3); dry run against braga-3d and, read-only, against porto-3d (session 008)"
       ],
-      "notes": "Report-only by default; --apply copies, --record advances the base."
+      "notes": "Hash-guarded 3-way sync ported from guimaraes-3d. Report-only by default; --apply copies only behind files and writes *.conflict for diverged ones; --record advances the base. The older sync-engine.sh compared braga HEAD only and would have overwritten fork edits."
     },
     {
       "id": "bar-012",
