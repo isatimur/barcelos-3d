@@ -2,16 +2,20 @@
 // detail per landmark (4k+ triangles) to read as the building it stands for:
 // voussoirs, balustrades, quoins, crenels, battlement corbels, lanterns,
 // water wheel. Heights and ornament are visual estimates (shown in the card).
-import { bbox, edges, inside, offset, centroid } from '../geom.js';
+import { bbox, edges, inside, offset } from '../geom.js';
 import { polyWindows, polyBand, polyCornice, roofOver, onEdge } from '../metric.js';
 import { corniceProfile } from '../kit.js';
-import { win, pediment, flutedColumn, tablet, bellTower } from '../parts.js';
-// Landmarks with their own builder file (one file per landmark).
+import { win, pediment, tablet } from '../parts.js';
+// Landmarks with their own builder file (one file per landmark). The rest
+// below are shared archetypes on the OSM outline (museum, manor, stadium,
+// market, parish chapel, mill house and the two gardens).
 import igrejaMatriz from './igreja-matriz.js';
 import pacoCondes from './paco-condes.js';
 import torreMenagem from './torre-menagem.js';
 import pacosConcelho from './pacos-concelho.js';
 import ponteMedieval from './ponte-medieval.js';
+import capelaPonte from './capela-ponte.js';
+import teatroGilVicente from './teatro-gil-vicente.js';
 
 function wrap(fn) {
   fn.metric = true;
@@ -86,44 +90,6 @@ function building(k, { footprint: f, dims }, style = 'house') {
 const house = wrap((k, s) => building(k, s));
 const civic = wrap((k, s) => building(k, s, 'civic'));
 
-// ------------------------------------------------------------------ church
-const church = wrap((k, { footprint: f, dims }) => {
-  const H = dims.height_m.total, b = bbox(f.outline);
-  const naveH = H * 0.52;
-  k.begin('main');
-  k.prism(f.outline, 0, naveH, 'plaster');
-  polyBand(k, f.outline, 0, 0.9, 0.14, 'graniteDark');
-  polyCornice(k, f.outline, naveH - 0.1, EAVE, 'graniteLight');
-  polyWindows(k, f.outline, { storeys: [naveH * 0.48], bay: 4.2, w: 1.3, h: 2.8, minLen: 2, win: { arch: 'round', trim: 'graniteLight', pane: 'glass', sill: true } });
-  roofOver(k, f.outline, naveH, Math.max(2.2, H - naveH - 3), 'terracotta', 'gable', { over: 0.25 });
-  for (const e of edges(f.outline).filter((e) => e.len > 6)) {
-    const n = Math.max(2, Math.floor(e.len / 4));
-    for (let i = 1; i < n; i++) {
-      const px = e.a[0] + (e.b[0] - e.a[0]) * (i / n), pz = e.a[1] + (e.b[1] - e.a[1]) * (i / n);
-      k.box(0.7, naveH * 0.82, 0.7, 'granite', px - e.nx * 0.2, 0, pz - e.nz * 0.2);
-      k.cone(0.5, 0.7, 4, 'graniteLight', px - e.nx * 0.2, naveH * 0.82, pz - e.nz * 0.2);
-    }
-  }
-  const front = FRONT_EDGE(f);
-  if (front) {
-    const w = Math.min(4.6, front.len * 0.3);
-    for (const p of [front.a, front.b]) {
-      const x = p[0] - front.nx * (w / 2 + 0.2) + (front.a[0] - p[0]) * 0.06;
-      const z = p[1] - front.nz * (w / 2 + 0.2) + (front.a[1] - p[1]) * 0.06;
-      squareTower(k, x, z, w, H, { trim: 'graniteLight' });
-    }
-  }
-  const back = edges(f.outline).filter((e) => e.len > 4).sort((a, b2) => b2.len - a.len)[0];
-  if (back) {
-    const r = Math.min(4, back.len * 0.28);
-    const bx = back.mx - back.nx * (r * 0.4), bz = back.mz - back.nz * (r * 0.4);
-    k.cyl(r, r, naveH * 0.9, 14, 'plaster', bx, 0, bz);
-    k.cyl(r * 1.05, r * 1.05, 0.4, 14, 'graniteLight', bx, naveH * 0.9, bz);
-    k.cone(r * 1.05, r * 0.8, 14, 'terracotta', bx, naveH * 0.9 + 0.4, bz);
-  }
-  k.end('main');
-});
-
 // square belfry tower to exactly h
 function squareTower(k, x, z, w, h, o = {}) {
   const body = o.body ?? 'plaster', trim = o.trim ?? 'granite';
@@ -179,101 +145,6 @@ const domeChurch = wrap((k, { footprint: f, dims }) => {
     k.pop();
   }
   k.end('main');
-});
-
-// ------------------------------------------------------------------ palace
-const palace = wrap((k, { footprint: f, dims }) => {
-  const H = dims.height_m.total, b = bbox(f.outline), wallH = H * 0.72;
-  k.begin('main');
-  k.prism(f.outline, 0, wallH, 'graniteWarm');
-  polyBand(k, f.outline, 0, 1.0, 0.16, 'graniteDark');
-  polyCornice(k, f.outline, wallH - 0.1, CLASSIC, 'graniteLight');
-  corbels(k, f.outline, wallH - 0.6, 'graniteLight');
-  for (const e of edges(f.outline).filter((e) => e.len > 6)) {
-    const n = Math.max(2, Math.floor(e.len / 3.6));
-    for (let i = 0; i < n; i++) {
-      const px = e.a[0] + (e.b[0] - e.a[0]) * ((i + 0.5) / n), pz = e.a[1] + (e.b[1] - e.a[1]) * ((i + 0.5) / n);
-      k.push({ x: px, z: pz, ry: e.ry });
-      win(k, 0, wallH * 0.46, 1.4, 2.7, 0.05, { trim: 'graniteLight', pane: 'glass', arch: 'pointed', sill: true, head: 'tri' });
-      k.pop();
-    }
-  }
-  const front = FRONT_EDGE(f);
-  if (front && front.len > 8) {
-    onEdge(k, front);
-    k.arcade(front.len * 0.7, wallH * 0.34, 0.5, Math.max(3, Math.floor(front.len / 4)), 2.4, wallH * 0.3, 'graniteLight', 0, 0.2, 0.2, { pointed: true });
-    k.pop();
-  }
-  const tw = Math.min(5, b.w * 0.16);
-  for (const [x, z] of CORNERS(b)) {
-    const cx = b.cx + (x - b.cx) * 0.82, cz = b.cz + (z - b.cz) * 0.82;
-    k.box(tw, H * 0.86, tw, 'graniteWarm', cx, 0, cz);
-    k.corniceRing(tw, tw, CLASSIC, 'graniteLight', cx, H * 0.86, cz);
-    k.crenels(tw, tw, 'granite', cx, H * 0.86, cz, { mw: 0.9, mh: 0.9, t: 0.5 });
-    k.cone(tw * 0.5, Math.max(0.6, H * 0.1), 4, 'terracotta', cx, H * 0.86 + 0.9, cz);
-  }
-  k.box(tw * 1.3, H * 0.94, tw * 1.3, 'graniteWarm', b.cx, 0, b.cz);
-  k.crenels(tw * 1.3, tw * 1.3, 'granite', b.cx, H * 0.94, b.cz, { mw: 1.0, mh: 1.0, t: 0.5 });
-  k.cone(tw * 0.7, Math.max(0.6, H * 0.12), 4, 'terracotta', b.cx, H * 0.94 + 1.0, b.cz);
-  k.end('main');
-});
-
-// ------------------------------------------------------------------ keep
-const tower = wrap((k, { footprint: f, dims }) => {
-  const H = dims.height_m.total, b = bbox(f.outline), w = Math.min(b.w, b.d);
-  k.begin('main');
-  k.prism(f.outline, 0, H - 2.2, 'granite');
-  polyBand(k, f.outline, 0, 1.0, 0.18, 'graniteDark');
-  polyBand(k, f.outline, H * 0.45, 0.4, 0.12, 'graniteDark');
-  polyWindows(k, f.outline, { storeys: [H * 0.16, H * 0.34, H * 0.52, H * 0.68], bay: 3.2, minLen: 1.5, w: 0.6, h: 1.6, win: { trim: 'graniteLight', pane: 'dark', sill: true } });
-  // battlement corbels then crenels
-  corbels(k, f.outline, H - 2.9, 'graniteLight', 1.1);
-  k.crenels(w * 0.98, w * 0.98, 'granite', b.cx, H - 2.1, b.cz, { mw: 1.2, mh: 1.6, t: 0.7, pointed: true });
-  k.cone(w * 0.34, 2.0, 4, 'terracotta', b.cx, H - 0.6, b.cz);
-  k.box(0.2, 1.1, 0.2, 'iron', b.cx, H + 1.5, b.cz);
-  // corner bartizan turrets (kept within ~5% of the footprint) and a gate
-  for (const [x, z] of CORNERS(b)) {
-    const cx = b.cx + (x - b.cx) * 0.88, cz = b.cz + (z - b.cz) * 0.88;
-    k.cyl(0.7, 0.85, 3.2, 8, 'granite', cx, H - 3.2, cz);
-    k.corniceRing(1.5, 1.5, EAVE, 'graniteLight', cx, H - 0.1, cz);
-    k.cone(0.9, 1.5, 8, 'terracotta', cx, H, cz);
-  }
-  const front = FRONT_EDGE(f);
-  if (front) {
-    onEdge(k, front);
-    k.gate(front.len * 0.6, H * 0.34, 0.6, [{ x: 0, w: front.len * 0.3, h: H * 0.3, pointed: false }], 'graniteDark', 0, 0, 0.3);
-    k.surround({ x: 0, y: 0.1, w: front.len * 0.3, h: H * 0.3, arch: 'round' }, 0.4, 0.3, 'graniteLight', 0.35);
-    k.surround({ x: 0, y: H * 0.66, w: 1.0, h: 1.4, arch: 'round' }, 0.25, 0.25, 'graniteLight', 0.3);
-    k.pop();
-  }
-  k.end('main');
-});
-
-// ------------------------------------------------------------------ bridge
-const bridge = wrap((k, { footprint: f, dims }) => {
-  const H = dims.height_m.total, b = bbox(f.outline), alongZ = b.d > b.w, L = Math.max(b.w, b.d), W = Math.min(b.w, b.d);
-  const n = 5, t = Math.max(0.7, W * 0.28);
-  k.begin('main'); k.push({ x: b.cx, z: b.cz, ry: alongZ ? Math.PI / 2 : 0 });
-  for (const z of [-W * 0.4, W * 0.4]) k.arcade(L, H - 0.9, t, n, L / n * 0.76, H * 0.78, 'granite', 0, 0, z, { pointed: true });
-  // voussoir rings around each arch, on both outer faces
-  for (const s of [-1, 1]) {
-    k.push({ z: s * (W * 0.4 + t / 2) });
-    for (let i = 0; i < n; i++) k.surround({ x: -L / 2 + (L / n) * (i + 0.5), y: 0.2, w: L / n * 0.76, h: H * 0.66, arch: 'round' }, 0.3, 0.2, 'graniteLight', 0);
-    k.pop();
-  }
-  // cutwaters on the piers (kept inside the deck width)
-  for (let i = 1; i < n; i++) {
-    const cx = -L / 2 + (L / n) * i;
-    for (const z of [-W * 0.34, W * 0.34]) { k.box(1.4, H * 0.6, 0.7, 'granite', cx, 0, z); k.cone(0.6, H * 0.58, 4, 'granite', cx, 0, z, { ry: Math.PI / 4 }); }
-  }
-  k.box(L, 0.5, W, 'graniteLight', 0, H - 1.1, 0);
-  k.box(L, 0.14, W * 0.62, 'dark', 0, H - 0.82, 0);
-  for (const z of [-W / 2 + 0.18, W / 2 - 0.18]) {
-    k.box(L, 0.5, 0.34, 'granite', 0, H - 0.6, z);
-    k.balustrade(L * 0.96, 0.9, 'graniteLight', 0, H - 0.15, z, { cheap: true, d: 0.24, sp: 1.1 });
-    k.box(L, 0.22, 0.42, 'graniteLight', 0, H + 0.55, z);
-  }
-  k.pop(); k.end('main');
 });
 
 // ------------------------------------------------------------------ green
@@ -332,30 +203,6 @@ const market = wrap((k, { footprint: f, dims }) => {
   }
   // market stalls under the arcade
   for (let i = 0; i < 8; i++) { const x = b.x0 + 4 + (i % 4) * ((b.w - 8) / 3), z = b.z0 + 3 + Math.floor(i / 4) * 5; if (inside(f.outline, x, z)) k.box(2.2, 1.0, 1.4, i % 2 ? 'maroon' : 'gold', x, 0.4, z); }
-  k.prism(offset(f.outline, 0.12), wallH, H - wallH, 'lead');
-  k.end('main');
-});
-
-// ------------------------------------------------------------------ theatre
-const theatre = wrap((k, { footprint: f, dims }) => {
-  const H = dims.height_m.total, b = bbox(f.outline), wallH = H - 0.6;
-  k.begin('main');
-  k.prism(f.outline, 0, wallH, 'plaster');
-  polyBand(k, f.outline, 0, 0.9, 0.14, 'graniteDark');
-  polyCornice(k, f.outline, wallH - 0.1, CLASSIC, 'graniteLight');
-  corbels(k, f.outline, wallH - 0.6, 'graniteLight');
-  polyWindows(k, f.outline, { storeys: [wallH * 0.3, wallH * 0.68], bay: 3.2, w: 1.2, h: 2.6, minLen: 2, win: { trim: 'graniteLight', pane: 'glass', sill: true, head: 'seg' } });
-  const front = FRONT_EDGE(f);
-  if (front) {
-    onEdge(k, front);
-    const n = Math.max(4, Math.floor(front.len / 3.2));
-    for (let i = 0; i < n; i++) flutedColumn(k, wallH * 0.86, 0.42, 'graniteLight', -front.len * 0.3 + front.len * 0.6 * (i / (n - 1)), 0, 0.35);
-    k.box(front.len * 0.66, 0.8, 0.7, 'graniteLight', 0, wallH * 0.86, 0.4);
-    pediment(k, front.len * 0.5, 2.0, 0.6, 'graniteLight', 0, wallH * 0.86 + 0.75, 0.3);
-    win(k, 0, 0.05, 2.6, 3.4, 0.02, { trim: 'graniteLight', pane: 'wood', bw: 0.35, head: 'flat' });
-    k.pop();
-  }
-  for (const x of [b.x0 + 2, b.x1 - 2]) for (const z of [b.z0 + 2, b.z1 - 2]) k.lamp(3.2, x, 0, z);
   k.prism(offset(f.outline, 0.12), wallH, H - wallH, 'lead');
   k.end('main');
 });
@@ -437,12 +284,12 @@ export const detailedBuilders = {
   'museu-olaria': civic,
   ...pacosConcelho,
   'solar-pinheiros': house,
-  'teatro-gil-vicente': theatre,
+  ...teatroGilVicente,
   'estadio-cidade': stadium,
   'parque-cidade': wrap((k, s) => garden(k, s, true)),
   'jardim-barrocas': wrap((k, s) => garden(k, s, false)),
   'mercado-municipal': market,
   'igreja-barcelinhos': chapel,
-  'capela-ponte': chapel,
+  ...capelaPonte,
   'casa-azenha': azenha,
 };

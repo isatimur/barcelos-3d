@@ -20,8 +20,8 @@
 // (street side), +x = north. The arcade runs x -17.81..25.8 at z 39.4.
 import * as THREE from 'three';
 import { corniceProfile, MAT, archPath } from '../kit.js';
-import { edges, inside, offset } from '../geom.js';
-import { polyWindows, polyCornice, onEdge } from '../metric.js';
+import { edges, inside } from '../geom.js';
+import { polyWindows, polyCornice, onEdge, skirtRoof } from '../metric.js';
 import { win, cartouche, bell } from '../parts.js';
 
 const CREAM = 'cream';
@@ -55,43 +55,6 @@ function crown(k, e, yW) {
     k.box(0.62, 0.95, 0.62, GG, u, yW + 0.5, -0.4);
     k.cone(0.5, 0.5, 4, GL, u, yW + 1.45, -0.4);
   }
-}
-
-// Roof skirt over a plan polygon: the outline at y0 climbs to the same
-// polygon pulled in by d at y0 + rise, capped flat. Tries smaller insets
-// until the pulled-in ring stays inside the outline (concave plans).
-function skirtRoof(k, pts, y0, d, rise, color) {
-  let ring = null;
-  for (let t = d; t > 0.6; t *= 0.8) {
-    const r = offset(pts, -t);
-    if (r.every(([x, z]) => inside(pts, x, z))) {
-      ring = r;
-      break;
-    }
-  }
-  if (!ring) return;
-  const pos = [];
-  const tri = (a, b, c) => {
-    const ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2];
-    const vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
-    const ny = uz * vx - ux * vz; // y of the cross product u x v
-    if (ny >= 0) pos.push(...a, ...b, ...c);
-    else pos.push(...a, ...c, ...b);
-  };
-  const n = pts.length;
-  for (let i = 0; i < n; i++) {
-    const j = (i + 1) % n;
-    const a = [pts[i][0], y0, pts[i][1]];
-    const b = [pts[j][0], y0, pts[j][1]];
-    const c = [ring[j][0], y0 + rise, ring[j][1]];
-    const e = [ring[i][0], y0 + rise, ring[i][1]];
-    tri(a, b, c);
-    tri(a, c, e);
-  }
-  const g = new THREE.BufferGeometry();
-  g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3));
-  k.add(g, color, { flat: true });
-  k.prism(ring, y0 + rise - 0.02, 0.1, color);
 }
 
 // Iron bell cage with a bell and a cone cap, base at y.
