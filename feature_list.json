@@ -392,6 +392,23 @@
         "largest drift 8.8 % (paco-condes height), 8.1 % casa-azenha; never-shrink 99.6-108.8 %"
       ],
       "notes": "The generic win() sill stands 0.45 m out; small buildings use their own thin sills."
+    },
+    {
+      "id": "bar-023",
+      "priority": 23,
+      "area": "weather",
+      "title": "Real-time weather by intensity; live on by default for first visits",
+      "user_visible_behavior": "A slight shower draws light rain, not a downpour. A first visit (no saved choice, no hash) shows the real sun and weather with the live badge.",
+      "status": "passing",
+      "verification": [
+        "npm run build, npm run verify, npm test",
+        "headless fresh visit on preview and on the live URL: live mode on, badge matches Open-Meteo (18 C, overcast, code 3)",
+        "screenshot per state via #weather=: clear, partly, overcast, drizzle, rain, downpour, fog"
+      ],
+      "evidence": [
+        "src/weather.js drizzle/rain/downpour dials; src/live.js weatherFromCode (80/61 or precip<0.6 drizzle, 81/63 rain, 82/65-67 or precip>2.5 downpour) and wantLive with CITY.default_live; cities/barcelos.json default_live true and weather point 41.5388,-8.6151"
+      ],
+      "notes": "Ported from porto-3d ed0db10. No unit test covers weatherFromCode; checked by reading and by screenshots only. The headless live run logs one 404 for data/gtfs/schedule.json (TUB has no GTFS yet; livebus.js already catches it and shows no buses)."
     }
   ]
 }

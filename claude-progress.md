@@ -153,3 +153,14 @@ updates it automatically.
 - Evidence: see `REVIEW.md` ("What session 008 did", "Visual pass", "Known limits"); `feature_list.json` bar-005, bar-012, bar-019 to bar-022.
 - Known risk or unresolved issue: bridge span widths and the pointed arches are estimates; `pacos-concelho` is 22 k triangles; `igreja-barcelinhos` is still an archetype; `road.bridge_models` exists only in this fork; stipple while tiles fade in for the first seconds on a CDN.
 - Next best step: individual builders for `igreja-barcelinhos`, `bom-jesus-cruz` and `mercado-municipal`; a landmark for the Senhor do Galo monument; port `road.bridge_models` upstream.
+
+### Session 009
+
+- Date: 2026-10-06
+- Goal: Port the real-time weather fix from porto-3d: rain by intensity, live on for first visits.
+- Completed:
+  - `src/weather.js`: new states `drizzle` and `downpour`; `rain` is now moderate (rain 0.65, dim 0.64, grey 0.8). `src/live.js` `weatherFromCode` picks the state by WMO code and precipitation. Menu labels and the guide weather text know the new states.
+  - First visits start in live mode (`default_live` in `cities/barcelos.json`; `#live=0`, `#weather=`, `#time=` and saved choices still win).
+  - Weather point set to Barcelos centre, 41.5388, -8.6151 (was the city origin 41.5314, -8.6192).
+- Verification run: build, `npm run verify` OK, `npm test` 5/5; fresh headless visit on preview and on the live URL shows live mode and the real badge; one screenshot per state, ordered by intensity.
+- Known risk or unresolved issue: no unit test for `weatherFromCode`; a 404 for `data/gtfs/schedule.json` shows in the network log (handled, no buses).
