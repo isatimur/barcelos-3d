@@ -64,6 +64,7 @@
   "timezone": "Europe/Lisbon",
   "locale_default": "ru",
   "season_default": "auto",
+  "default_live": true,
   "transit": {
     "gtfs_url": null,
     "operator": "TUBA",
@@ -78,8 +79,8 @@
     "radius_nm": 40
   },
   "weather": {
-    "lat": 41.5314,
-    "lon": -8.6192
+    "lat": 41.5388,
+    "lon": -8.6151
   },
   "traffic": {
     "car_free": [
