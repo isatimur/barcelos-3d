@@ -11,7 +11,7 @@ updates it automatically.
 - Repository root: `~/Dev/barcelos-3d`
 - Standard startup path: `./init.sh`
 - Standard verification path: `npm run verify`
-- Current highest-priority unfinished feature: none; next candidates are individual builders for the other archetype landmarks and a performance governor.
+- Current highest-priority unfinished feature: none; next candidates are individual builders for the seven archetype landmarks (`igreja-barcelinhos` first) and a performance governor.
 - Current blocker: none.
 
 ## Session Log
@@ -137,3 +137,19 @@ updates it automatically.
   - Own builders for `igreja-matriz` and `paco-condes`.
 - Verification run: `npm run verify` -> OK; `npm test` 5/5; headless run with no errors and no cinema warning.
 - Known risk or unresolved issue: `barcelos-3d.com` does not resolve, so canonical URLs use `barcelos-3d.vercel.app`; share pages `/p/` are missing for `capela-ponte` and `casa-azenha`; fit drift warnings stay under 15 %.
+
+### Session 008
+
+- Date: 2026-10-06
+- Goal: Nine individual landmark models, share pages for all 16 places, a visual pass, fit drift under 10 %, a hash-guarded engine sync, deploy.
+- Completed:
+  - Own builders, each checked against its photos by screenshot: `torre-menagem` (height 20 m, sourced), `pacos-concelho`, `ponte-medieval` (five arches; the road runs on its deck through `cities/barcelos.json` `road.bridge_models`), `capela-ponte`, `teatro-gil-vicente`, `solar-pinheiros`, `casa-azenha`. Removed the `palace`, `church`, `theatre` archetypes and six orphan specs.
+  - `/p/capela-ponte/`, `/p/casa-azenha/`, fresh previews for the rebuilt landmarks (`og_views` in the city config frames the small ones), generated `sitemap.xml` with 17 URLs (`public_url` host).
+  - Visual pass: whiteout triplanar normals (roofs were shaded as flat), SSAO noise on the pixel grid, start view at 16 degrees.
+  - Fit: no warnings left; largest drift 8.8 % (`paco-condes` height).
+  - `scripts/sync-engine.mjs` (3-way, hash-guarded) and `scripts/engine-base.json` replace `sync-engine.sh`. Dry run against braga-3d and, read-only, against porto-3d (porto-3d `git status` was empty before and after).
+  - Deployed with `vercel --prod --yes`; `/`, `/p/capela-ponte/`, `/p/casa-azenha/`, `/sitemap.xml`, `/robots.txt` and bare `/api/adsb` return 200; headless run on the live URL: 0 errors, 0 warnings.
+- Verification run: `npm run verify` -> OK; `npm test` 5/5; `npm run check:fit` no failure, never-shrink green.
+- Evidence: see `REVIEW.md` ("What session 008 did", "Visual pass", "Known limits"); `feature_list.json` bar-005, bar-012, bar-019 to bar-022.
+- Known risk or unresolved issue: bridge span widths and the pointed arches are estimates; `pacos-concelho` is 22 k triangles; `igreja-barcelinhos` is still an archetype; `road.bridge_models` exists only in this fork; stipple while tiles fade in for the first seconds on a CDN.
+- Next best step: individual builders for `igreja-barcelinhos`, `bom-jesus-cruz` and `mercado-municipal`; a landmark for the Senhor do Galo monument; port `road.bridge_models` upstream.
