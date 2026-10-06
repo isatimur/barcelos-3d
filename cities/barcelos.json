@@ -19,6 +19,7 @@
     "ins": "Барселушем"
   },
   "domain": "https://barcelos-3d.com",
+  "public_url": "https://barcelos-3d.vercel.app",
   "hostnames": [
     "barcelos-3d.com",
     "www.barcelos-3d.com",
@@ -125,6 +126,14 @@
     "line_widths": {
       "river": 60
     }
+  },
+  "og_views": {
+    "ponte-medieval": { "az": 100, "dist": 78, "camH": 20, "tgtH": 3 },
+    "torre-menagem": { "az": 35, "dist": 34, "camH": 15, "tgtH": 9 },
+    "pacos-concelho": { "az": 70, "dist": 95, "camH": 22, "tgtH": 5 },
+    "teatro-gil-vicente": { "az": 205, "dist": 42, "camH": 12, "tgtH": 5 },
+    "capela-ponte": { "az": 140, "dist": 34, "camH": 11, "tgtH": 5 },
+    "casa-azenha": { "az": 300, "dist": 30, "camH": 9, "tgtH": 3 }
   },
   "road": {
     "bridge_models": [
