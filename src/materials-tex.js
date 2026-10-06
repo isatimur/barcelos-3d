@@ -53,8 +53,12 @@ vec3 brgTriplanar(sampler2D tex, vec3 wp, vec3 n, float scale) {
 }
 `;
 
-// Tangent-free triplanar normal: sample the normal map on the three planes,
-// decode to world-ish directions, blend by the world normal's dominant axes.
+// Tangent-free triplanar normal (whiteout blend, Golus): sample the normal
+// map on the three planes (x plane = zy, y plane = xz, z plane = xy), lay each
+// tangent-space normal onto the world normal's own axis, swizzle it back to
+// world axes and blend by the world normal's dominant axes. The result is a
+// world-space normal that stays on the surface it perturbs, on x, y and z
+// faces alike (the earlier version read every plane's z as world z).
 export const TRIPLANAR_NORMAL = /* glsl */ `
 vec3 brgTriplanarNormal(sampler2D tex, vec3 wp, vec3 n, float scale, float strength) {
   vec3 wn = normalize(n);
@@ -63,10 +67,10 @@ vec3 brgTriplanarNormal(sampler2D tex, vec3 wp, vec3 n, float scale, float stren
   vec3 nx = texture2D(tex, wp.zy * scale).xyz * 2.0 - 1.0;
   vec3 ny = texture2D(tex, wp.xz * scale).xyz * 2.0 - 1.0;
   vec3 nz = texture2D(tex, wp.xy * scale).xyz * 2.0 - 1.0;
-  vec3 tx = vec3(nx.x * strength, nx.y * strength, nx.z);
-  vec3 ty = vec3(ny.x * strength, ny.y * strength, ny.z);
-  vec3 tz = vec3(nz.x * strength, nz.y * strength, nz.z);
-  return normalize(tx * w.x + ty * w.y + tz * w.z);
+  nx = vec3(nx.xy * strength + wn.zy, abs(nx.z) * wn.x);
+  ny = vec3(ny.xy * strength + wn.xz, abs(ny.z) * wn.y);
+  nz = vec3(nz.xy * strength + wn.xy, abs(nz.z) * wn.z);
+  return normalize(nx.zyx * w.x + ny.xzy * w.y + nz.xyz * w.z);
 }
 `;
 

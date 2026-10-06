@@ -87,7 +87,9 @@ class ContactShadowPass extends Pass {
           vec3 Pu = brgView(vUv + vec2(0.0, uTexel.y));
           vec3 N = normalize(cross(Pr - P, Pu - P));
           if (N.z < 0.0) N = -N;
-          float rot = brgIGN(vUv * 147.0) * 6.2831853;
+          // interleaved gradient noise on the mask's pixel grid: the blur below
+          // averages it away (on vUv * 147 it varied slowly and left bands)
+          float rot = brgIGN(gl_FragCoord.xy) * 6.2831853;
           float occ = 0.0;
           for (int d = 0; d < 10; d++) {
             float ang = rot + float(d) * 0.6283185;
