@@ -151,7 +151,7 @@
     "elements": {},
     "facade_azimuth_deg": 21,
     "facade_faces": "none",
-    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing. The gate in the photographed front faces the OSM front edge.",
+    "facade_note": "Model aligned to the mapped long axis; this is not a surveyed front-facade bearing. The builder puts the gate on the OSM edge facing 21 degrees, which is an assumption (the photos do not fix a compass bearing).",
     "confidence": "medium",
     "sources": [
       {
