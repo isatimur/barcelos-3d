@@ -18,7 +18,7 @@
     "prep": "Барселуше",
     "ins": "Барселушем"
   },
-  "domain": "https://barcelos-3d.com",
+  "domain": "https://barcelos-3d.vercel.app",
   "public_url": "https://barcelos-3d.vercel.app",
   "hostnames": [
     "barcelos-3d.com",
