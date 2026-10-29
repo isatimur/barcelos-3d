@@ -477,7 +477,7 @@ async function start() {
   // saved; the automatic low-end downgrade below never is.
   // (classes that draw straight to the canvas never allocate the post targets
   // until the user turns the effects on: effects.js `lazy`)
-  const fx = createEffects(renderer, scene, camera, { reducedMotion, lazy: !perf.cfg.fx });
+  const fx = createEffects(renderer, scene, camera, { reducedMotion, lazy: !perf.cfg.fx, lowTier: LITE });
   const fxParam = new URLSearchParams(location.search).get('fx');
   let fxSaved = null;
   try {
@@ -533,7 +533,7 @@ async function start() {
   // structural budgets (tree count, the phone module budgets) follow the
   // class the visit started in. Braga rules: the user's fx switch is the
   // master (the governor may turn post off and back on, never on over the
-  // user's "off"), the loop holds while a scripted camera or the game runs
+  // user's "off"), the loop holds while a scripted camera runs (Braga also holds for its game; Barcelos has none)
   // (perf.paused below), and ?quality= is the ceiling. Ported from porto-3d.
   const rates = { labelHz: perf.knobs.labelHz, simHz: perf.knobs.simHz };
   let fxGovOff = false; // the governor, not the user, turned the effects off
@@ -573,7 +573,7 @@ async function start() {
   debug.perfSystem = perf;
   // scripted cameras (intro, tour, cinema, story) and the game cause frame
   // spikes that are not load: the governor holds while they run
-  perf.paused = () => !!(intro?.active || tour || cinema?.active || story?.active || game?.active);
+  perf.paused = () => !!(intro?.active || tour || cinema?.active || story?.active);
   applyKnobs(perf.knobs); // the class's own baseline, before the first full frame
 
   // The menu: Auto / Ultra / High / Medium / Low / Potato. A choice inside the

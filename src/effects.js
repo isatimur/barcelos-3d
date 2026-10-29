@@ -398,12 +398,13 @@ const FinishShader = {
 };
 
 // ------------------------------------------------------------ public
-export function createEffects(renderer, scene, camera, { reducedMotion = false, lazy = false } = {}) {
+export function createEffects(renderer, scene, camera, { reducedMotion = false, lazy = false, lowTier = false } = {}) {
   // The pipeline allocates a half-float target with a depth texture and about
   // a dozen more full and half-size targets (bloom mips, SMAA, rays). A class
   // that draws straight to the canvas (lazy) never pays for them until the
   // user turns the effects on.
   let composer = null;
+  let occlusion = null; // Barcelos: the SSAO contact-shadow pass
   let rays = null;
   let bloom = null;
   let smaa = null;
@@ -420,12 +421,14 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false, 
     composer.setPixelRatio(renderer.getPixelRatio());
 
     const renderPass = new RenderPass(scene, camera);
+    occlusion = new ContactShadowPass(camera);
     rays = new SunRaysPass();
     bloom = new UnrealBloomPass(new THREE.Vector2(size.x || 1, size.y || 1), 0.55, 0.55, BLOOM_THRESHOLD);
     const output = new OutputPass();
     smaa = new SMAAPass();
     finish = new ShaderPass(FinishShader);
     composer.addPass(renderPass);
+    composer.addPass(occlusion);
     composer.addPass(rays);
     composer.addPass(bloom);
     composer.addPass(output);
@@ -514,6 +517,9 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false, 
     get rays() {
       return rays;
     },
+    get occlusion() {
+      return occlusion;
+    },
     get built() {
       return !!composer;
     },
@@ -524,7 +530,7 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false, 
       enabled = !!on;
       if (enabled) build();
     },
-    // adaptive post cost: 0 all passes, 1 no sun rays, 2 no bloom, 3 no SMAA.
+    // adaptive post cost: 0 all passes, 1 no sun rays, 2 no bloom and no SSAO, 3 no SMAA.
     // It only lowers the cost of a stack that is on; the user's fx toggle
     // (setEnabled) stays the master switch.
     setPostLevel(n) {
@@ -574,7 +580,7 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false, 
       const dist = focus ? camera.position.distanceTo(focus) : 300;
       const close = 1 - THREE.MathUtils.smoothstep(dist, 275, 950);
       const aoBase = aoForced === true ? 0.7 : aoForced === false ? 0 : 0.6;
-      occlusion.enabled = !lowTier && aoBase > 0 && close > 0.01 && night < 0.9;
+      occlusion.enabled = !lowTier && postLevel < 2 && aoBase > 0 && close > 0.01 && night < 0.9;
       occlusion.compMat.uniforms.uStrength.value = aoBase * (1 - night * 0.25) * close;
       // at the overview the glowing roads cover much of the frame and the
       // pins are a few pixels: a lower, tighter bloom with a slightly higher
@@ -591,6 +597,7 @@ export function createEffects(renderer, scene, camera, { reducedMotion = false, 
     },
     dispose() {
       composer?.dispose();
+      occlusion?.dispose();
       rays?.dispose();
     },
   };
