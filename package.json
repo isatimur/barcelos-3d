@@ -18,6 +18,9 @@
     "check:traffic": "node scripts/check-traffic.mjs --city barcelos",
     "check:models": "node scripts/count-tris.mjs --city barcelos",
     "test": "node --test scripts/*.test.mjs",
+    "perf": "node scripts/perf-bench.mjs --reduced --check",
+    "perf:full": "node scripts/perf-bench.mjs --check --out perf/results.json",
+    "perf:serve": "node scripts/perf-serve.mjs",
     "city": "node scripts/city.mjs"
   },
   "dependencies": {

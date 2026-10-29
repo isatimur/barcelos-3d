@@ -36,6 +36,18 @@ let LITE = false;
 export function setWaterLite(on) {
   LITE = !!on;
 }
+// The governor's water step: the same switch on the materials that exist
+// (one shader recompile), not only on the ones made later.
+const WATER_MATS = new Set();
+export function setWaterLiteLive(on) {
+  LITE = !!on;
+  for (const m of WATER_MATS) {
+    if (on === ('BRG_WATER_LITE' in m.defines)) continue;
+    if (on) m.defines.BRG_WATER_LITE = '';
+    else delete m.defines.BRG_WATER_LITE;
+    m.needsUpdate = true;
+  }
+}
 // [wavelength (world units), amplitude, heading offset from the wind (deg), steepness Q]
 // Wavelengths step by ~0.6 but not in simple ratios, headings spread, so
 // the crossings never lock into a lattice; slopes kA of 0.04 .. 0.05 keep
@@ -168,6 +180,17 @@ const waveList = RIPPLES.map(([L, A, deg, Q], i) => {
   const h = WIND_HEADING + (deg * Math.PI) / 180;
   return { L, A, Q, k, omega: Math.sqrt(G * k), dx: Math.sin(h), dz: -Math.cos(h), seed: (i * 2.39) % TAU };
 });
+// Seek-safe clock (the API braga-3d's water.js exports): seekWater(t) pins the
+// water time for deterministic shots, resumeWater() hands it back to update().
+let waterFrozen = false;
+let seekHook = null;
+export function seekWater(t) {
+  waterFrozen = true;
+  seekHook?.(t);
+}
+export function resumeWater() {
+  waterFrozen = false;
+}
 export const waterUniforms = {
   uWaveDir: { value: waveList.map((w) => new THREE.Vector4(w.dx, w.dz, w.k, w.A)) },
   uWaveQ: { value: waveList.map((w) => new THREE.Vector4(w.Q / w.k, w.L, 0, 0)) },
@@ -369,6 +392,7 @@ export function createWaterMaterial({ open = false } = {}) {
   mat.defines = { BRG_WATER: '' };
   if (open) mat.defines.BRG_WATER_OPEN = '';
   if (LITE) mat.defines.BRG_WATER_LITE = '';
+  WATER_MATS.add(mat);
   mat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, waterUniforms);
     sh.vertexShader = sh.vertexShader
@@ -545,6 +569,9 @@ export function createWater({ data, areas, project, heightAt }) {
 
   let sunSource = null; // the visible sun (scene.js skySunDir), when set
   let time = 0;
+  seekHook = (t) => {
+    time = t;
+  };
   return {
     mesh,
     triangles: idx.length / 3,
@@ -554,7 +581,7 @@ export function createWater({ data, areas, project, heightAt }) {
     },
     // dt: 0 under reduced motion (a still surface); light: { dir, color }
     update(dt, light) {
-      time += Math.min(dt, 1 / 20);
+      if (!waterFrozen) time += Math.min(dt, 1 / 20);
       waterUniforms.uWTime.value = time;
       // phases wrapped on the CPU (skill rule): no large sin() arguments
       for (let i = 0; i < waveList.length; i++) {
