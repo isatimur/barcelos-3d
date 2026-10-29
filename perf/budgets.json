@@ -2,7 +2,8 @@
   "_doc": "Limits for scripts/perf-bench.mjs --check (npm run perf, and the soft gate in npm run verify). Each number is the measured value of the performance round plus about 20 % for noise; a miss prints WARN and fails only with --strict. Units: transferKB at ready (brotli, cold cache), *Ms in milliseconds since navigation, p95FrameMs the worst p95 over the four camera paths with the bench's 60 Hz cap, tris and calls the worst path, gpuMB bytes the page allocated on the GPU (bufferData, textures, renderbuffers), jsHeapMB live heap after a full GC, longTaskMs main-thread tasks over 50 ms until ready. Console errors are not a budget: any error fails the check.",
   "profiles": {
     "desktop-gpu": {
-      "transferKB": 2500,
+      "_doc": "transferKB: Barcelos serves 8.8 MB of identity-encoded jpg wall, roof and ground textures at ready (measured 9837 KB, braga-derived 2500 was porto's figure); the other limits kept.",
+      "transferKB": 11800,
       "firstFrameMs": 1200,
       "interactiveMs": 5200,
       "readyMs": 8000,
@@ -15,7 +16,7 @@
       "jsHeapMB": 240
     },
     "laptop-igpu": {
-      "transferKB": 2500,
+      "transferKB": 11800,
       "firstFrameMs": 1800,
       "interactiveMs": 9400,
       "readyMs": 14000,
@@ -51,18 +52,18 @@
       "jsHeapMB": 240
     },
     "potato": {
-      "_doc": "The lite scene (src/lite/): at least 8 fps (mean frame under 125 ms on every path) and at most 0.2 M triangles on SwiftShader at 1280x720, CPU 4x.",
-      "transferKB": 2400,
-      "firstFrameMs": 6000,
-      "interactiveMs": 8000,
-      "readyMs": 12000,
-      "meanFrameMs": 125,
-      "p95FrameMs": 190,
-      "tris": 200000,
-      "calls": 100,
-      "gpuMB": 40,
-      "longTaskMs": 4000,
-      "jsHeapMB": 60
+      "_doc": "Barcelos has no lite scene: Potato is the reduced full scene (as in braga-3d), so porto's lite budgets (125 ms mean, 0.2 M tris) do not apply. These are measured on SwiftShader (one run, branch engine-port-perf) plus about 20 %: it is a floor check, not a target.",
+      "transferKB": 11400,
+      "firstFrameMs": 6500,
+      "interactiveMs": 22500,
+      "readyMs": 53000,
+      "meanFrameMs": 3100,
+      "p95FrameMs": 8500,
+      "tris": 1500000,
+      "calls": 165,
+      "gpuMB": 160,
+      "longTaskMs": 33000,
+      "jsHeapMB": 230
     }
   }
 }

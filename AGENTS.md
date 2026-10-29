@@ -49,7 +49,15 @@ npm run check:dimensions    # real-world dimensions + sources
 npm run check:fit           # 1:1 fit vs OSM (>=97 %, hard fail)
 npm run check:traffic       # street network + traffic invariants
 npm run check:models        # triangle budgets (4k..40k/model, <=600k total)
+npm run perf                # build first; bench vs perf/budgets.json (desktop-gpu + phone-low)
+npm run perf:serve          # dist/ with brotli + Vercel cache headers (needed for honest bytes)
 ```
+
+Perf system (ported from braga-3d 3d42ffe): `src/perf-classes.js` (device
+classes XL..Potato), `src/governor.js` (p95 frame governor), `src/perf.js`
+(quality menu, overlay). Potato is the reduced full scene; there is no lite
+scene. After `node scripts/fetch-buildings.mjs`, run
+`node scripts/pack-buildings.mjs` to refresh `data/buildings.bin.gz`.
 
 ## Data Pipeline
 
