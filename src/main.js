@@ -542,7 +542,7 @@ async function start() {
     DPR.scale = k.res; // dynamic resolution: the fastest and least visible cut
     atmosphere.setShadowSize(k.shadow);
     nature?.setNearRadius(k.natureNearM);
-    tiles?.setBudgetScale(k.radius);
+    tiles?.setBudgetScale?.(k.radius); // this tiles.js has no budget setter
     setWaterLiteLive(k.waterLite || LITE);
     fx.setPostLevel(Math.min(3, k.post));
     if (!userFx && !fxForced && !(fxSaved === 'off')) {
