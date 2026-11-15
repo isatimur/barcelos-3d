@@ -18,12 +18,13 @@
     "prep": "Барселуше",
     "ins": "Барселушем"
   },
-  "domain": "https://barcelos-3d.vercel.app",
-  "public_url": "https://barcelos-3d.vercel.app",
+  "domain": "https://barcelos.portugal-3d.com",
+  "public_url": "https://barcelos.portugal-3d.com",
   "hostnames": [
     "barcelos-3d.com",
     "www.barcelos-3d.com",
-    "barcelos-3d.vercel.app"
+    "barcelos-3d.vercel.app",
+    "barcelos.portugal-3d.com"
   ],
   "domain_note": "Barcelos is Portugal's rooster town and a UNESCO Creative City of Crafts and Folk Art; the domain waits for the deploy.",
   "origin": {

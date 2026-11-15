@@ -1,5 +1,5 @@
 // Shared pure resolver; usable by Node regression checks.
-const HOSTS = { 'barcelos-3d.com': 'barcelos', 'www.barcelos-3d.com': 'barcelos', 'barcelos-3d.vercel.app': 'barcelos' };
+const HOSTS = { 'barcelos-3d.com': 'barcelos', 'www.barcelos-3d.com': 'barcelos', 'barcelos-3d.vercel.app': 'barcelos', 'barcelos.portugal-3d.com': 'barcelos' };
 const ID_RE = /^[a-z][a-z0-9-]*$/;
 
 export function resolveCityId(envId, search = '', hostname = '') {
