@@ -39,6 +39,6 @@ export function cityConfig(id = DEFAULT_CITY) {
 
 // The User-Agent the upstream sees: the city's site.
 export function userAgent(cfg) {
-  const site = cfg?.domain || 'https://barcelos-3d.vercel.app';
+  const site = cfg?.domain || 'https://barcelos.portugal-3d.com';
   return `${site.replace(/^https?:\/\//, '')} live map (${site})`;
 }

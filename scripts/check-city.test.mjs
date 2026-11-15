@@ -25,5 +25,6 @@ test('invalid query and environment identifiers cannot become config paths', () 
 test('known and generic city hostnames still resolve', () => {
   assert.equal(resolveCityId(undefined, '', 'www.barcelos-3d.com'), 'barcelos');
   assert.equal(resolveCityId(undefined, '', 'barcelos-3d.vercel.app'), 'barcelos');
+  assert.equal(resolveCityId(undefined, '', 'barcelos.portugal-3d.com'), 'barcelos');
   assert.equal(resolveCityId(undefined, '', 'www.porto-3d.com'), 'porto');
 });
