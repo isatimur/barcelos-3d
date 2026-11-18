@@ -1744,7 +1744,9 @@ async function start() {
     if (id === 'ring' || id === 'ms') {
       const src = id === 'ring' ? tiles : ms;
       if (!src) return 'waiting';
-      if (src.wave.snapshot().active) return 'loading';
+      // switched on, its index on the way, no tile asked for yet: loading,
+      // not "loaded" (it said loaded for the first half second)
+      if (!src.begun || src.wave.snapshot().active) return 'loading';
       return src.stats.stuck > 0 ? 'failed' : 'ready';
     }
     const task = tasks[id];

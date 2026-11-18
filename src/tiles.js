@@ -500,6 +500,11 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
   //     triangles per segment. A joined segment keeps the core's caps.
   // Both follow the core's materials (night, bloom, resolution) and its
   // visibility (the lines hide in a close-up).
+  // The joined lines are the core's own objects (roads.js), outside this
+  // group: hiding the group does not hide them. With the ring off, the core
+  // lines get their own geometry back (setEnabled calls this at once), so
+  // the ring's main streets do not float without their buildings, and the
+  // core lines draw by grid cell again (cell-runs.js).
   const bodyOnly = (geo) => {
     geo.setIndex([0, 2, 1, 2, 3, 1]);
     geo.setAttribute('position', new THREE.Float32BufferAttribute([-1, 1, 0, 1, 1, 0, -1, 0, 0, 1, 0, 0], 3));
@@ -523,6 +528,7 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
       const base = coreGeo.get(kind);
       if (core.geometry !== base) core.geometry.dispose();
       core.geometry = base;
+      if (!enabled) continue; // ring off: the core's own lines only
       let n = 0;
       for (const T of tiles.values()) if (T.lines && T.state === 'shown') n += T.lines[kind].length;
       if (!n) continue;
@@ -628,8 +634,12 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
       if (request(c.T, c.lod)) sent++;
     }
     quiet = !sent && !inflight && !ready.length ? quiet + 1 : 0;
+    begun = true; // the first tiles are asked for (request() sends the wave at once)
   }
   let quiet = 0;
+  // the index is read and the ring scheduled once: until then the Layers
+  // panel says "loading", not "loaded" (nothing of the ring is on screen)
+  let begun = false;
 
   function evictFor(p) {
     const shown = [...tiles.values()].filter((T) => T.state === 'shown' && T.prio < p).sort((a, b) => a.prio - b.prio);
@@ -779,6 +789,14 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
       // the ring's trees live in nature.js: cleared, and chosen again on
       if (!enabled) nature?.setStreamTrees?.([]);
       else treesDirty = true;
+      // the joined street and river lines (rebuildLines): core-only when
+      // off, joined again when on; update() does nothing while off
+      rebuildLines();
+    },
+    // false until the first tiles are asked for (true at once when the ring
+    // has nothing to stream: ?tiles=0, no index, no worker)
+    get begun() {
+      return off || failed || begun;
     },
     get enabled() {
       return enabled;

@@ -298,7 +298,24 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
   // setEnabled (off: hidden, nothing scheduled) and retry
   const wave = createWave();
   let enabled = true;
-  const api = { group, stats, update() {}, idle: async () => stats, tiles: new Map(), wave, setEnabled() {}, retry() {} };
+  // begun: the core block is in and the ring has been scheduled once (its
+  // index read, its first tiles asked for). Until then the Layers panel says
+  // "loading", not "loaded": nothing of the layer is on screen yet
+  let begun = false;
+  let ringIndexDone = false;
+  const api = {
+    group,
+    stats,
+    update() {},
+    idle: async () => stats,
+    tiles: new Map(),
+    wave,
+    setEnabled() {},
+    retry() {},
+    get begun() {
+      return off || begun;
+    },
+  };
   debug.ms = api;
   if (off) {
     // main.js sets debug.stats after the first frames: fill it in then
@@ -510,6 +527,7 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
     } catch (e) {
       stats.errors++;
       console.warn(`[barcelos] ms: ${dataPath('tiles-ms/index.json')} unavailable (${e.message}); no MS buildings in the ring`);
+      ringIndexDone = true;
       return;
     }
     for (const t of doc.tiles) {
@@ -520,6 +538,7 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
       tiles.set(key, { key, x: t.x, y: t.y, n: t.n, rect: { x0: sw.x, x1: ne.x, zN: ne.z, zS: sw.z }, url: assetUrl(dataPath(`tiles-ms/${key}.json`)), state: 'idle', lod: null, near: null, far: null, mesh: null, born: 0, reqId: 0, job: null, prio: 0, tries: 0 });
     }
     stats.ringTotal = tiles.size;
+    ringIndexDone = true;
   }
 
   async function load(T) {
@@ -749,6 +768,7 @@ export function createMsBuildings({ scene, camera, terrain, heightAt, proj, foot
       changed = true;
     }
     quiet = !changed && !fetching && !jobs.length ? quiet + 1 : 0;
+    if (ringIndexDone) begun = true; // the first ring tiles are asked for (load() sends the wave at once)
   }
 
   function refreshStats() {
