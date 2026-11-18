@@ -47,8 +47,27 @@ export function createLayersUI({ layers, stateOf, sources, retry, reducedMotion 
   let last = { state: 'idle', text: '', id: null };
   let retryId = null;
 
+  // phones: the header wraps (search, then the mode buttons, then the live
+  // badge), so the pill sits just under whatever the header holds
+  function placePill() {
+    if (!window.matchMedia(NARROW_Q).matches) {
+      pill.style.top = '';
+      return;
+    }
+    const bar = document.getElementById('topbar');
+    let bottom = 0;
+    for (const n of bar?.children || []) {
+      const r = n.getBoundingClientRect();
+      if (r.height && getComputedStyle(n).position !== 'fixed' && !n.matches('.tools-sheet')) bottom = Math.max(bottom, r.bottom);
+    }
+    if (bottom) pill.style.top = `${Math.round(bottom + 8)}px`;
+  }
+  window.addEventListener('resize', placePill);
+
   function tick() {
     const s = summarize(sources(), { now: Date.now(), t });
+    // the header can grow while the pill shows (the live badge arrives)
+    if (s.state !== 'idle') placePill();
     if (s.text !== last.text || s.state !== last.state) {
       pText.textContent = s.text;
       pill.dataset.state = s.state;

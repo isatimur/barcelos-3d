@@ -69,8 +69,9 @@ const kindOf = (u) => (/\/assets\/tex\//.test(u) ? 'textures' : /\/data\/tiles\/
 async function oneRun(chromium) {
   const server = spawn(process.execPath, [join(ROOT, 'scripts/perf-serve.mjs'), PORT, '--root', SITE], { stdio: ['ignore', 'pipe', 'inherit'] });
   await new Promise((res) => server.stdout.on('data', (d) => String(d).includes('cache warm') && res()));
-  const browser = await chromium.launch({ headless: true, executablePath: chromePath(), args: GPU[prof.gpu] });
+  let browser = null;
   try {
+    browser = await chromium.launch({ headless: true, executablePath: chromePath(), args: GPU[prof.gpu] });
     const ctx = await browser.newContext({ viewport: prof.viewport, deviceScaleFactor: prof.dpr, hasTouch: !!prof.touch, isMobile: !!prof.mobile, serviceWorkers: 'block' });
     if (prof.deviceMemory) await ctx.addInitScript(`Object.defineProperty(Navigator.prototype,'deviceMemory',{get:()=>${prof.deviceMemory},configurable:true});`);
     if (prof.hardwareConcurrency) await ctx.addInitScript(`Object.defineProperty(Navigator.prototype,'hardwareConcurrency',{get:()=>${prof.hardwareConcurrency},configurable:true});`);
@@ -141,7 +142,7 @@ async function oneRun(chromium) {
     };
     return res;
   } finally {
-    await browser.close();
+    await browser?.close();
     server.kill();
   }
 }
