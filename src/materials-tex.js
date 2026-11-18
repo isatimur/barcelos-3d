@@ -3,7 +3,12 @@
 // the photographic grain and variation the procedural shaders cannot, while
 // the shading, colour and lighting stay in code. See data/CREDITS.md.
 import * as THREE from 'three';
-import { assetUrl } from './data.js';
+
+// Own copy of data.js assetUrl: importing data.js pulled city.js and i18n.js
+// (import.meta.glob, import.meta.env) into node scripts that reach this file
+// (scripts/layers.test.mjs reads TEX_FILES), and they crashed.
+const BASE = import.meta.env?.BASE_URL ?? '/';
+const assetUrl = (path) => BASE + String(path).replace(/^\.?\//, '');
 
 // The textures a shader actually binds: the ground (scene.js createGround)
 // and the calçada roughness (streetscape.js calcadaMaterial). The wall and
