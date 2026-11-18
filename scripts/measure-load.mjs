@@ -4,7 +4,7 @@
 // perf-bench.mjs stops counting at `ready`; on Fast 3G the textures are
 // still on the wire then, so its transfer figure hides most of the cost.
 //
-//   node scripts/measure-load.mjs --root dist --port 5233 [--profile phone-low] [--query "layers=light"] [--runs 2] [--out output/measure/x.json]
+//   node scripts/measure-load.mjs --root dist --port 5233 [--profile phone-low] [--query "layers=light"] [--runs 2] [--cpu 4] [--out output/measure/x.json]
 //
 // Serves <root> with perf-serve.mjs (brotli, as Vercel). Service workers are
 // blocked. Requests from the page and its workers are counted (Playwright
@@ -29,6 +29,8 @@ const QUIET_MS = Number(opt('quiet', '5000'));
 const CAP_MS = Number(opt('cap', '300000'));
 const prof = JSON.parse(readFileSync(join(ROOT, 'perf/profiles.json'), 'utf8'))[PROFILE];
 if (!prof) throw new Error(`unknown profile ${PROFILE}`);
+// --cpu 4: another CPU slowdown than the profile's (phone-low is x6)
+if (opt('cpu', null)) prof.cpuThrottle = Number(opt('cpu', null));
 
 async function loadPlaywright() {
   const c = [process.env.PLAYWRIGHT_CORE, 'playwright-core'].filter(Boolean);
