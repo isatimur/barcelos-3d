@@ -1,6 +1,6 @@
 {
   "project": "barcelos-3d",
-  "last_updated": "2026-10-06",
+  "last_updated": "2026-11-18",
   "rules": {
     "single_active_feature": true,
     "passing_requires_evidence": true,
@@ -409,6 +409,25 @@
         "src/weather.js drizzle/rain/downpour dials; src/live.js weatherFromCode (80/61 or precip<0.6 drizzle, 81/63 rain, 82/65-67 or precip>2.5 downpour) and wantLive with CITY.default_live; cities/barcelos.json default_live true and weather point 41.5388,-8.6151"
       ],
       "notes": "Ported from porto-3d ed0db10. No unit test covers weatherFromCode; checked by reading and by screenshots only. The headless live run logs one 404 for data/gtfs/schedule.json (TUB has no GTFS yet; livebus.js already catches it and shows no buses)."
+    },
+    {
+      "id": "bar-024",
+      "priority": 24,
+      "area": "performance",
+      "title": "Draw only what is in view (road cells, honest bounds; ported from braga-3d via lisboa-3d)",
+      "user_visible_behavior": "The map looks the same, but each frame draws fewer triangles: the city-wide road meshes and lines draw only their grid cells in the view (and in the sun's shadow view, for casters), the near trees and the street furniture are culled by the bounds of their ring, and an empty tree species is no draw.",
+      "status": "passing",
+      "verification": [
+        "node --test scripts/*.test.mjs (cell-runs.test.mjs: every triangle and segment kept, nothing in the view or the shadow view dropped for random cameras, a NaN centre kept once, a line given the ring's joined geometry draws whole and culls again with its own)",
+        "npm run verify",
+        "Browser (headless Chromium, ANGLE Metal): /tmp/old-maps-perf/bench/run.mjs views --exact --samples 8 --shots, and ready"
+      ],
+      "evidence": [
+        "Same frame drawn culled and whole in one JS task, 8 draws each: 14 of 14 poses (7 views, desktop 1440x900 and phone 360x740) identical on every pixel that is stable between draws of the same mode",
+        "Triangles per frame (all passes), whole -> culled: desktop close views 1.97 -> 1.72 M and 1.88 -> 1.59 M, ring 1.84 -> 1.49 M, overview 2.04 -> 1.96 M; phone (4x CPU, class M) close views 1.28 -> 0.97 M and 1.17 -> 0.80 M, ring 1.13 -> 0.74 M, overview 1.33 -> 1.11 M",
+        "Time to ready, cold loads interleaved: desktop median 6.48 -> 6.38 s (n 3 each), phone (4x CPU) median 11.79 -> 11.64 s (n 6 each); the sort ends 0.24 s (desktop) and 0.38-0.52 s (phone) after ready"
+      ],
+      "notes": "Ported from braga-3d 21e7d36 and 6c50a52 through lisboa-3d 080d18c and 3a6cbec. tiles.js is unchanged: it joins the ring's streets into the core's road-primary line (7645 segments) with a new geometry, so that line draws whole whenever ring tiles show (every desktop view measured; some phone views) and culls by cell again when it holds its own geometry. road-water is not culled (under the 3000 floor or absent). Barcelos has no history routes (#quest), so porto's early route card does not apply."
     }
   ]
 }
