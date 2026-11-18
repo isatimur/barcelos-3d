@@ -172,8 +172,23 @@ ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel)
   }
   ok(!!saw, `camera move: the pill counts this area (${saw?.text})`);
   if (saw) await page.screenshot({ path: `${OUT}/status-midload-${W}x${H}.png` });
-  const live = await page.evaluate(() => document.querySelector('#load-status [role=status]')?.getAttribute('aria-live'));
-  ok(live === 'polite', 'the pill has a polite live region');
+  const live = await page.evaluate(() => {
+    const el = document.getElementById('load-status-live');
+    return { polite: el?.getAttribute('aria-live'), role: el?.getAttribute('role'), text: el?.textContent, inPill: !!el?.closest('#load-status') };
+  });
+  ok(live.polite === 'polite' && live.role === 'status' && !live.inPill, `a polite live region outside the pill (says "${live.text}")`);
+  // prefers-reduced-motion: the loading dot stops pulsing
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const anim = await page.evaluate(() => {
+    const pill = document.getElementById('load-status');
+    const prev = pill.dataset.state;
+    pill.dataset.state = 'loading'; // the pulsing state, for the style check only
+    const a = getComputedStyle(pill.querySelector('.ls-dot')).animationName;
+    pill.dataset.state = prev;
+    return a;
+  });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  ok(anim === 'none', `reduced motion: no pulse on the loading dot (animation ${anim})`);
   await page.waitForFunction(() => window.__braga.layersUI.status.state !== 'loading', null, { timeout: 120000, polling: 200 });
   const after = await page.evaluate(() => window.__braga.layersUI.status);
   ok(after.state === 'done' || after.state === 'idle', `the wave ends: ${after.state} "${after.text}"`);

@@ -34,13 +34,19 @@ export function createLayersUI({ layers, stateOf, sources, retry, reducedMotion 
   pill.innerHTML = `
     <span class="ls-dot" aria-hidden="true"></span>
     <span class="ls-text" aria-hidden="true"></span>
-    <span class="ls-live sr-only" role="status" aria-live="polite"></span>
     <span class="ls-bar" aria-hidden="true"><i></i></span>
     <button type="button" class="ls-retry" hidden>${t('Повторить')}</button>
     <button type="button" class="ls-open" aria-controls="layers" aria-expanded="false">${t('Слои')}</button>`;
   app.append(pill);
+  // the live region stays in the page, outside the pill: text added to a
+  // region in the frame it stops being hidden is often not announced
+  const pLive = document.createElement('span');
+  pLive.className = 'ls-live sr-only';
+  pLive.id = 'load-status-live';
+  pLive.setAttribute('role', 'status');
+  pLive.setAttribute('aria-live', 'polite');
+  app.append(pLive);
   const pText = pill.querySelector('.ls-text');
-  const pLive = pill.querySelector('.ls-live');
   const pBar = pill.querySelector('.ls-bar i');
   const pRetry = pill.querySelector('.ls-retry');
   const pOpen = pill.querySelector('.ls-open');
@@ -136,9 +142,12 @@ export function createLayersUI({ layers, stateOf, sources, retry, reducedMotion 
     }
     const on = selectionBytes(sel, layers.manifest);
     const all = selectionBytes(Object.fromEntries(LAYERS.map((l) => [l.id, true])), layers.manifest);
+    // a streamed layer counts every tile: then the sum is a ceiling, said so
+    const upTo = (s, streamed) => (streamed ? t('до {size}').replace('{size}', s) : s);
+    const onStreamed = LAYERS.some((l) => l.streamed && sel[l.id]);
     total.textContent = on.unknown || all.unknown
       ? `${t('Выбрано слоёв:')} ${LAYERS.filter((l) => sel[l.id]).length} ${t('из')} ${LAYERS.length} (${t('размер неизвестен')})`
-      : `${t('Выбрано:')} ${formatMB(on.bytes, language)} ${t('из')} ${formatMB(all.bytes, language)}`;
+      : `${t('Выбрано:')} ${upTo(formatMB(on.bytes, language), onStreamed)} ${t('из')} ${upTo(formatMB(all.bytes, language), true)}`;
     classNote.textContent = `${t('Для этого устройства по умолчанию:')} ${t(PRESET_NAMES[layers.classPreset] || layers.classPreset)}`;
   }
 
