@@ -24,8 +24,8 @@
         "XL": true,
         "L": true,
         "M": true,
-        "S": false,
-        "P": false
+        "S": true,
+        "P": true
       },
       "streamed": true
     },
@@ -38,8 +38,8 @@
         "XL": true,
         "L": true,
         "M": true,
-        "S": false,
-        "P": false
+        "S": true,
+        "P": true
       }
     },
     "live": {

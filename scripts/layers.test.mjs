@@ -25,10 +25,11 @@ test('Full is every layer, Light is none, Standard sits between', () => {
   assert.ok(!PRESETS.standard.includes('textures'));
 });
 
-test('class defaults: phones of the low and potato class start light, desktops full', () => {
+test('class defaults: phones of the low and potato class start compact (extra buildings and street level only), desktops full', () => {
   for (const c of ['XL', 'L', 'M', 'S', 'P']) assert.ok(CLASS_PRESET[c], c);
-  assert.equal(presetOf(defaultsFor('S')), 'light');
-  assert.equal(presetOf(defaultsFor('P')), 'light');
+  assert.equal(presetOf(defaultsFor('S')), 'compact');
+  assert.equal(presetOf(defaultsFor('P')), 'compact');
+  assert.equal(defaultsFor('S').ms && defaultsFor('S').street && !defaultsFor('S').ring && !defaultsFor('S').live && !defaultsFor('S').textures, true);
   assert.equal(presetOf(defaultsFor('XL')), 'full');
   assert.equal(presetOf(defaultsFor('L')), 'full');
   assert.equal(presetOf(defaultsFor('M')), 'standard');
@@ -42,8 +43,8 @@ test('a saved choice wins, and merges with the class defaults for new layers', (
   assert.equal(r.source, 'saved');
   assert.equal(r.layers.ring, true);
   assert.equal(r.layers.textures, false);
-  // not in the saved record: the class default (S: off)
-  assert.equal(r.layers.street, false);
+  // not in the saved record: the class default (S: street level on)
+  assert.equal(r.layers.street, true);
   for (const id of ids) assert.equal(typeof r.layers[id], 'boolean');
 });
 

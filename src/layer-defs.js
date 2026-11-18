@@ -58,13 +58,17 @@ export const LAYER_IDS = LAYERS.map((l) => l.id);
 // Full is what the map loaded before layers existed: every layer.
 export const PRESETS = {
   light: [],
+  // the phone default: the town looks whole (the extra buildings, the calçada
+  // and the people on the squares); the ring, live data and textures stay off
+  compact: ['ms', 'street'],
   standard: ['ring', 'ms', 'street', 'live'],
   full: [...LAYER_IDS],
 };
-export const PRESET_ORDER = ['light', 'standard', 'full'];
+export const PRESET_ORDER = ['light', 'compact', 'standard', 'full'];
 
-// device class (perf-classes.js) -> default preset
-export const CLASS_PRESET = { XL: 'full', L: 'full', M: 'standard', S: 'light', P: 'light' };
+// device class (perf-classes.js) -> default preset. lisboa-3d starts S and P
+// on Light; here that thinned the centre too much (owner decision, 2026-11-18)
+export const CLASS_PRESET = { XL: 'full', L: 'full', M: 'standard', S: 'compact', P: 'compact' };
 
 const fromList = (list) => Object.fromEntries(LAYER_IDS.map((id) => [id, list.includes(id)]));
 
