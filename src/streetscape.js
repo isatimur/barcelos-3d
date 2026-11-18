@@ -28,6 +28,7 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { S } from './geo.js';
+import { setRingBounds } from './bounds.js';
 import { CITY, dataPath } from './city.js';
 import { TEX, loadMaterials, TRIPLANAR_ROUGH } from './materials-tex.js';
 import { buildNetwork } from './road-network.js';
@@ -1310,7 +1311,8 @@ function build(ctx, group, doc, pois, stats) {
     const cap = Math.min(n, lite ? 600 : 2500);
     const mesh = new THREE.InstancedMesh(geo, furnitureMaterial(uniforms, type), cap);
     mesh.name = `street-${type}`;
-    mesh.frustumCulled = false;
+    // bounds of the ring it holds (fillLayer, setRingBounds); empty until then
+    mesh.boundingSphere = new THREE.Sphere(new THREE.Vector3(), -1);
     mesh.count = 0;
     mesh.visible = false;
     mesh.castShadow = !lite && type !== 'bollard';
@@ -1337,6 +1339,9 @@ function build(ctx, group, doc, pois, stats) {
     const E = mesh.instanceMatrix.array;
     let k = 0;
     const R2 = R * R;
+    let ylo = Infinity;
+    let yhi = -Infinity;
+    let smax = 0;
     for (let gx = Math.floor((fx - R) / 16); gx <= Math.floor((fx + R) / 16) && k < cap; gx++) {
       for (let gz = Math.floor((fz - R) / 16); gz <= Math.floor((fz + R) / 16) && k < cap; gz++) {
         const c = grid.get(gx * 65536 + gz);
@@ -1349,6 +1354,9 @@ function build(ctx, group, doc, pois, stats) {
           if ((x - fx) ** 2 + (z - fz) ** 2 > R2) continue;
           const yaw = arr[o + 3];
           const sc = arr[o + 4];
+          if (arr[o + 1] < ylo) ylo = arr[o + 1];
+          if (arr[o + 1] > yhi) yhi = arr[o + 1];
+          if (sc > smax) smax = sc;
           const cs = Math.cos(yaw) * sc;
           const sn = Math.sin(yaw) * sc;
           const e = k * 16;
@@ -1377,6 +1385,7 @@ function build(ctx, group, doc, pois, stats) {
     mesh.count = k;
     mesh.visible = k > 0;
     if (k) {
+      setRingBounds(mesh, fx, fz, R, ylo, yhi, smax); // culled when the whole ring is out of view
       mesh.instanceMatrix.clearUpdateRanges();
       mesh.instanceMatrix.addUpdateRange(0, k * 16);
       mesh.instanceMatrix.needsUpdate = true;
