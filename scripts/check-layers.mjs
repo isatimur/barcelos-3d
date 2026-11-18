@@ -207,9 +207,11 @@ const savedSel = await page.evaluate(() => window.__braga.layers.selection);
 await page.goto(`${BASE}${sep}intro=0&lang=en`, { waitUntil: 'domcontentloaded' });
 await ready();
 // a small streamed radius (the governor's own knob), so a camera move
-// below reaches tiles that are not loaded yet
+// below reaches tiles that are not loaded yet. Barcelos's tiles.js has no
+// budget setter (the governor's call in main.js is optional too); the
+// fly targets below lie far enough out in the ring without it.
 await page.waitForFunction(() => !!window.__braga.tiles, null, { timeout: 30000 });
-await page.evaluate(() => window.__braga.tiles.setBudgetScale(0.25));
+await page.evaluate(() => window.__braga.tiles.setBudgetScale?.(0.25));
 const back =await page.evaluate(() => ({ sel: window.__braga.layers.selection, src: window.__braga.layers.source }));
 ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel), `choice restored from localStorage (${back.src}: ${JSON.stringify(back.sel)})`);
 
@@ -244,7 +246,9 @@ ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel)
     );
   await page.evaluate(() => window.__braga.layersUI.close());
   await page.evaluate(() => window.__braga.tiles?.idle(60000));
-  await fly(38.735, -9.165); // north-west of the core: ring tiles not yet seen
+  // Barcelos: core_bbox 41.505..41.56 N, -8.675..-8.56 E; the ring reaches
+  // 41.455..41.61 N, -8.745..-8.49 E (cities/barcelos.json)
+  await fly(41.59, -8.72); // north-west of the core: ring tiles not yet seen
   // the pill, read in the page at each of its ticks: counting this area
   const saw = await page
     .waitForFunction(() => { const s = window.__braga.layersUI.status; return s.state === 'loading' && s.id === 'area' && s.done > 0 ? s : false; }, null, { timeout: 15000, polling: 100 })
@@ -275,7 +279,7 @@ ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel)
   // failures: every ring tile request aborts; three tries, then failed + Retry
   mode = 'fail';
   const err0 = await page.evaluate(() => window.__braga.tiles.stats.errors);
-  await fly(38.692, -9.17); // south-west corner, by the river
+  await fly(41.47, -8.72); // south-west corner of the ring
   let failedState = null;
   try {
     await page.waitForFunction(() => window.__braga.layersUI.status.state === 'failed', null, { timeout: 90000, polling: 250 });
