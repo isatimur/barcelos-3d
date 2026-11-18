@@ -56,12 +56,14 @@ export function summarize(entries, { now = Date.now(), t = (s) => s } = {}) {
   if (loading.length) {
     const first = loading[0];
     const more = loading.length > 1 ? ` · +${loading.length - 1}` : '';
-    return { state: 'loading', text: line(first) + more, id: first.id, done: first.done || 0, total: first.total || 0 };
+    // say: what a screen reader hears once, without the running count
+    const say = first.kind === 'area' ? t('Загружаем этот район…') : `${t('Загружаем')} ${t(first.label || first.id)}…`;
+    return { state: 'loading', text: line(first) + more, say, id: first.id, done: first.done || 0, total: first.total || 0 };
   }
   const stuck = entries.find((e) => (e.kind === 'area' && e.stuck > 0) || (e.kind === 'layer' && e.error));
   if (stuck) {
     const text = stuck.kind === 'area'
-      ? `${t('Не загрузилось участков:')} ${stuck.stuck}`
+      ? `${t('Не загрузились участки карты:')} ${stuck.stuck}`
       : `${t(stuck.label || stuck.id)}: ${t('не загрузилось')}`;
     return { state: 'failed', text, id: stuck.id, retry: stuck.id };
   }

@@ -31,6 +31,7 @@ import { BUILDING_UNIFORMS, createBuildingMaterial, FADE_S, FADE_VERT_PARS, FADE
 import { getFacadeConfig } from './facades.js';
 import { SURFACE, STRUCTURE_COLORS } from './roads.js';
 import { TREE_TABLES } from './nature.js';
+import { createWave } from './load-status.js';
 
 const LAND_PX = 64; // land-cover pixels per tile side (~15 m)
 const GROUP = 3; // far LOD: tiles per merged block side
@@ -88,6 +89,10 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
   let index = null;
   let failed = false;
   let started = false;
+  // the Layers panel can switch the ring off (hidden, nothing scheduled)
+  let enabled = true;
+  // the requests of the current camera move, for the status pill
+  const wave = createWave();
   const tiles = new Map();
   const groups = new Map(); // far blocks
   const ready = [];
@@ -281,6 +286,7 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
     T.loading = true;
     W.busy++;
     inflight++;
+    wave.send();
     W.w.postMessage({ type: 'load', id: T.reqId, key: T.key, url: T.url, lod, extras: !T.extras });
     return true;
   }
@@ -340,14 +346,19 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
 
   function integrate(m) {
     const T = tiles.get(m.key);
-    if (!T || m.id !== T.reqId) return; // superseded or dropped
+    if (!T || m.id !== T.reqId) {
+      wave.finish('cancel');
+      return; // superseded or dropped
+    }
     T.loading = false;
+    wave.finish(m.type === 'error' ? 'error' : 'ok');
     if (m.type === 'error') {
       // a tile the index lists but the server does not have (a partial
       // deploy): given up at once, without noise
       if (/HTTP 404|is not JSON/.test(m.error)) {
         stats.missing = (stats.missing || 0) + 1;
         if (T.state === 'loading') T.state = 'failed';
+        T.missing = true;
         return;
       }
       stats.errors++;
@@ -651,7 +662,7 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
     frames++;
     clock += dt;
     BUILDING_UNIFORMS.uClock.value = clock;
-    if (off || failed) return;
+    if (off || failed || !enabled) return;
     // after the core's first frames: its shaders compile first
     if (!started) {
       if (debug.ready && frames > 20) start();
@@ -722,7 +733,9 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
     let far = 0;
     let tris = 0;
     let meshes = 0;
+    let stuck = 0;
     for (const T of tiles.values()) {
+      if (T.state === 'failed' && !T.missing) stuck++;
       if (T.state !== 'shown') continue;
       loaded++;
       if (T.lod === 'near') {
@@ -737,6 +750,7 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
     }
     Object.assign(stats, {
       loaded,
+      stuck,
       pending: inflight + ready.length,
       near,
       far,
@@ -756,6 +770,30 @@ export function createTiles({ renderer, scene, camera, terrain, heightAt, proj, 
     group,
     stats,
     update,
+    // the status pill (layers-ui.js): this camera move's requests
+    wave,
+    // the Layers panel: off hides the ring and schedules nothing more
+    setEnabled(on) {
+      enabled = !!on;
+      group.visible = enabled;
+      // the ring's trees live in nature.js: cleared, and chosen again on
+      if (!enabled) nature?.setStreamTrees?.([]);
+      else treesDirty = true;
+    },
+    get enabled() {
+      return enabled;
+    },
+    // the tiles that gave up after three tries get three more
+    retry() {
+      for (const T of tiles.values()) {
+        if (T.state !== 'failed' || T.missing) continue;
+        T.state = 'idle';
+        T.tries = 0;
+        T.retryAt = 0;
+      }
+      sinceSchedule = SCHEDULE_S; // schedule on the next frame
+      refreshStats();
+    },
     get index() {
       return index;
     },

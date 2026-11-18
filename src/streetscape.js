@@ -30,7 +30,7 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import { S } from './geo.js';
 import { setRingBounds } from './bounds.js';
 import { CITY, dataPath } from './city.js';
-import { TEX, loadMaterials, TRIPLANAR_ROUGH } from './materials-tex.js';
+import { loadMaterials, bindTextures, TRIPLANAR_ROUGH } from './materials-tex.js';
 import { buildNetwork } from './road-network.js';
 import { RIBBON_LIFT, SIDEWALK_R, WALKED, sidewalkM, lampSites, lampGlow, LAMP_HEIGHT_M } from './roads.js';
 import { loadPois, createPoiSigns, isOpenAtHour, guessOpen } from './pois.js';
@@ -125,10 +125,12 @@ export function calcadaMaterial({ polygonOffsetUnits = -2, roughness = 0.9, lite
   mat.customProgramCacheKey = () => `calcada:${lite ? 1 : 0}`;
   mat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, {
-      tCobbleRough: { value: TEX.cobbleRough || TEX.cobble || null },
+      tCobbleRough: { value: null },
       uRoughCobble: { value: new THREE.Vector3(0.627, 0.436, 0.32) },
-      uCobbleRK: { value: lite ? 0 : 1 },
+      uCobbleRK: { value: 0 },
     });
+    // the photo-texture layer (materials-tex.js): off keeps the strength at 0
+    bindTextures(sh.uniforms, { tCobbleRough: 'cobbleRough' }, { uCobbleRK: lite ? 0 : 1 });
     sh.vertexShader = sh.vertexShader
       .replace('#include <common>', '#include <common>\nattribute vec3 aPat;\nvarying vec3 vPat;\nvarying vec2 vCalW;\nvarying float vCalY;')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvPat = aPat;\nvCalW = (modelMatrix * vec4(position, 1.0)).xz;\nvCalY = (modelMatrix * vec4(position, 1.0)).y;');
@@ -506,24 +508,30 @@ export function createStreetscape(ctx) {
   const stats = { status: 'loading' };
   let built = null;
   const t0 = performance.now();
-  Promise.all([fetchStreet(), loadPois()])
+  // resolves true once built, false when the data or the build failed (the
+  // status pill of layers-ui.js shows it)
+  const ready = Promise.all([fetchStreet(), loadPois()])
     .then(([doc, pois]) => {
       try {
         built = build(ctx, group, doc, pois, stats);
         stats.status = 'ready';
         stats.buildMs = Math.round(performance.now() - t0);
+        return true;
       } catch (e) {
         stats.status = `failed: ${e.message}`;
         console.warn('[barcelos] streetscape failed', e);
+        return false;
       }
     })
     .catch((e) => {
       stats.status = `no data: ${e.message}`;
       console.info(`[barcelos] ${dataPath('streetscape.json')} unavailable (${e.message}); no street level.`);
+      return false;
     });
   return {
     object: group,
     stats,
+    ready,
     update(dt, frustum, view) {
       built?.update(dt, frustum, view);
     },

@@ -47,8 +47,9 @@ export const LAYERS = [
   {
     id: 'textures',
     name: 'Фототекстуры',
-    hint: 'Фотографическая фактура стен, крыш, брусчатки и земли',
-    files: ['assets/tex/**'],
+    hint: 'Фотографическая фактура земли и брусчатки вблизи',
+    // the files materials-tex.js TEXTURE_FILES loads (a test keeps them equal)
+    files: ['assets/tex/ground.jpg', 'assets/tex/ground_nor.jpg', 'assets/tex/ground_rough.jpg', 'assets/tex/cobble_rough.jpg'],
   },
 ];
 

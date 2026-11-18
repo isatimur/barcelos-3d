@@ -12,6 +12,12 @@ test('every layer has a Russian source name and a file or chunk list', () => {
   }
 });
 
+test('the texture layer lists exactly the files materials-tex.js loads', async () => {
+  const { TEXTURE_FILES } = await import('../src/materials-tex.js');
+  const want = Object.values(TEXTURE_FILES).map(([f]) => `assets/tex/${f}`).sort();
+  assert.deepEqual([...LAYERS.find((l) => l.id === 'textures').files].sort(), want);
+});
+
 test('Full is every layer, Light is none, Standard sits between', () => {
   assert.deepEqual([...PRESETS.full].sort(), [...ids].sort());
   assert.deepEqual(PRESETS.light, []);
