@@ -428,6 +428,25 @@
         "Time to ready, cold loads interleaved: desktop median 6.48 -> 6.38 s (n 3 each), phone (4x CPU) median 11.79 -> 11.64 s (n 6 each); the sort ends 0.24 s (desktop) and 0.38-0.52 s (phone) after ready"
       ],
       "notes": "Ported from braga-3d 21e7d36 and 6c50a52 through lisboa-3d 080d18c and 3a6cbec. tiles.js is unchanged: it joins the ring's streets into the core's road-primary line (7645 segments) with a new geometry, so that line draws whole whenever ring tiles show (every desktop view measured; some phone views) and culls by cell again when it holds its own geometry. road-water is not culled (under the 3000 floor or absent). Barcelos has no history routes (#quest), so porto's early route card does not apply."
+    },
+    {
+      "id": "bar-025",
+      "priority": 25,
+      "area": "performance",
+      "title": "Layers panel and loading status (ported from lisboa-3d)",
+      "user_visible_behavior": "A Layers panel lets the visitor pick the optional layers (ring, Microsoft buildings, street level, aircraft and buses, photo textures); a layer that is off is never downloaded. A status pill says what is loading, when the area is loaded, and offers Retry when map areas fail. Phones of class S and P start with Light, M with Standard, L and XL with Full.",
+      "status": "passing",
+      "verification": [
+        "npm test (39 tests)",
+        "npm run verify (layers manifest step included)",
+        "node scripts/check-layers.mjs --url <perf-serve on dist> at 1440x900 and --size 360x740, five runs each",
+        "node scripts/measure-load.mjs --profile phone-low --cpu 4 --runs 2, main against the branch"
+      ],
+      "evidence": [
+        "check-layers 36 PASS 0 FAIL in 10 of 10 runs; step 2b fails on a build without the ring-off lines of tiles.js (negative control)",
+        "Weak phone (class S): settled bytes 9.7 MB on main, 0.74-0.86 MB on the branch default, 2.9 MB with ?layers=full; network quiet at 53 s, 14 s and 18 s; interactive 10.2-11.1 s and ready 12.9-14.0 s in every case"
+      ],
+      "notes": "Branch feat/layers-and-loading, not merged. Session 011 in claude-progress.md lists the hand work against Lisbon."
     }
   ]
 }

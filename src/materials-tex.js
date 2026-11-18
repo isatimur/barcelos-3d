@@ -3,9 +3,48 @@
 // the photographic grain and variation the procedural shaders cannot, while
 // the shading, colour and lighting stay in code. See data/CREDITS.md.
 import * as THREE from 'three';
-import { assetUrl } from './data.js';
 
-const loader = new THREE.TextureLoader();
+// Own copy of data.js assetUrl: importing data.js pulled city.js and i18n.js
+// (import.meta.glob, import.meta.env) into node scripts that reach this file
+// (scripts/layers.test.mjs reads TEX_FILES), and they crashed.
+const BASE = import.meta.env?.BASE_URL ?? '/';
+const assetUrl = (path) => BASE + String(path).replace(/^\.?\//, '');
+
+// The textures a shader actually binds: the ground (scene.js createGround)
+// and the calçada roughness (streetscape.js calcadaMaterial). The wall and
+// roof maps in assets/tex (plaster, granite, roof tiles, cobble colour and
+// normal) were loaded here too, but no material ever received them:
+// BUILDING_UNIFORMS reads TEX when buildings.js is imported, before any
+// load, so its samplers stay null and the facades render as they always
+// have. Loading those 11 files cost about 7 MB for nothing; they are not
+// fetched any more. Wiring them in is a visual change to judge by eye.
+// The Layers panel's "Фототекстуры" layer (layer-defs.js) is these files.
+export const TEXTURE_FILES = {
+  ground: ['ground.jpg', true],
+  groundN: ['ground_nor.jpg', false],
+  groundRough: ['ground_rough.jpg', false],
+  cobbleRough: ['cobble_rough.jpg', false],
+};
+
+const manager = new THREE.LoadingManager();
+const loader = new THREE.TextureLoader(manager);
+// progress for the status pill (layers-ui.js): files done of total
+export const TEX_PROGRESS = { active: false, done: 0, total: 0, error: false, endedAt: 0 };
+manager.onStart = () => {
+  TEX_PROGRESS.active = true;
+};
+manager.onProgress = (_url, done, total) => {
+  TEX_PROGRESS.done = done;
+  TEX_PROGRESS.total = total;
+};
+manager.onLoad = () => {
+  TEX_PROGRESS.active = false;
+  TEX_PROGRESS.endedAt = Date.now();
+  for (const h of holders) applyHolder(h);
+};
+manager.onError = () => {
+  TEX_PROGRESS.error = true;
+};
 
 function load(file, { srgb = true } = {}) {
   const t = loader.load(assetUrl(`assets/tex/${file}`));
@@ -18,25 +57,51 @@ function load(file, { srgb = true } = {}) {
 
 export const TEX = {};
 let loaded = false;
+// The layer switch (main.js sets it from the Layers panel before anything
+// builds). Off: loadMaterials fetches nothing and the texture strengths of
+// every registered material are 0, so a null sampler never darkens a
+// surface.
+let enabled = true;
+const holders = [];
 export function loadMaterials() {
-  if (loaded || typeof document === 'undefined') return TEX;
+  if (!enabled || loaded || typeof document === 'undefined') return TEX;
   loaded = true;
-  TEX.ground = load('ground.jpg');
-  TEX.plaster = load('wall_plaster.jpg');
-  TEX.granite = load('wall_granite.jpg');
-  TEX.roof = load('roof_tiles.jpg');
-  TEX.cobble = load('cobble.jpg');
-  TEX.groundN = load('ground_nor.jpg', { srgb: false });
-  TEX.plasterN = load('wall_plaster_nor.jpg', { srgb: false });
-  TEX.graniteN = load('wall_granite_nor.jpg', { srgb: false });
-  TEX.roofN = load('roof_tiles_nor.jpg', { srgb: false });
-  TEX.cobbleN = load('cobble_nor.jpg', { srgb: false });
-  TEX.groundRough = load('ground_rough.jpg', { srgb: false });
-  TEX.plasterRough = load('wall_plaster_rough.jpg', { srgb: false });
-  TEX.graniteRough = load('wall_granite_rough.jpg', { srgb: false });
-  TEX.roofRough = load('roof_tiles_rough.jpg', { srgb: false });
-  TEX.cobbleRough = load('cobble_rough.jpg', { srgb: false });
+  TEX_PROGRESS.total = Object.keys(TEXTURE_FILES).length;
+  TEX_PROGRESS.done = 0;
+  TEX_PROGRESS.error = false;
+  for (const [key, [file, srgb]] of Object.entries(TEXTURE_FILES)) TEX[key] = load(file, { srgb });
   return TEX;
+}
+
+// after a failed file: load the ones without an image again (the holders
+// get the new textures when the manager reports the batch done)
+export function retryTextures() {
+  if (!enabled || !loaded) return;
+  TEX_PROGRESS.error = false;
+  for (const [key, [file, srgb]] of Object.entries(TEXTURE_FILES)) if (!TEX[key]?.image) TEX[key] = load(file, { srgb });
+}
+
+export const texturesEnabled = () => enabled;
+export function setTexturesEnabled(on) {
+  enabled = !!on;
+  if (enabled) loadMaterials();
+  for (const h of holders) applyHolder(h);
+}
+
+// A material's texture uniforms: map { uniformName: TEX key } and the
+// strength uniforms { name: value when on }. Kept in step with the switch.
+export function bindTextures(uniforms, map, strengths) {
+  const h = { uniforms, map, strengths };
+  holders.push(h);
+  applyHolder(h);
+  return h;
+}
+function applyHolder(h) {
+  for (const [u, key] of Object.entries(h.map)) if (TEX[key] && h.uniforms[u]) h.uniforms[u].value = TEX[key];
+  // strengths on only once the files are in: a texture still on the wire
+  // samples black and would darken the surface meanwhile
+  const ready = enabled && loaded && TEX_PROGRESS.endedAt > 0;
+  for (const [s, v] of Object.entries(h.strengths)) if (h.uniforms[s]) h.uniforms[s].value = ready ? v : 0;
 }
 
 // Triplanar sample by world normal and position (no UVs needed on the

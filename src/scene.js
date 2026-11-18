@@ -16,7 +16,7 @@
 // line material shares it, including the landmark stone shader, so the far
 // hills fade into exactly the colour the sky has at the horizon.
 import * as THREE from 'three';
-import { TEX, loadMaterials, TRIPLANAR_ROUGH } from './materials-tex.js';
+import { TEX, loadMaterials, bindTextures, TRIPLANAR_ROUGH } from './materials-tex.js';
 
 // ------------------------------------------------------------ shared fog uniforms
 // Plain objects (not Vector3) on purpose: UniformsUtils.clone copies three.js
@@ -1241,6 +1241,8 @@ export function createGround(terrain) {
     uTexGN: { value: 1 },
     uTexGR: { value: 1 },
   };
+  // the photo-texture layer (materials-tex.js): off sets the strengths to 0
+  bindTextures(uniforms, { tGroundTex: 'ground', tGroundNor: 'groundN', tGroundRough: 'groundRough' }, { uTexG: 1, uTexGN: 1, uTexGR: 1 });
   const mat = new THREE.MeshStandardMaterial({
     vertexColors: true,
     roughness: 0.97,

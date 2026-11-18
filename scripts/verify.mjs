@@ -19,6 +19,8 @@ const has = (...parts) => existsSync(join(ROOT, ...parts));
 
 const checks = [
   { name: 'build', cmd: ['npm', 'run', 'build'], needs: [] },
+  // the Layers panel's sizes (data/layers.json) match the build just made
+  { name: 'layers manifest', cmd: ['node', 'scripts/layers-manifest.mjs', '--check'], needs: ['data/layers.json'] },
   { name: 'tests', cmd: ['npm', 'test'], needs: [] },
   {
     name: 'data contract',
