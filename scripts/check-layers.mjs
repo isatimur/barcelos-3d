@@ -101,23 +101,99 @@ for (const id of Object.keys(PATTERNS)) ok(hits(id).length === 0, `light: no ${i
 await openPanel();
 await page.screenshot({ path: `${OUT}/panel-light-${W}x${H}.png` });
 const nav0 = await page.evaluate(() => performance.getEntriesByType('navigation').length + ':' + performance.timeOrigin);
+// The streamed layers (ring, MS) have no wave until their index is read and
+// their first tiles are asked for (`begun`). Their row must not say loaded
+// before that (it did, for the first half second), and it is read once the
+// source has begun, its wave has ended and the row has settled, all in one
+// poll: a city with many tiles may start its next wave a moment later.
+const STREAMED = { ring: 'tiles', ms: 'ms' };
+const settledRow = (id, ms = 90000) =>
+  page
+    .waitForFunction(
+      ([i, key]) => {
+        const st = document.querySelector(`.layer-row[data-layer="${i}"]`)?.dataset.state;
+        if (st !== 'ready' && st !== 'failed') return false;
+        if (!key) return st;
+        const src = window.__braga[key];
+        return src && src.begun === true && !src.wave.snapshot().active ? st : false;
+      },
+      [id, STREAMED[id] || null],
+      { timeout: ms, polling: 100 },
+    )
+    .then((h) => h.jsonValue(), async () => `not settled in ${ms / 1000} s (row ${await rowState(id)})`);
+// the row's states, every frame from the switch-on until the source has begun
+const earlyStates = (id) =>
+  page.evaluate(
+    ([i, key]) =>
+      new Promise((res) => {
+        const seen = new Set();
+        const t0 = performance.now();
+        const f = () => {
+          const src = window.__braga[key];
+          seen.add(document.querySelector(`.layer-row[data-layer="${i}"]`)?.dataset.state);
+          if (src?.begun === true || src?.wave.snapshot().active || performance.now() - t0 > 60000) res([...seen]);
+          else requestAnimationFrame(f);
+        };
+        requestAnimationFrame(f);
+      }),
+    [id, STREAMED[id]],
+  );
 for (const id of ['street', 'textures', 'live', 'ms', 'ring']) {
   const from = urls.length;
   await openPanel();
+  const early = STREAMED[id] ? earlyStates(id) : null;
   await page.click(`.layer-switch[data-layer="${id}"]`);
-  try {
-    await waitRow(id, ['ready', 'failed']);
-  } catch {
-    // reported below
+  if (early) {
+    const seen = await early;
+    ok(!seen.includes('ready'), `${id} on: the row does not say loaded before its first tiles are asked for (${seen.join(' -> ')})`);
   }
-  if (id === 'ring' || id === 'ms') await page.waitForTimeout(3000); // the first wave
-  const st = await rowState(id);
+  const st = await settledRow(id);
   ok(hits(id, from).length > 0, `${id} on: its files are requested now (${hits(id, from).length}, e.g. ${(hits(id, from)[0] || '').replace(/^https?:\/\/[^/]+/, '')})`);
   ok(st === 'ready', `${id} on: panel says loaded (state ${st})`);
 }
 const nav1 = await page.evaluate(() => performance.getEntriesByType('navigation').length + ':' + performance.timeOrigin);
 ok(nav0 === nav1, 'no page reload while switching layers');
 await page.screenshot({ path: `${OUT}/panel-full-${W}x${H}.png` });
+
+// ---- 2b. the ring off: its main streets go with it. tiles.js joins the
+// ring's main streets (and rivers) to the core's own road-primary (and
+// road-water) line, objects outside the ring's group; off must give them
+// their core-only geometry back, on must join the ring again.
+{
+  const lineState = () =>
+    page.evaluate(() => {
+      const P = window.__braga;
+      const segs = (n) => P.scene.getObjectByName(n)?.geometry.attributes.instanceStart?.count ?? null;
+      const cell = (P.roadCells?.() || []).find((c) => c.name === 'road-primary');
+      return { primary: segs('road-primary'), water: segs('road-water'), core: P.roadSegments.primary ?? null, coreWater: P.roadSegments.water ?? null, cell: cell ? { whole: cell.whole, drawn: cell.drawn, total: cell.total } : null };
+    });
+  const joined = () =>
+    page
+      .waitForFunction(() => (window.__braga.scene.getObjectByName('road-primary')?.geometry.attributes.instanceStart?.count ?? 0) > window.__braga.roadSegments.primary, null, { timeout: 30000, polling: 200 })
+      .then(() => true, () => false);
+  const frames = (n) => page.evaluate((k) => new Promise((r) => { let i = 0; const f = () => (++i >= k ? r() : requestAnimationFrame(f)); requestAnimationFrame(f); }), n);
+  await joined();
+  // the road cells are sorted in idle slots after ready (main.js): read them once done
+  await page.waitForFunction(() => window.__braga.timing?.roadCells != null, null, { timeout: 30000, polling: 200 }).catch(() => {});
+  const on1 = await lineState();
+  // the positive control: with the ring on, road-primary has the ring's part
+  ok(on1.core > 0 && on1.primary > on1.core, `ring on: the ring's main streets join road-primary (${on1.core} core + ${on1.primary - on1.core} ring segments)`);
+  await openPanel();
+  await page.click('.layer-switch[data-layer="ring"]');
+  await frames(3);
+  const off = await lineState();
+  ok(off.primary === off.core, `ring off: road-primary draws the core only (${off.primary} segments, core ${off.core})`);
+  // (no road-water object in a city built with noWaterLines)
+  if (off.water != null) ok(off.water === off.coreWater, `ring off: road-water draws the core only (${off.water} segments, core ${off.coreWater})`);
+  // a core line with grid cells (cell-runs.js) draws by cell again, not whole
+  if (off.cell) ok(off.cell.whole === false, `ring off: road-primary is culled by cell again (whole ${off.cell.whole}, ${off.cell.drawn} of ${off.cell.total})`);
+  else console.log(`n/a   ring off: road-primary has no grid cells in this city (${off.core} segments)`);
+  await page.click('.layer-switch[data-layer="ring"]');
+  await waitRow('ring', ['ready', 'failed']).catch(() => {});
+  const back2 = await joined();
+  const on2 = await lineState();
+  ok(back2 && on2.primary > on2.core, `ring on again: the ring's main streets join road-primary again (${on2.primary} segments, core ${on2.core})`);
+}
 
 // a layer switched off again: hidden, and no more of its requests
 {
@@ -139,11 +215,16 @@ ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel)
 
 // ---- 4 and 5. a camera move: the pill counts the area; failures and retry
 {
-  // hold tile replies back so the pill can be seen mid-load, and fail some
+  // hold tile replies back so the pill can be seen mid-load, and fail some.
+  // Each reply a little later than the one before: replies held for the
+  // same time land together, and small tiles (a coast, sparse villages)
+  // are built within one tick of the pill (250 ms), which then goes from
+  // "0 of n" straight to "loaded" (true, but nothing to count)
   let mode = 'slow';
+  let held = 0;
   await ctx.route(/\/data\/tiles\/\d+_\d+\.json/, async (route) => {
     if (mode === 'fail') return route.abort('failed');
-    await new Promise((r) => setTimeout(r, 900));
+    await new Promise((r) => setTimeout(r, 900 + 400 * (held++ % 8)));
     return route.continue();
   });
   const fly = (lat, lon) =>
@@ -164,12 +245,10 @@ ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel)
   await page.evaluate(() => window.__braga.layersUI.close());
   await page.evaluate(() => window.__braga.tiles?.idle(60000));
   await fly(38.735, -9.165); // north-west of the core: ring tiles not yet seen
-  let saw = null;
-  for (let i = 0; i < 60 && !saw; i++) {
-    const s = await page.evaluate(() => window.__braga.layersUI.status);
-    if (s.state === 'loading' && s.id === 'area' && s.done > 0) saw = s;
-    else await page.waitForTimeout(150);
-  }
+  // the pill, read in the page at each of its ticks: counting this area
+  const saw = await page
+    .waitForFunction(() => { const s = window.__braga.layersUI.status; return s.state === 'loading' && s.id === 'area' && s.done > 0 ? s : false; }, null, { timeout: 15000, polling: 100 })
+    .then((h) => h.jsonValue(), () => null);
   ok(!!saw, `camera move: the pill counts this area (${saw?.text})`);
   if (saw) await page.screenshot({ path: `${OUT}/status-midload-${W}x${H}.png` });
   const live = await page.evaluate(() => {
@@ -210,8 +289,17 @@ ok(back.src === 'saved' && JSON.stringify(back.sel) === JSON.stringify(savedSel)
   const retryShown = await page.evaluate(() => !document.querySelector('#load-status .ls-retry').hidden);
   ok(retryShown, 'a Retry button shows');
   if (failedState) await page.screenshot({ path: `${OUT}/status-failed-${W}x${H}.png` });
-  // keyboard: Retry is reachable with Tab and works with Enter
+  // the network comes back. The pill says "failed" as soon as one tile has
+  // given up, while others of this move may still be between two tries (the
+  // count grows: "failed: 6", then "failed: 8"); a request that failed just
+  // before can come back after the press. So: Retry is pressed once the
+  // pill says failed with its button shown and no tile request is in flight
+  // (the visitor's moment to press it)
   mode = 'slow';
+  await page
+    .waitForFunction(() => { const P = window.__braga; return P.layersUI.status.state === 'failed' && !document.querySelector('#load-status .ls-retry').hidden && ![...P.tiles.tiles.values()].some((T) => T.loading); }, null, { timeout: 90000, polling: 100 })
+    .catch(() => {});
+  // keyboard: Retry is reachable with Tab and works with Enter
   await page.focus('#load-status .ls-retry');
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => window.__braga.layersUI.status.state !== 'failed', null, { timeout: 30000, polling: 200 });
