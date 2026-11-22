@@ -18,14 +18,12 @@ import { createInstruments } from './ui.js';
 import { fitLandmark, padFor } from './fit.js';
 import { createCameraRig } from './camera.js';
 import { createSkyline, createCinema } from './tour.js';
-import { createStory } from './story.js';
-import { createUI, createLoader, placesWord } from './ui.js';
+import { createUI, createLoader, placesWord, mountTool } from './ui.js';
 import { createSearch, IMPORTANCE } from './search.js';
 import { assetUrl } from './data.js';
 import { createRouteLayer, createFlyAlong } from './routes.js';
 import { createPanorama } from './panorama.js';
 import { installShare } from './share.js';
-import { createGuide } from './guide.js';
 import { createLife } from './life.js';
 import { createSeasons } from './seasons.js';
 import { createFlyKeys } from './fly.js';
@@ -76,6 +74,8 @@ debug.tier = { ...TIER, dprCap: DPR.cap };
 // Load phases in ms since navigation (docs/perf, /tmp/perf/measure.mjs)
 debug.timing = {};
 let stopBoot = null; // set while the boot view runs (start)
+// without WebGL: the text version of the history routes (scripts/route-pages.mjs)
+const textRoutes = () => CITY.id === 'braga' && { href: `/route/${language === 'pt' ? '' : `${language}/`}`, text: t('Текстовая версия исторических маршрутов') };
 const mark = (name) => {
   debug.timing[name] = Math.round(performance.now());
 };
@@ -89,7 +89,7 @@ async function start() {
   if (!perf.caps.webgl2) {
     // three.js needs WebGL 2: say so plainly instead of a blank page
     loader.done();
-    showNotice(t('Нужен WebGL 2'), t('Этот браузер или видеокарта не поддерживает WebGL 2, поэтому 3D-карта здесь не откроется. Попробуйте свежий Chrome, Firefox, Edge или Safari на другом устройстве.'));
+    showNotice(t('Нужен WebGL 2'), t('Этот браузер или видеокарта не поддерживает WebGL 2, поэтому 3D-карта здесь не откроется. Попробуйте свежий Chrome, Firefox, Edge или Safari на другом устройстве.'), { link: textRoutes() });
     return;
   }
   loader.set(0.08, t('Загружаем данные'));
@@ -111,6 +111,17 @@ async function start() {
   };
   if (layers.on('street')) ensurePois();
   loadMaterials();
+  debug.buildingClock = () => BUILDING_UNIFORMS.uClock.value; // check-layers: the MS fade clock runs
+  // the history routes (quest.js, data/quest.json): a lazy chunk, made on
+  // the first #quest or menu click; Braga's data only. A #quest deep link
+  // fetches the chunk and the route data now, beside the map's data, and
+  // opens the route's card as soon as the landmarks exist (below): the card
+  // is HTML over the canvas and does not wait for the rest of the city.
+  let quest = null;
+  let questLoad = null;
+  const hasQuest = CITY.id === 'braga'; // data/quest.json exists for Braga only
+  const questChunk = hasQuest && /(^|[#&])quest(=|&|$)/.test(location.hash) ? import('./quest.js') : null;
+  questChunk?.then((m) => m.preloadQuest()).catch(() => {}); // a failure shows when the route opens
   const loaded = await loadData(() => loader.set(0.35, t('Данные получены')));
   mark('data');
   // data.js returns landmarks and routes already localized
@@ -207,6 +218,16 @@ async function start() {
   await nextFrame();
   const roadLayer = buildRoads(roads, project, heightAt, { waterRibbon: !loaded.nature, lite: LITE, bridgeModels: CITY.road?.bridge_models || [] });
   scene.add(roadLayer.group);
+  // The glowing road lines and the gold outlines of the places belong to
+  // the map view. From the street they hang in the air, so walk mode hides
+  // them. The water line and the tunnel hint keep their own rule (roads.js:
+  // setWaterLine, setViewDistance).
+  const mapLines = (on) => {
+    marks.outlineMaterial.visible = on;
+    for (const o of roadLayer.group.children) {
+      if (o.isLineSegments2 && o.name !== 'road-water' && o.name !== 'road-tunnel-hint') o.visible = on;
+    }
+  };
   debug.roadSegments = roadLayer.counts;
   debug.roadCells = () => roadLayer.cellStats; // per object: cells, runs, drawn of total
   // The road layer's city-wide meshes draw only their cells in view
@@ -236,9 +257,11 @@ async function start() {
   });
   scene.add(city.group);
   debug.buildings = city.stats;
+  debug.footprints = city.footprints; // outlines in world units (checks measure how a house meets the ground)
   mark('buildings');
 
-  const marks = buildLandmarks(landmarks, fits, heightAt, outlines, (i) => select(i));
+  // during a history route a label click is a find-on-map pick (quest.js)
+  const marks = buildLandmarks(landmarks, fits, heightAt, outlines, (i) => (quest?.active ? quest.mapPick(i) : select(i)));
   scene.add(marks.group);
   debug.landmarks = marks.items.map((it) => ({
     id: it.data.id,
@@ -255,6 +278,42 @@ async function start() {
   }));
 
   mark('landmarks');
+
+  // #quest deep link: the route's card opens now, over the boot view. Its
+  // camera flights, the UI hooks and the skyline come with attach() once the
+  // UI is built (after ensureQuest below); until then the card reads and
+  // answers (a find-on-map task takes its answer from the card's list). If
+  // the chunk is late, the usual path (applyHash) opens the route instead.
+  let questEarly = !!questChunk;
+  questChunk
+    ?.then(({ createQuest }) => {
+      if (quest || !questEarly) return;
+      const id = new URLSearchParams(location.hash.replace(/^#/, '')).get('quest');
+      quest = createQuest({
+        camera,
+        items: marks.items,
+        home,
+        reducedMotion,
+        city: CITY.id || 'braga',
+        atmosphere,
+        getLife: () => null,
+        setTime: (name) => atmosphere.setTime(name, { animate: !reducedMotion }),
+        onExit: () => history.replaceState(null, '', location.pathname + location.search),
+        onError: (e) => console.warn('[braga] the history route could not open early', e),
+      });
+      debug.quest = quest;
+      mark('questEarly');
+      return quest.start(() => questEarly, id).then(() => quest.active && mark('questOpen'));
+    })
+    .catch(() => {});
+  // Braga builds the rest of the scene and the UI in one task from here to
+  // the first full frame: give the card (when its chunk and data are in)
+  // the chance to open and paint first. Two frames: the card is made in the
+  // first yield and painted at the end of the first frame.
+  if (questChunk) {
+    await nextFrame();
+    await nextFrame();
+  }
   // Woods, parks and water from OSM, the streamed tiles around the core, and
   // life and the seasons on top: built after the first full frame, when the
   // browser is idle (deferLayers below). Until then they are null.
@@ -285,6 +344,7 @@ async function start() {
     scene.add(nature.group);
     if (nature.landcover) ground.userData.setLandcover(nature.landcover, nature.landRect);
     debug.nature = nature.stats;
+    debug.waterRings = nature.waterRings;
     // seek-safe water clock: cinema / story scrubbing and deterministic shots
     debug.water = { seek: seekWater, resume: resumeWater };
     nature.setNearRadius(perf.knobs.natureNearM);
@@ -298,6 +358,7 @@ async function start() {
   function startRing() {
     if (tiles || !nature) return;
     tiles = createTiles({ renderer, scene, camera, terrain, heightAt, proj, roadLayer, nature, ground, mobile: LITE, debug });
+    tiles.setBudgetScale?.(perf.knobs.radius); // the governor's current radius (this fork's tiles.js has no budget setter yet)
   }
   // Microsoft footprints in the OSM gaps, core and ring (buildings-ms.js;
   // ?ms=0 off), when their layer is on
@@ -474,7 +535,7 @@ async function start() {
   // starts with the boot view, before the city is built.
   function makeIntro() {
     const param = new URLSearchParams(location.search).get('intro');
-    const deep = /(^|[#&])((place|route)=|(cinema|story)(&|$))/.test(location.hash);
+    const deep = /(^|[#&])((place|route|quest)=|(cinema|story|quest)(&|$))/.test(location.hash);
     let seen = false;
     try {
       seen = sessionStorage.getItem('braga-intro') === '1';
@@ -614,7 +675,7 @@ async function start() {
   debug.perfSystem = perf;
   // scripted cameras (intro, tour, cinema, story) and the game cause frame
   // spikes that are not load: the governor holds while they run
-  perf.paused = () => !!(intro?.active || tour || cinema?.active || story?.active);
+  perf.paused = () => !!(intro?.active || tour || cinema?.active || story?.active || game?.active || quest?.active);
   applyKnobs(perf.knobs); // the class's own baseline, before the first full frame
 
   // The menu: Auto / Ultra / High / Medium / Low / Potato. A choice inside the
@@ -664,6 +725,24 @@ async function start() {
   let tour = null; // fly-along driver while it plays
   let cinema = null; // cinema and story modes, created further down
   let story = null;
+  let storyLoad = null;
+  let game = null; // the Azulejo discovery game (game.js)
+  let gameLoad = null;
+  let walk = null; // walk mode: the street at eye height (walk.js)
+  let walkLoad = null;
+  // (quest, questLoad, hasQuest: at the top of start())
+  // startMode() numbers each request; a mode whose chunk arrives after a
+  // newer request (or after the visitor left, cancelModeLoad) does not start
+  let modeRequest = 0;
+  let modeLoading = null;
+  function cancelModeLoad() {
+    if (!modeLoading) return false;
+    modeLoading = null;
+    modeRequest++;
+    setHash(currentHash());
+    return true;
+  }
+  let flyKeys = null;
 
   const rig = createCameraRig(camera, canvas, heightAt, {
     reducedMotion,
@@ -727,7 +806,7 @@ async function start() {
     },
     onRoute: (id) => openRoute(id),
     toast: (msg, ms) => ui.toast(msg, ms),
-    isBlocked: () => !!(cinema?.active || story?.active || intro?.active),
+    isBlocked: () => !!(cinema?.active || story?.active || intro?.active || game?.active || quest?.active || walk?.active),
   });
   debug.search = search;
 
@@ -748,13 +827,20 @@ async function start() {
   // live=1, from live.js) when they differ from the default
   function currentHash() {
     const parts = [];
-    if (route) parts.push(`route=${route.route.id}`);
+    // the history routes keep #quest=<id> (or #quest) while they run (a reload resumes)
+    if (walk?.active) parts.push('walk');
+    else if (quest?.active) parts.push(quest.hash);
+    else if (route) parts.push(`route=${route.route.id}`);
     else if (active >= 0) parts.push(`place=${landmarks[active].id}`);
-    if (atmosphere.time !== DEFAULT_TIME) parts.push(`time=${atmosphere.time}`);
+    // the route shows daylight but the link keeps the visitor's own light
+    const held = quest?.heldLight;
+    const time = held ? held.time : atmosphere.time;
+    if (time !== DEFAULT_TIME) parts.push(`time=${time}`);
     // until life and the seasons exist (deferLayers), keep what the link said
     const was = life && seasons ? null : new URLSearchParams(location.hash.replace(/^#/, ''));
     if (life) {
-      if (debug.life?.live.hash) parts.push(debug.life.live.hash);
+      const h = held ? held.hash : debug.life?.live.hash;
+      if (h) parts.push(h);
     } else for (const k of ['weather', 'live']) if (was.has(k)) parts.push(`${k}=${was.get(k)}`);
     if (seasons) {
       if (debug.season && debug.season !== debug.seasons?.today) parts.push('season=' + (debug.season === 'fall' ? 'autumn' : debug.season));
@@ -764,10 +850,18 @@ async function start() {
   function applyHash() {
     const q = new URLSearchParams(location.hash.replace(/^#/, ''));
     const tm = q.get('time');
-    if (tm && TIMES.includes(tm) && tm !== atmosphere.time) setTime(tm, { writeHash: false });
-    // #cinema and #story open the two guided modes
+    // (while a history route shows daylight, the hash carries the visitor's
+    // held light: that one is not a new choice)
+    const heldTime = quest?.heldLight?.time;
+    if (tm && TIMES.includes(tm) && tm !== atmosphere.time && tm !== heldTime) setTime(tm, { writeHash: false });
+    // #cinema, #story, #game and #quest open the guided modes
     if (q.has('cinema')) return void (cinema.active || startMode('cinema'));
-    if (q.has('story')) return void (story.active || startMode('story'));
+    if (q.has('story')) return void (story?.active || startMode('story'));
+    if (q.has('game')) return void (game?.active || startMode('game'));
+    if (q.has('walk')) return void (walk?.active || startMode('walk'));
+    walk?.stop(); // the link no longer says #walk (Back)
+    if (q.has('quest') && hasQuest) return void (quest?.active ? quest.open(q.get('quest')) : startMode('quest', q.get('quest')));
+    cancelModeLoad();
     const r = q.get('route');
     const p = q.get('place');
     if (r) {
@@ -813,7 +907,13 @@ async function start() {
       saved = null;
     }
     const fromHash = new URLSearchParams(location.hash.replace(/^#/, '')).get('time');
-    setTime(fromHash || saved || DEFAULT_TIME, { animate: false, writeHash: false });
+    const initial = TIMES.includes(fromHash || saved) ? fromHash || saved : DEFAULT_TIME;
+    if (quest?.heldLight) {
+      // an early history route already shows daylight: the visitor's own
+      // light waits behind it and comes back on exit
+      for (const b of timeButtons) b.setAttribute('aria-pressed', String(b.dataset.time === initial));
+      quest.holdTime(initial);
+    } else setTime(initial, { animate: false, writeHash: false });
   }
   debug.setTime = setTime;
 
@@ -855,6 +955,7 @@ async function start() {
   // route panel holds the right-hand side.
   function select(i) {
     if (i == null || i < 0) return;
+    cancelModeLoad();
     if (tour) stopTour();
     active = i;
     marks.setActive(i);
@@ -939,6 +1040,7 @@ async function start() {
   function openRoute(id) {
     const r = routeById.get(id);
     if (!r) return;
+    cancelModeLoad();
     if (tour) stopTour();
     ui.callout.hide();
     if (active >= 0) {
@@ -1042,25 +1144,182 @@ async function start() {
     const on = new Set(ids);
     for (const it of marks.items) it.labelEl.classList.toggle('is-story-focus', on.has(it.data.id));
   };
-  story = createStory({
+  async function ensureStory() {
+    if (story) return story;
+    if (!storyLoad) {
+      storyLoad = import('./story.js').then(({ createStory }) => {
+        story = createStory({
+          ...modeCtx,
+          load: loadStory,
+          onFocus: storyLabels,
+          onExit: () => {
+            storyLabels([]);
+            modeCtx.onExit();
+          },
+          onError: () => {
+            ui.toast(t('Не удалось загрузить историю'), 4000);
+            setHash(currentHash());
+          },
+        });
+        debug.story = story;
+        return story;
+      }).catch((error) => {
+        storyLoad = null;
+        throw error;
+      });
+    }
+    return storyLoad;
+  }
+  async function ensureGame() {
+    if (game) return game;
+    if (!gameLoad) {
+      gameLoad = import('./game.js').then(({ createGame }) => {
+        game = createGame({
+          scene,
+          camera,
+          rig,
+          heightAt,
+          items: marks.items,
+          terrain,
+          sky,
+          roads,
+          project,
+          atmosphere,
+          ui,
+          home,
+          reducedMotion,
+          debug,
+          city: CITY.id || 'braga',
+          onTouchFlight: (input) => flyKeys?.setPadInput(input),
+          setTime: (name) => modeTime(name),
+          onEnter: () => document.body.classList.add('is-game'),
+          onExit: () => {
+            document.body.classList.remove('is-game');
+            modeCtx.onExit();
+          },
+        });
+        return game;
+      }).catch((error) => {
+        gameLoad = null;
+        throw error;
+      });
+    }
+    return gameLoad;
+  }
+  const gameBtn = document.createElement('button');
+  gameBtn.type = 'button';
+  gameBtn.className = 'tool mode-btn';
+  gameBtn.id = 'game-toggle';
+  gameBtn.setAttribute('aria-controls', 'game');
+  gameBtn.title = t('Азулежу: охота за осколками по городу');
+  gameBtn.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 3.5h11v9h-11z" /><path d="M5.2 6.3h1.4M5.2 9.4h3.6M11.6 5.4v3.4" /></svg><span class="mode-label">${t('Игра')}</span>`;
+  mountTool(gameBtn, 'modes', { closes: true });
+  gameBtn.addEventListener('click', () => (game?.active ? game.stop() : startMode('game')));
+  // Walk mode: the street at eye height (walk.js). The walker stops at the
+  // outlines of the buildings and of the landmark models.
+  async function ensureWalk() {
+    if (walk) return walk;
+    if (!walkLoad) {
+      walkLoad = import('./walk.js').then(({ createWalk }) => {
+        walk = createWalk({
+          camera,
+          rig,
+          heightAt,
+          dom: canvas,
+          scene,
+          polys: [...city.footprints, ...outlines.filter(Boolean)],
+          places: () => marks.items.map((it, i) => ({ i, name: it.labelEl.textContent, x: it.center.x, z: it.center.z, outline: outlines[i] })),
+          street: () => life?.street?.built ?? null,
+          // the card belongs to the map view: the walk ends, then the place opens
+          onPlace: (i) => select(i),
+          reducedMotion,
+          bounds: terrain.bounds,
+          water: () => nature?.waterRings ?? null,
+          onEnter: () => {
+            document.body.classList.add('is-walk');
+            mapLines(false);
+          },
+          onExit: () => {
+            document.body.classList.remove('is-walk');
+            mapLines(true);
+            modeCtx.onExit();
+          },
+        });
+        debug.walk = walk;
+        return walk;
+      }).catch((error) => {
+        walkLoad = null;
+        throw error;
+      });
+    }
+    return walkLoad;
+  }
+  const walkBtn = document.createElement('button');
+  walkBtn.type = 'button';
+  walkBtn.className = 'tool mode-btn';
+  walkBtn.id = 'walk-toggle';
+  walkBtn.title = t('Прогулка по улицам на уровне глаз');
+  walkBtn.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8.6" cy="2.9" r="1.4" /><path d="M8.2 5.2 6.4 9l1.9 1.6.6 3.4M6.4 9l-1.5 4.9M8.2 5.2l2.4 1.9 1.6.3M7.6 6.3 5.4 7.2l-.6 1.9" /></svg><span class="mode-label">${t('Пешком')}</span>`;
+  mountTool(walkBtn, 'modes', { closes: true });
+  walkBtn.addEventListener('click', () => (walk?.active ? walk.stop() : startMode('walk')));
+  // History routes: a few landmarks each, one question per stop (quest.js, data/quest.json)
+  const questCtx = () => ({
     ...modeCtx,
-    load: loadStory,
+    city: CITY.id || 'braga',
+    atmosphere,
+    getLife: () => life,
+    // the route puts the visitor's light back itself (live mode too)
+    onExit: () => setHash(currentHash()),
     onFocus: storyLabels,
-    onExit: () => {
-      storyLabels([]);
-      modeCtx.onExit();
+    onEnter: () => {
+      ui.callout.hide();
+      if (active >= 0) close();
     },
+    onPlace: (i) => select(i),
+    onRoute: () => setHash(currentHash()),
     onError: () => {
-      ui.toast(t('Не удалось загрузить историю'), 4000);
+      ui.toast(t('Не удалось загрузить маршрут'), 4000);
       setHash(currentHash());
     },
   });
-  function startMode(name) {
+  async function ensureQuest() {
+    if (quest) return quest;
+    if (!questLoad) {
+      questLoad = (questChunk || import('./quest.js')).then(({ createQuest }) => {
+        quest ??= createQuest(questCtx());
+        debug.quest = quest;
+        return quest;
+      }).catch((error) => {
+        questLoad = null;
+        throw error;
+      });
+    }
+    return questLoad;
+  }
+  // an early route (#quest deep link) gets the camera, the skyline and the
+  // UI hooks now; a chunk that comes after this point takes the usual path
+  questEarly = false;
+  quest?.attach(questCtx());
+  if (hasQuest) {
+    const questBtn = document.createElement('button');
+    questBtn.type = 'button';
+    questBtn.className = 'tool mode-btn';
+    questBtn.id = 'quest-toggle';
+    questBtn.setAttribute('aria-controls', 'quest');
+    questBtn.title = t('Откройте историческую Брагу: маршруты с заданием на каждой остановке');
+    questBtn.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8l1.6 3.5 3.8.4-2.8 2.6.8 3.8L8 10.2 4.6 12.1l.8-3.8-2.8-2.6 3.8-.4z" /></svg><span class="mode-label">${t('Исторические маршруты')}</span>`;
+    mountTool(questBtn, 'modes', { closes: true });
+    questBtn.addEventListener('click', () => (quest?.active ? quest.stop() : startMode('quest')));
+  }
+  // arg: the history route's id (#quest=<id>)
+  function startMode(name, arg) {
     if ((name === 'cinema' && !cinema.available) || (name === 'story' && CITY.features?.story === false)) {
       ui.toast(t('Этот режим пока недоступен'));
       setHash(currentHash());
       return;
     }
+    const request = ++modeRequest;
+    modeLoading = name === 'cinema' ? null : name;
     if (intro?.active) intro.skip();
     if (tour) stopTour();
     if (active >= 0) close();
@@ -1070,12 +1329,89 @@ async function start() {
     ui.atmo.close();
     search.close();
     flyKeys.reset();
-    if (name === 'cinema') {
-      story.stop();
+    if (name !== 'quest') quest?.stop();
+    if (name !== 'walk') walk?.stop();
+    if (name === 'quest') {
+      cinema.stop();
+      story?.stop();
+      game?.stop();
+      setHash(arg ? `${name}=${arg}` : name);
+      ensureQuest().then((instance) => {
+        if (request !== modeRequest) return;
+        // modeLoading stays set until quest.json is in: Esc still cancels
+        return instance.start(() => request === modeRequest, arg).then(() => {
+          if (request !== modeRequest) return;
+          modeLoading = null;
+          if (instance.active) setHash(currentHash());
+        });
+      }).catch(() => {
+        if (request === modeRequest) {
+          modeLoading = null;
+          ui.toast(t('Не удалось загрузить маршрут'), 4000);
+          setHash(currentHash());
+        }
+      });
+      return;
+    } else if (name === 'walk') {
+      cinema.stop();
+      story?.stop();
+      game?.stop();
+      ensureWalk().then((instance) => {
+        if (request !== modeRequest) return;
+        modeLoading = null;
+        // From the city overview (a link straight to #walk, or the button
+        // before any zoom) the view target is no chosen place: it lay 1.2 km
+        // out of the centre, on a wide empty square. Then the walk starts at
+        // the map origin, which is the middle of the old town.
+        const overview = camera.position.distanceTo(rig.controls.target) > 250;
+        if (!instance.start(overview ? { x: 0, z: 0 } : null)) ui.toast(t('Здесь нет улицы рядом. Выберите другое место.'), 4000);
+        setHash(currentHash());
+      }).catch(() => {
+        if (request === modeRequest) {
+          modeLoading = null;
+          ui.toast(t('Не удалось загрузить прогулку'), 4000);
+          setHash(currentHash());
+        }
+      });
+      return;
+    } else if (name === 'game') {
+      cinema.stop();
+      story?.stop();
+      setHash(name);
+      ensureGame().then((instance) => {
+        if (request !== modeRequest) return;
+        modeLoading = null;
+        instance.start();
+        setHash(name); // the wait for the chunk let other writers replace #game
+      }).catch(() => {
+        if (request === modeRequest) {
+          modeLoading = null;
+          ui.toast(t('Не удалось загрузить игру'), 4000);
+          setHash(currentHash());
+        }
+      });
+      return;
+    } else if (name === 'cinema') {
+      story?.stop();
+      game?.stop();
       cinema.start();
     } else {
       cinema.stop();
-      story.start();
+      game?.stop();
+      setHash(name);
+      ensureStory().then((instance) => {
+        if (request !== modeRequest) return;
+        modeLoading = null;
+        instance.start();
+        setHash(name);
+      }).catch(() => {
+        if (request === modeRequest) {
+          modeLoading = null;
+          ui.toast(t('Не удалось загрузить историю'), 4000);
+          setHash(currentHash());
+        }
+      });
+      return;
     }
     setHash(name);
   }
@@ -1095,11 +1431,11 @@ async function start() {
   // Esc peels one layer: fly-along, detail (back to the route), route.
   // Then the fly keys (fly.js): WASD, Q/E, arrows. While a place is open and
   // no other fly key is held, ← / → still step through the places.
-  const flyKeys = createFlyKeys({
+  flyKeys = createFlyKeys({
     rig,
     debug,
     // the intro, the route fly-along and the guided modes own the camera
-    isBlocked: () => !!(intro?.active || tour || cinema?.active || story?.active),
+    isBlocked: () => !!(intro?.active || tour || cinema?.active || story?.active || quest?.active || walk?.active),
     placeOpen: () => active >= 0,
   });
   window.addEventListener('keydown', (e) => {
@@ -1107,9 +1443,14 @@ async function start() {
     const t = e.target;
     if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement || t?.isContentEditable) return;
     // cinema and story own every key while they play
+    if (game?.active && game.onKey(e)) return;
+    if (walk?.active) return void walk.onKey(e); // walk owns the keys; Esc goes up
     if (cinema?.active) return void cinema.onKey(e);
     if (story?.active) return void story.onKey(e);
+    // the history route: Esc leaves; Tab, Enter and Space stay with its buttons
+    if (quest?.active) return void quest.onKey(e);
     if (e.key === 'Escape') {
+      if (cancelModeLoad()) return; // a mode still loading: stay on the map
       if (ui.tools.open) ui.tools.set(false); // the phone's tools sheet first
       else if (tour) stopTour();
       else if (active >= 0) close();
@@ -1138,20 +1479,24 @@ async function start() {
   });
   canvas.addEventListener('pointerup', (e) => {
     if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5) return;
+    if (game?.active || walk?.active) return; // the game and the walk own the map
     toNdc(e);
     raycaster.setFromCamera(ndc, camera);
+    // the route owns it too: only a find-on-map task's candidates pick
+    if (quest?.active) return void quest.mapPick(marks.pick(raycaster, quest.pickable));
     const hit = marks.pick(raycaster);
     if (hit != null) select(hit);
   });
   let hoverQueued = false;
   canvas.addEventListener('pointermove', (e) => {
-    if (hoverQueued || e.buttons) return;
+    if (quest?.active && !quest.pickable.size) return void setHover(-1);
+    if (hoverQueued || e.buttons || game?.active || walk?.active) return;
     hoverQueued = true;
     requestAnimationFrame(() => {
       hoverQueued = false;
       toNdc(e);
       raycaster.setFromCamera(ndc, camera);
-      setHover(marks.pick(raycaster) ?? -1);
+      setHover(marks.pick(raycaster, quest?.active ? quest.pickable : null) ?? -1);
     });
   });
   canvas.addEventListener('pointerleave', () => setHover(-1));
@@ -1284,7 +1629,9 @@ async function start() {
     lastDeclutter = now;
     const placed = [];
     const onRoute = route ? new Set(route.stopIdx) : null;
-    const rank = (it) => (it.index === active ? 2 : onRoute?.has(it.index) ? 1 : 0);
+    // the history route: its own stops win over the labels it hides
+    const routeFocus = quest?.active ? (it) => it.labelEl.classList.contains('is-story-focus') : () => false;
+    const rank = (it) => (it.index === active ? 2 : onRoute?.has(it.index) || routeFocus(it) ? 1 : 0);
     const order = marks.items
       .filter((it) => it.label.visible)
       .map((it) => {
@@ -1295,7 +1642,7 @@ async function start() {
       .sort((a, b) => rank(b.it) - rank(a.it) || b.score - a.score || a.d - b.d);
 
     // far zoom: greedy clusters around the highest-priority labels
-    const clustering = camDist > CLUSTER_FROM && !route && !story?.active && !cinema?.active;
+    const clustering = camDist > CLUSTER_FROM && !route && !story?.active && !cinema?.active && !quest?.active;
     const seeds = [];
     if (clustering) {
       for (const o of order) {
@@ -1387,7 +1734,8 @@ async function start() {
       const box = { l: o.sx - w / 2 - 4, r: o.sx + w / 2 + 4, t: o.sy - h - 2, b: o.sy + 2 };
       const clash = placed.some((p) => box.l < p.r && box.r > p.l && box.t < p.b && box.b > p.t);
       const offEdge = box.l < 0 || box.r > size.w || box.t < 0; // a clipped name reads as a typo
-      const show = !o.behind && (!clash || o.it.index === active) && !hits(box) && !offEdge;
+      // a find-on-map candidate's small «?» marker shows even where it touches another
+      const show = !o.behind && (!clash || o.it.index === active || el.classList.contains('is-quest-candidate')) && !hits(box) && !offEdge;
       el.classList.toggle('is-muted', !show);
       if (show) placed.push(box);
     }
@@ -1485,14 +1833,16 @@ async function start() {
     clock += dt;
     renderer.info.reset();
     // the intro owns the camera while it plays; then the rig does
-    if (!intro?.update(rawDt)) rig.update(dt, now, rawDt);
+    // (walk mode owns it while it is on, and stands lower than the orbit floor)
+    if (!intro?.update(rawDt) && !walk?.update(dt)) rig.update(dt, now, rawDt);
     // never below the ground, whoever moved the camera (parallax included)
-    const floorY = heightAt(camera.position.x, camera.position.z) + 2;
+    const floorY = heightAt(camera.position.x, camera.position.z) + (walk?.active ? 0.38 : 2);
     if (camera.position.y < floorY) camera.position.y = floorY;
     const camDist = intro?.active ? camera.position.distanceTo(home.target) : camera.position.distanceTo(rig.controls.target);
     // near plane follows the orbit distance: 0.5 units (2 m) in a close-up,
     // up to 6 units over the whole city, for depth precision far away
-    const near = THREE.MathUtils.clamp(camDist * 0.004, 0.5, 6);
+    // walk mode: 0.3 m, so a wall beside the walker is not cut open
+    const near = walk?.active ? 0.075 : THREE.MathUtils.clamp(camDist * 0.004, 0.5, 6);
     if (Math.abs(near - camera.near) > camera.near * 0.1) {
       camera.near = near;
       camera.updateProjectionMatrix();
@@ -1517,7 +1867,10 @@ async function start() {
     lightInfo.ambient.add(_amb.copy(atmosphere.hemi.color).multiplyScalar(atmosphere.hemi.intensity * 0.5));
     // nature, tiles, life and seasons are null until deferLayers built them
     nature?.update(reducedMotion ? 0 : dt, camera, lightInfo); // no sway or ripples under reduced motion
-    tiles?.update(rawDt);
+    // tiles.js advances the fade clock the MS buildings read; while the ring
+    // layer is off (no tiles), this loop does, or MS buildings never fade in
+    if (tiles) tiles.update(rawDt);
+    else BUILDING_UNIFORMS.uClock.value += rawDt;
     ms?.update(rawDt);
     // traffic, birds, funicular, fountains, weather (life.js) at the class's
     // simulation rate: the time of the skipped frames is handed over at once
@@ -1689,10 +2042,11 @@ async function start() {
     await step('nature', buildNatureLayer);
     await step('life', () => {
       // footprints, outlines: where the people of streetscape.js may not walk
-      life = createLife({ renderer, scene, camera, atmosphere, project, heightAt, roads, items: marks.items, nature, fx, reducedMotion, mobile: LITE, lite: LITE, debug, setHash: () => setHash(currentHash()), footprints: city.footprints, outlines, layers: { street: layers.on('street'), live: layers.on('live') } });
+      life = createLife({ renderer, scene, camera, atmosphere, project, heightAt, roads, items: marks.items, nature, fx, reducedMotion, mobile: LITE, lite: LITE, debug, setHash: () => setHash(currentHash()), footprints: city.footprints, outlines, roadGroup: roadLayer.group, layers: { street: layers.on('street'), live: layers.on('live') } });
       // the status pill follows the first load of the two life layers
       if (layers.on('street')) track('street', life.setStreet(true));
       if (layers.on('live')) track('live', life.setLive(true));
+      quest?.lifeReady();
     });
     await step('seasons', () => {
       seasons = createSeasons({ renderer, scene, camera, atmosphere, nature, fx, weather: life?.weather, terrain, ui, reducedMotion, mobile: LITE, lite: LITE, debug });
@@ -1824,7 +2178,9 @@ async function start() {
   installShare({ renderer, scene, camera, fx, setFx, atmosphere, roadLayer, routeLayer, marks, landmarks, routes, ui, getSize: () => size, beforeRender: cullCells });
   // the talking guide (guide.js, api/guide.js) is parked until later; ?guide=1 turns it on for testing
   if (new URLSearchParams(location.search).get('guide') === '1') {
-    createGuide({ landmarks, select, getActive: () => active, project, rig, reducedMotion, debug });
+    import('./guide.js').then(({ createGuide }) => {
+      createGuide({ landmarks, select, getActive: () => active, project, rig, reducedMotion, debug });
+    }).catch(() => ui.toast(t('Не удалось загрузить гида'), 4000));
   }
 }
 
@@ -1847,8 +2203,10 @@ loadCity()
       : t('Не удалось загрузить карту. Проверьте соединение и попробуйте снова.');
     const text = document.getElementById('loader-text');
     const loaderEl = document.getElementById('loader');
+    const link = textRoutes();
     if (text && loaderEl && !loaderEl.classList.contains('is-done')) {
       text.textContent = msg;
+      if (link) text.append(' ', Object.assign(document.createElement('a'), link));
       loaderEl.classList.add('is-error');
       loaderEl.setAttribute('role', 'alert');
       const retry = document.createElement('button');

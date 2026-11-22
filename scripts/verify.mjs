@@ -15,13 +15,17 @@ import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CITY = process.env.CITY || 'barcelos';
+const dataDir = 'data'; // this fork holds one city; Braga's verify reads the folder from the city config
 const has = (...parts) => existsSync(join(ROOT, ...parts));
 
 const checks = [
   { name: 'build', cmd: ['npm', 'run', 'build'], needs: [] },
-  // the Layers panel's sizes (data/layers.json) match the build just made
-  { name: 'layers manifest', cmd: ['node', 'scripts/layers-manifest.mjs', '--check'], needs: ['data/layers.json'] },
+  // the Layers panel's sizes (<data dir>/layers.json) match the build just made
+  { name: 'layers manifest', cmd: ['node', 'scripts/layers-manifest.mjs', '--check', '--city', CITY], needs: [`${dataDir}/layers.json`] },
   { name: 'tests', cmd: ['npm', 'test'], needs: [] },
+  ...(CITY === 'braga' ? [{ name: 'discovery', cmd: ['npm', 'run', 'check:discovery'], needs: ['data/pois.json', 'data/landmarks.json'] }] : []),
+  // the history routes' text pages (public/route/) match data/quest.json
+  ...(CITY === 'braga' ? [{ name: 'route pages', cmd: ['node', 'scripts/route-pages.mjs', '--check'], needs: ['data/quest.json'] }] : []),
   {
     name: 'data contract',
     cmd: ['node', 'scripts/check-data.mjs', '--city', CITY],
@@ -38,9 +42,9 @@ const checks = [
     cmd: ['node', 'scripts/check-fit.mjs', '--city', CITY],
     needs: ['data/footprints.json', 'data/landmarks.json'],
   },
-  { name: 'traffic', cmd: ['node', 'scripts/check-traffic.mjs', '--city', CITY], needs: ['data/roads.json'] },
-  // the packed core buildings decode to exactly buildings.json (skipped until a packed file exists)
-  { name: 'packed buildings', cmd: ['node', 'scripts/pack-buildings.mjs', '--city', CITY, '--check'], needs: ['data/buildings.json', 'data/buildings.bin.gz'] },
+  { name: 'traffic', cmd: ['node', 'scripts/check-traffic.mjs', '--city', CITY], needs: [`${dataDir}/roads.json`] },
+  // the packed core buildings decode to exactly buildings.json (skipped for a city without a packed file)
+  { name: 'packed buildings', cmd: ['node', 'scripts/pack-buildings.mjs', '--city', CITY, '--check'], needs: [`${dataDir}/buildings.json`, `${dataDir}/buildings.bin.gz`] },
   {
     name: 'models',
     cmd: ['node', 'scripts/count-tris.mjs', '--city', CITY],

@@ -55,6 +55,20 @@ export const WEATHER_UNIFORMS = {
   seasonSnow: { value: { x: 0, y: 0, z: 65, w: 0 } },
 };
 
+// ------------------------------------------------------------ game shroud
+// Fog of war (src/game.js). A world-space reveal mask drawn in the SAME fog
+// chunk every lit material already shares, so unexplored ground, streets,
+// buildings and landmarks all darken together. Off by default (x = 0), so
+// the map is untouched unless the game mode turns it on.
+//   tShroud:     reveal mask, R: 0 undiscovered .. 1 explored
+//   shroudRect:  x0, z0, 1 / width, 1 / depth in world units
+//   shroudParams: x on 0/1, y darkness 0..1, z soft edge, w unused
+export const SHROUD_UNIFORMS = {
+  tShroud: { value: null },
+  shroudRect: { value: { x: 0, y: 0, z: 1, w: 1 } },
+  shroudParams: { value: { x: 0, y: 1, z: 0.5, w: 0 } },
+};
+
 // Declarations for shaders that read the season (lit materials get them
 // through the lights_pars_begin patch below).
 export const SEASON_GLSL = /* glsl */ `
@@ -152,6 +166,27 @@ export function installAtmosphereFog() {
   fogInstalled = true;
   const C = THREE.ShaderChunk;
   WEATHER_UNIFORMS.tCloud.value = cloudTexture();
+  // A blank reveal mask, created before any material compiles so every
+  // fogged material's cloned uniform shares this one GPU source; the game
+  // (createShroud) paints into it in place. shroudParams.x stays 0 until
+  // then, so the map is untouched.
+  const SHROUD_SIZE = 256;
+  const shroudData = new Uint8Array(SHROUD_SIZE * SHROUD_SIZE * 4);
+  for (let i = 0; i < SHROUD_SIZE * SHROUD_SIZE; i++) shroudData[i * 4 + 3] = 255;
+  const blankShroud = new THREE.DataTexture(shroudData, SHROUD_SIZE, SHROUD_SIZE, THREE.RGBAFormat);
+  blankShroud.wrapS = blankShroud.wrapT = THREE.ClampToEdgeWrapping;
+  blankShroud.magFilter = blankShroud.minFilter = THREE.LinearFilter;
+  blankShroud.generateMipmaps = false;
+  blankShroud.colorSpace = THREE.NoColorSpace;
+  blankShroud.needsUpdate = true;
+  // UniformsUtils.clone clones a texture per material, and a clone keeps its
+  // own version counter, so a live-updated mask would never reach the
+  // materials. Returning the same object makes every cloned uniform share
+  // this one texture, and one needsUpdate repaints them all.
+  blankShroud.clone = function clone() {
+    return this;
+  };
+  SHROUD_UNIFORMS.tShroud.value = blankShroud;
   // Cloud shadows: the direct light of every lit, fogged material is dimmed
   // by the deck above the shaded point (projected along the sun). The fog
   // chunk already carries the world position (vFogWorld) and the sun
@@ -229,6 +264,9 @@ if (cloudShape.z > 0.001) {
   uniform vec3 fogSunColor;
   uniform vec4 fogParams;
   uniform vec4 fogRect;
+  uniform sampler2D tShroud;
+  uniform vec4 shroudRect;
+  uniform vec4 shroudParams;
   varying float vFogDepth;
   varying vec3 vFogWorld;
   #ifdef FOG_EXP2
@@ -271,10 +309,19 @@ if (cloudShape.z > 0.001) {
     float fSun = pow( max( dot( fDir, fogSunDir ), 0.0 ), max( fogParams.y, 1.0 ) ) * fogParams.x;
     vec3 fCol = mix( fogColor, fogSunColor, clamp( fSun, 0.0, 1.0 ) );
     gl_FragColor.rgb = mix( gl_FragColor.rgb, fCol, fogFactor );
+    // fog of war: darken whatever the player has not explored yet
+    if ( shroudParams.x > 0.001 ) {
+      vec2 sUv = ( vFogWorld.xz - shroudRect.xy ) * shroudRect.zw;
+      if ( sUv.x > -0.02 && sUv.x < 1.02 && sUv.y > -0.02 && sUv.y < 1.02 ) {
+        float reveal = texture2D( tShroud, clamp( sUv, 0.0, 1.0 ) ).r;
+        float hide = ( 1.0 - smoothstep( 0.0, max( shroudParams.z, 0.05 ), reveal ) ) * shroudParams.x * shroudParams.y;
+        gl_FragColor.rgb = mix( gl_FragColor.rgb, vec3( 0.012, 0.018, 0.040 ), clamp( hide, 0.0, 1.0 ) );
+      }
+    }
   }
 #endif`;
   for (const lib of Object.values(THREE.ShaderLib)) {
-    if (lib.uniforms?.fogColor) Object.assign(lib.uniforms, FOG_UNIFORMS, WEATHER_UNIFORMS);
+    if (lib.uniforms?.fogColor) Object.assign(lib.uniforms, FOG_UNIFORMS, WEATHER_UNIFORMS, SHROUD_UNIFORMS);
   }
 }
 
@@ -320,8 +367,11 @@ const PRESETS = {
     light: 0xffd4a3, lightI: 3.9,
     zenith: 0x46699c, mid: 0xb3c0d4, haze: 0xdcd2c9, scatter: 0xffd3a0, scatterK: 0.75, scatterP: 5,
     disk: 0xfff1d8, diskI: 5,
-    hemiSky: 0xc9d4e6, hemiGround: 0x5a4c3c, hemiI: 0.18,
-    env: 0.65, exposure: 1.25, density: 0.00026, falloff: 0.0035, night: 0,
+    // sky fill lifted (guimaraes wave 8b, scaled to Braga's brighter base): the
+    // low sun leaves the street canyons in shadow, so the hemisphere fill, the
+    // environment and the exposure carry them; thinner haze keeps it clear
+    hemiSky: 0xc8d8ee, hemiGround: 0x7a6650, hemiI: 0.4,
+    env: 0.9, exposure: 1.28, density: 0.0002, falloff: 0.0035, night: 0,
   },
   day: {
     az: 158, el: 38,
@@ -336,8 +386,9 @@ const PRESETS = {
     light: 0xffbb78, lightI: 4.4,
     zenith: 0x33507f, mid: 0xa6adc4, haze: 0xd9c0ae, scatter: 0xf7bd78, scatterK: 0.85, scatterP: 5,
     disk: 0xffe6bf, diskI: 6,
-    hemiSky: 0xc3c4d6, hemiGround: 0x5c4634, hemiI: 0.16,
-    env: 0.7, exposure: 1.3, density: 0.0002, falloff: 0.003, night: 0,
+    // lifted like the morning preset (guimaraes wave 8b, scaled to Braga)
+    hemiSky: 0xd0d4ec, hemiGround: 0x8a6a50, hemiI: 0.55,
+    env: 1.05, exposure: 1.36, density: 0.00015, falloff: 0.003, night: 0,
   },
   night: {
     az: 140, el: 36,
@@ -397,6 +448,8 @@ function acesInPlace(c, exposure) {
 }
 
 // ------------------------------------------------------------ sky
+// how far the light in the shade is pulled from the sky's blue to neutral
+const SHADE_NEUTRAL = 0.55;
 const SKY_VERT = /* glsl */ `
   varying vec3 vDir;
   void main() {
@@ -437,7 +490,11 @@ const SKY_FRAG = /* glsl */ `
     }
     float disk = smoothstep(0.99965, 0.99985, dot(d, uSunDir));
     col += uDisk * (disk * uDiskI + pow(sd, 400.0) * uDiskI * 0.12) * sky * above;
-    // environment only: dark earth below the horizon, lit by the sky colour
+    // environment only: the light that fills the shade. A street is lit by
+    // the sky and by its own sunlit walls and paving, so the fill is far
+    // less blue than the sky; the pure sky colour painted every shadow
+    // cobalt. Then dark earth below the horizon, lit by the sky colour.
+    col = mix(col, vec3(dot(col, vec3(0.2126, 0.7152, 0.0722))) * vec3(1.05, 1.0, 0.93), ${SHADE_NEUTRAL.toFixed(2)} * uEnv);
     col = mix(col, uGround, smoothstep(0.02, -0.14, h) * uEnv);
     gl_FragColor = vec4(col, 1.0);
     #include <tonemapping_fragment>
@@ -662,6 +719,9 @@ export function createAtmosphere(renderer, scene, { reducedMotion = false, shado
     // upper sky and the ground term), normalised; brightness is hemiI
     const norm = (c) => c.multiplyScalar(1 / Math.max(c.r, c.g, c.b, 0.02));
     norm(hemi.color.copy(state.zenith).lerp(state.mid, 0.6));
+    // Shade in a street is lit by the sky and by the sunlit walls and
+    // paving, so it is much less blue than the sky itself.
+    hemi.color.lerp(_c.setScalar(1), SHADE_NEUTRAL);
     norm(hemi.groundColor.copy(skyU.uGround.value));
     hemi.intensity = state.hemiI;
     scene.environmentIntensity = state.env;
@@ -1082,14 +1142,38 @@ const GROUND_COLOR = /* glsl */ `
     col = mix(col, field, step(0.2, L.b) * 0.7);
     vec3 grass = vec3(0.085, 0.150, 0.035) * gMul * (0.85 + 0.3 * fine);
     col = mix(col, grass, L.g * 0.85);
-    vec3 urban = vec3(0.185, 0.175, 0.160) * (0.9 + 0.2 * n2);
-    col = mix(col, urban, L.a * 0.8 * (1.0 - L.g * 0.6));
+    // town ground: worn stone and packed earth, no meadow showing through
+    vec3 urban = vec3(0.235, 0.225, 0.205) * (0.86 + 0.2 * n2 + 0.1 * fine);
+    col = mix(col, urban, L.a * 0.93 * (1.0 - L.g * 0.6));
     // canopy: dark, mottled at crown scale so a wood reads as trees from afar
     float crowns = texture2D(tNoise, W.xz * 0.21).a;
     vec3 canopy = mix(vec3(0.022, 0.045, 0.018), vec3(0.060, 0.098, 0.034) * wMul, smoothstep(0.3, 0.75, crowns * 0.7 + n2 * 0.3));
     // autumn: the broadleaf crowns in the wood turn in patches
     canopy = mix(canopy, vec3(0.09, 0.06, 0.022), sW.z * 0.4 * smoothstep(0.55, 0.8, nB.b * 0.6 + crowns * 0.4));
     col = mix(col, canopy, L.r * 0.95);
+  }
+  // Walking height: the tones above change over tens of metres, so from
+  // 1.7 m the ground was one smooth smear. Within about 250 m of the eye
+  // three finer octaves of the same noise give it grain: clumps (2 m),
+  // tufts and stones (0.5 m), grit (0.1 m). Each fades out before it would
+  // alias, and the mean stays the same, so the view from the air keeps its look.
+  {
+    float dCam = length(cameraPosition - W);
+    float nearK = 1.0 - smoothstep(20.0, 65.0, dCam);
+    if (nearK > 0.0) {
+      float g1 = texture2D(tNoise, W.xz * 1.9 + 0.37).b - 0.5;
+      float g2 = texture2D(tNoise, W.zx * 7.7 + 0.11).a - 0.5;
+      float g3 = texture2D(tNoise, W.xz * 37.0).b - 0.5;
+      float k2 = 1.0 - smoothstep(6.0, 22.0, dCam);
+      float k3 = 1.0 - smoothstep(1.5, 7.0, dCam);
+      float grain = g1 * 0.55 + g2 * 0.5 * k2 + g3 * 0.4 * k3;
+      col *= 1.0 + grain * 0.85 * nearK;
+      // dry flecks and bare specks: a second hue, not only light and dark
+      float fleck = smoothstep(0.12, 0.3, g2 + g1 * 0.4) * k2;
+      col = mix(col, col * vec3(1.32, 1.16, 0.74), fleck * 0.4 * nearK);
+      float bare = smoothstep(0.2, 0.34, -g1 + g3 * 0.5 * k3);
+      col = mix(col, col * vec3(0.78, 0.72, 0.7), bare * 0.45 * nearK);
+    }
   }
   // faint contour hint every 50 m, gone where it would alias
   float hc = hm / 50.0;
@@ -1120,6 +1204,10 @@ const GROUND_NORMAL = /* glsl */ `
   vec2 dA = texture2D(tNoise, vTWorld.xz * 0.047).rg * 2.0 - 1.0;
   vec2 dB = texture2D(tNoise, vTWorld.xz * 0.19).rg * 2.0 - 1.0;
   vec2 dn = dA * 0.35 + dB * 0.25;
+  // close to the eye: small bumps, so a low sun rakes the ground
+  float dCamN = length(cameraPosition - vTWorld);
+  float nearN = 1.0 - smoothstep(5.0, 24.0, dCamN);
+  if (nearN > 0.0) dn += (texture2D(tNoise, vTWorld.xz * 2.9).rg * 2.0 - 1.0) * 0.3 * nearN + (texture2D(tNoise, vTWorld.zx * 11.0).rg * 2.0 - 1.0) * 0.22 * nearN * (1.0 - smoothstep(2.0, 9.0, dCamN));
   vec3 pw = vec3(dn.x, 0.0, dn.y);
   normal = normalize(normal + mat3(viewMatrix) * pw);
   // outside the DEM the relief is a guess: shade it nearly flat
@@ -1170,7 +1258,7 @@ function shadowProxy(terrain) {
 // to the fogged edge. Vertex colour: an ambient-occlusion term from the
 // local concavity (folds darker, ridges a touch lighter).
 export function createGround(terrain) {
-  const { heightAt, bounds: b } = terrain;
+  const { heightAt, groundMeshAt, bounds: b } = terrain;
   const { xs, zs } = groundAxes(terrain);
   const nx = xs.length;
   const nz = zs.length;
@@ -1179,7 +1267,7 @@ export function createGround(terrain) {
     for (let i = 0; i < nx; i++) {
       const k = j * nx + i;
       pos[k * 3] = xs[i];
-      pos[k * 3 + 1] = heightAt(xs[i], zs[j]);
+      pos[k * 3 + 1] = groundMeshAt(xs[i], zs[j]);
       pos[k * 3 + 2] = zs[j];
     }
   }
@@ -1315,7 +1403,7 @@ export function createGround(terrain) {
           const k = j * nx + i;
           if (touched[k]) continue;
           touched[k] = 1;
-          pos[k * 3 + 1] = heightAt(xs[i], zs[j]);
+          pos[k * 3 + 1] = groundMeshAt(xs[i], zs[j]);
           n++;
         }
       }
@@ -1346,4 +1434,81 @@ export function createGround(terrain) {
     uniforms.uHasLandW.value = 1;
   };
   return mesh;
+}
+
+// ------------------------------------------------------------ game shroud
+// Fog-of-war mask (src/game.js). A small reveal texture over the terrain
+// rectangle, painted as the player explores. The shared fog chunk samples
+// it, so every lit surface darkens where the mask is still zero. `stamp`
+// only ever brightens (exploration is permanent); call flush() once per
+// frame after stamping.
+export function createShroud(bounds, { size = 256 } = {}) {
+  const w = Math.max(bounds.x1 - bounds.x0, 1);
+  const d = Math.max(bounds.zS - bounds.zN, 1);
+  // reuse the mask created in installAtmosphereFog: every fogged material
+  // already samples its Source, so painting in place reaches them all
+  const tex = SHROUD_UNIFORMS.tShroud.value;
+  const data = tex.image.data;
+  const n = tex.image.width;
+  if (n !== size) console.warn(`[braga] shroud size ${size} != ${n}`);
+  const SZ = n;
+  for (let i = 0; i < SZ * SZ; i++) data[i * 4] = 0; // start hidden
+  tex.needsUpdate = true;
+  SHROUD_UNIFORMS.shroudRect.value = { x: bounds.x0, y: bounds.zN, z: 1 / w, w: 1 / d };
+  let dirty = false;
+
+  // Paint a soft disc of "explored" at a world point. radius is in world
+  // units (1 unit = 4 m); strength 0..1 scales the peak.
+  function stamp(x, z, radius, strength = 1) {
+    const px = ((x - bounds.x0) / w) * SZ;
+    const pz = ((z - bounds.zN) / d) * SZ;
+    const rx = (radius / w) * SZ;
+    const rz = (radius / d) * SZ;
+    const r = Math.max(rx, rz, 0.75);
+    const i0 = Math.max(0, Math.floor(px - r));
+    const i1 = Math.min(SZ - 1, Math.ceil(px + r));
+    const j0 = Math.max(0, Math.floor(pz - r));
+    const j1 = Math.min(SZ - 1, Math.ceil(pz + r));
+    for (let j = j0; j <= j1; j++) {
+      for (let i = i0; i <= i1; i++) {
+        const dx = (i + 0.5 - px) / r;
+        const dz = (j + 0.5 - pz) / r;
+        const t = 1 - Math.hypot(dx, dz);
+        if (t <= 0) continue;
+        const v = Math.round(255 * strength * Math.min(1, t * 1.7));
+        const k = (j * SZ + i) * 4;
+        if (v > data[k]) {
+          data[k] = v;
+          dirty = true;
+        }
+      }
+    }
+  }
+  function flush() {
+    if (!dirty) return;
+    tex.needsUpdate = true;
+    dirty = false;
+  }
+  // turn the term on (game running) or off (map untouched)
+  function set(on) {
+    SHROUD_UNIFORMS.shroudParams.value.x = on ? 1 : 0;
+  }
+  function reset() {
+    for (let i = 0; i < SZ * SZ; i++) data[i * 4] = 0;
+    dirty = true;
+    flush();
+  }
+  // exploration share at a world point, for tests (0..1)
+  function revealAt(x, z) {
+    const i = Math.min(SZ - 1, Math.max(0, Math.floor(((x - bounds.x0) / w) * SZ)));
+    const j = Math.min(SZ - 1, Math.max(0, Math.floor(((z - bounds.zN) / d) * SZ)));
+    return data[(j * SZ + i) * 4] / 255;
+  }
+  // share of the map explored so far (0..1), for the "discovered" readout
+  function revealFraction() {
+    let n = 0;
+    for (let i = 0; i < SZ * SZ; i++) if (data[i * 4] > 140) n++;
+    return n / (SZ * SZ);
+  }
+  return { texture: tex, stamp, flush, set, reset, revealAt, revealFraction, params: SHROUD_UNIFORMS.shroudParams.value, rect: SHROUD_UNIFORMS.shroudRect.value, size: SZ, bounds };
 }

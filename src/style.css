@@ -909,6 +909,8 @@ dialog { color: var(--text); font: 400 14px/1.5 var(--sans); }
 .gpu-notice > div { max-width: 460px; }
 .gpu-notice h1 { margin: 0 0 12px; font-size: 22px; font-weight: 600; }
 .gpu-notice p { margin: 0; line-height: 1.55; opacity: 0.9; }
+.gpu-notice p + p { margin-top: 14px; }
+.gpu-notice a, .loader-text a { color: #e0a948; }
 .gpu-notice.is-toast { inset: auto 0 16px 0; background: transparent; pointer-events: none; padding: 0 16px; }
 .gpu-notice.is-toast > div { margin: 0 auto; padding: 10px 14px; border-radius: 8px; background: rgba(14, 10, 6, 0.9); font-size: 13px; }
 
@@ -1361,6 +1363,56 @@ body.is-intro .fly-keys, body.is-cinema .fly-keys, body.is-story .fly-keys, .is-
    keep their own film look. */
 
 /* ------------------------------------------------------------ side list: cobalt */
+.discover { overflow-y: auto; overscroll-behavior: contain; padding: 14px; gap: 16px; }
+.discover > * { flex-shrink: 0; }
+.discover-intro { margin: 0; color: #cbd8ef; font-size: 13px; line-height: 1.5; }
+.discover-hero { overflow: hidden; border-radius: 10px; background: #f4f6fb; color: #122d59; }
+.discover-photo { display: block; width: 100%; height: 130px; object-fit: cover; }
+.discover-hero-body { padding: 14px; }
+.discover-eyebrow { margin: 0 0 8px; color: #48628b; font: 700 10px/1.5 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.discover-title { margin: 0 0 8px; font: 750 20px/1.2 var(--sans); }
+.discover-description { margin: 0 0 12px; font-size: 13px; line-height: 1.5; }
+.discover-credit { margin: 8px 0 0; color: #48628b; }
+.discover-credit a { font-size: 10px; }
+.discover-actions, .discover-filters, .discover-card-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.discover-actions { margin: 10px 0; }
+.discover-button, .discover-filter { min-height: 36px; padding: 8px 10px; border: 1px solid #a6badb; border-radius: 7px; background: #eaf0fc; color: #153866; font: 650 12px/1.3 var(--sans); cursor: pointer; }
+.discover-button:hover, .discover-filter:hover { background: #d5e3fb; }
+.discover-card-actions { flex-wrap: nowrap; flex: none; gap: 6px; }
+.callout-acts .discover-card-actions { margin-left: auto; }
+.discover-icon { display: inline-grid; place-items: center; width: 40px; height: 40px; min-height: 40px; padding: 0; border-radius: 50%; font-size: 18px; line-height: 1; }
+@media (pointer: coarse) { .discover-icon { width: 44px; height: 44px; } }
+.discover-button.is-primary, .discover-filter[aria-pressed='true'] { background: #173f80; border-color: #719de1; color: white; }
+.discover-button[aria-pressed='true'] { background: #fff0c9; border-color: #d1af65; color: #644400; }
+.discover-link { color: inherit; font-size: 12px; line-height: 1.6; text-underline-offset: 3px; }
+.discover-link:hover { text-decoration-thickness: 2px; }
+.discover-section { padding-top: 16px; border-top: 1px solid #526b92; }
+.discover-heading { margin: 0 0 10px; color: #f4f7fe; font: 700 15px/1.4 var(--sans); }
+.discover-note { margin: 6px 0; color: #c7d4e9; font-size: 11px; line-height: 1.55; }
+.discover-saved, .discover-nearby, .discover-news { list-style: none; margin: 0; padding: 0; }
+.discover-saved-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.discover-text-button { padding: 6px 0; border: 0; background: none; color: #e4edff; text-align: left; font: 600 12px/1.5 var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.discover-remove { flex: none; width: 36px; height: 36px; border: 1px solid #667fa4; border-radius: 6px; color: white; background: transparent; font-size: 20px; cursor: pointer; }
+.discover-poi { padding: 14px 0 4px; border-bottom: 1px solid #435e86; }
+.discover-poi-name { margin: 0; color: #f4f7fe; font: 700 14px/1.4 var(--sans); }
+.discover-hours { color: #d0dcef; margin: 4px 0; font-size: 11px; overflow-wrap: anywhere; line-height: 1.5; }
+.discover-news-item { padding: 12px 0; border-bottom: 1px solid #435e86; }
+.discover-news-item > a { display: block; color: #f4f7fe; font-size: 13px; font-weight: 650; }
+.discover-news-item time { display: block; }
+.discover-agenda .discover-description { color: #d0dcef; }
+.discover-card-actions { flex-basis: 100%; margin-top: 6px; }
+.discover-share-dialog { max-width: min(440px, calc(100vw - 32px)); border: 1px solid #9eb5d8; border-radius: 12px; padding: 20px; color: #16386b; background: #f4f6fb; }
+.discover-share-dialog::backdrop { background: #081c3bb3; }
+.discover-share-url { width: 100%; box-sizing: border-box; padding: 10px; margin: 0 0 14px; }
+.discover :focus-visible, .discover-card-actions :focus-visible { outline: 3px solid #edbf5e; outline-offset: 3px; }
+@media (max-width: 900px) {
+  .discover-hero { display: grid; grid-template-columns: 90px 1fr; }
+  .discover-photo { height: 100%; min-height: 160px; }
+  .discover-hero-body { padding: 12px; }
+  .discover-hero:not(:has(.discover-photo:not([hidden]))) { grid-template-columns: 1fr; }
+  .discover-title { font-size: 17px; }
+  .discover-button, .discover-filter, .discover-remove { min-height: 44px; }
+}
 .side {
   top: 80px;
   --text: #f2f5fb;
@@ -1566,6 +1618,10 @@ body.is-cinema .callout, body.is-story .callout { display: none; }
   .callout-facts { display: none; }
   .callout-short { margin-top: 4px; font-size: 12.5px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .callout-acts { margin-top: auto; padding-top: 10px; gap: 6px; }
+  /* no room beside three text buttons: Save and Share sit on the photo */
+  .callout-inner { position: relative; }
+  .callout-acts .discover-card-actions { position: absolute; left: 14px; bottom: 14px; margin: 0; }
+  .callout-acts .discover-icon { background: rgba(255, 255, 255, 0.92); box-shadow: 0 1px 4px rgba(10, 20, 45, 0.35); }
   .btn-primary, .btn-ghost { height: 36px; padding: 0 10px; font-size: 12.5px; }
   .callout-close { top: 12px; right: 12px; width: 28px; height: 28px; }
   .side { transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.1, 1), opacity 0.7s ease; }
@@ -1654,4 +1710,190 @@ body.is-cinema .load-status, body.is-story .load-status, .is-embed .load-status 
 }
 @media (prefers-reduced-motion: reduce) {
   .layer-switch, .layer-switch::after { transition: none; }
+}
+
+/* the pickup-popup layer covers the whole screen: it must never eat a drag */
+.game-bursts { pointer-events: none !important; }
+.game-flight, .game-level { pointer-events: none; }
+.game-top, .game-scan { pointer-events: none; }
+
+.game-touch-controls { display: none; }
+.game-help-list li.game-touch-help { display: none; }
+@media (pointer: coarse) {
+  .game-touch-controls {
+    position: absolute;
+    left: 16px;
+    bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    pointer-events: none;
+  }
+  .game-stick {
+    width: 112px;
+    height: 112px;
+    border: 1px solid rgba(227, 234, 246, 0.52);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 143, 216, 0.34), rgba(10, 22, 44, 0.56));
+    box-shadow: inset 0 0 0 10px rgba(227, 234, 246, 0.06), 0 8px 22px rgba(4, 10, 24, 0.35);
+    touch-action: none;
+    pointer-events: auto;
+  }
+  .game-stick::before, .game-stick::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: rgba(227, 234, 246, 0.2);
+    pointer-events: none;
+  }
+  .game-stick::before { width: 1px; height: 72%; transform: translate(-50%, -50%); }
+  .game-stick::after { width: 72%; height: 1px; transform: translate(-50%, -50%); }
+  .game-stick { position: relative; }
+  .game-stick-knob {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 210, 122, 0.82);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #76afea, #1d4e9e 75%);
+    box-shadow: 0 3px 12px rgba(4, 10, 24, 0.55);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .game-lift { display: flex; flex-direction: column; gap: 8px; pointer-events: auto; }
+  .game-lift button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(227, 234, 246, 0.38);
+    border-radius: 12px;
+    background: rgba(10, 22, 44, 0.78);
+    color: var(--por);
+    font: 700 21px/1 var(--sans);
+    box-shadow: 0 6px 18px rgba(4, 10, 24, 0.35);
+    touch-action: none;
+  }
+  .game-lift button:active { background: #1d4e9e; border-color: #ffd27a; }
+  .game-help-list li.game-touch-help { display: flex; }
+}
+/* The clue panel and the touch controls share the bottom edge. Portrait: the
+   panel takes the full width (left: 50% had capped it at half), the
+   controls sit above it. Landscape: the controls take the left corner, the
+   panel starts to their right and stops before the action column. */
+@media (pointer: coarse) and (min-height: 501px) {
+  .game-touch-controls { bottom: calc(196px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (pointer: coarse) and (min-height: 501px) and (max-width: 700px) {
+  .game-mission { left: 12px; right: 12px; transform: none; max-width: none; }
+}
+@media (pointer: coarse) and (max-height: 500px) {
+  .game-touch-controls { bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (pointer: coarse) and (max-height: 500px) and (max-width: 900px) {
+  .game-mission { left: 196px; transform: none; max-width: calc(100vw - 312px); }
+}
+
+/* Walk mode (walk.js): the street at eye height. The map chrome leaves; the
+   HUD is one button, one hint line and, on touch screens, the stick. */
+body.is-walk .side,
+body.is-walk .detail,
+body.is-walk .hint,
+body.is-walk .brand,
+body.is-walk .topbar,
+body.is-walk .life-badge,
+body.is-walk .layers,
+body.is-walk .load-status,
+body.is-walk .scalebar,
+body.is-walk #labels { display: none !important; } /* far names show through the houses at eye level */
+body.is-walk canvas { cursor: grab; touch-action: none; }
+.walk-hud { position: fixed; inset: 0; z-index: 30; pointer-events: none; }
+.walk-hud[hidden] { display: none; }
+.walk-exit {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  left: 16px;
+  min-height: 44px;
+  padding: 0 18px;
+  font: 600 14px/1 var(--sans);
+  color: var(--text);
+  background: var(--glass-strong);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.walk-exit:hover, .walk-view:hover, .walk-place:hover { border-color: var(--gold); }
+.walk-exit:focus-visible, .walk-view:focus-visible, .walk-place:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.walk-view, .walk-place {
+  position: absolute;
+  min-height: 44px;
+  padding: 0 16px;
+  font: 600 14px/1 var(--sans);
+  color: var(--text);
+  background: var(--glass-strong);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.walk-view { top: calc(14px + env(safe-area-inset-top, 0px)); right: 16px; }
+.walk-view[aria-pressed='true'] { color: var(--ink-0); background: var(--gold); border-color: var(--gold); }
+.walk-place {
+  left: 50%;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  max-width: min(78vw, 420px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-color: var(--gold);
+  transform: translateX(-50%);
+}
+.walk-place[hidden] { display: none; }
+@media (pointer: coarse) {
+  .walk-place { bottom: calc(200px + env(safe-area-inset-bottom, 0px)); }
+}
+.walk-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  margin: 0;
+  padding: 7px 14px;
+  font: 500 13px/1.3 var(--sans);
+  color: var(--text-2);
+  background: var(--glass);
+  border-radius: 999px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.walk-hint-touch, .walk-stick { display: none; }
+.walk-stick {
+  position: absolute;
+  left: 20px;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  width: 116px;
+  height: 116px;
+  border: 1px solid rgba(240, 222, 192, 0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(224, 169, 72, 0.22), rgba(26, 21, 16, 0.6));
+  touch-action: none;
+  pointer-events: auto;
+}
+.walk-stick-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(240, 222, 192, 0.85);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f0cf8a, #b47a1e 75%);
+  box-shadow: 0 3px 12px rgba(10, 8, 5, 0.55);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+@media (pointer: coarse) {
+  .walk-hint-keys { display: none; }
+  .walk-hint-touch, .walk-stick { display: block; }
 }

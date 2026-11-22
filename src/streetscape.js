@@ -32,13 +32,15 @@ import { setRingBounds } from './bounds.js';
 import { CITY, dataPath } from './city.js';
 import { loadMaterials, bindTextures, TRIPLANAR_ROUGH } from './materials-tex.js';
 import { buildNetwork } from './road-network.js';
-import { RIBBON_LIFT, SIDEWALK_R, WALKED, sidewalkM, lampSites, lampGlow, LAMP_HEIGHT_M } from './roads.js';
+import { RIBBON_LIFT, asphaltGrain, SIDEWALK_R, WALKED, sidewalkM, lampSites, lampGlow, LAMP_HEIGHT_M } from './roads.js';
 import { loadPois, createPoiSigns, isOpenAtHour, guessOpen } from './pois.js';
 import { createPeople, pedestrianDemand } from './people.js';
+import { LEAF_GLSL } from './nature.js';
 
 // ------------------------------------------------------------ calçada
 // pattern ids (aPat.x): 0 none (the vertex colour)
 export const CALCADA = { waves: 1, net: 2, sidewalk: 3, street: 4 };
+const smooth01 = (t) => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t));
 const WAVE_NAMES = /Pra[çc]a da Rep[úu]blica|Avenida Central|Largo do Pa[çc]o|Rossio|Pra[çc]a do Munic[íi]pio/i;
 const SQUARE_NAMES = /^(Largo|Pra[çc]a|Praceta|Campo|Terreiro|Rossio|Adro|Avenida|Alameda)\b/i;
 // the pattern of a street or square by its OSM name; kind 'square' for areas
@@ -70,24 +72,28 @@ vec3 calcada(vec2 p, vec3 pat) {
     float w = p.y + 1.15 * sin(p.x * 0.6) + 0.3 * sin(p.x * 1.7 + 1.3);
     float d = abs(fract(w / P) - 0.5);
     float aa = 1.2 * px / P;
-    m = 1.0 - smoothstep(0.2 - aa, 0.2 + aa, d);
-    avg = 0.4;
+    // (a black band 0.9 m wide; at 1.3 m it swamped the square from eye height)
+    m = 1.0 - smoothstep(0.14 - aa, 0.14 + aa, d);
+    avg = 0.28;
   } else if (k < 2.5) {
-    // a diagonal net of thin black lines
-    P = 2.2;
+    // a diagonal net of thin black lines: two rows of stones (16 cm)
+    // every 3.2 m. Wider lines read as black bars from eye height.
+    P = 3.2;
     vec2 q = vec2(p.x + p.y, p.x - p.y) * 0.70710678;
     vec2 d = abs(fract(q / P) - 0.5);
     float aa = 1.2 * px / P;
-    float b = 0.43;
-    m = max(smoothstep(b - aa, b + aa, d.x), smoothstep(b - aa, b + aa, d.y));
-    avg = 0.26;
+    float b = 0.475;
+    m = 0.8 * max(smoothstep(b - aa, b + aa, d.x), smoothstep(b - aa, b + aa, d.y));
+    avg = 0.08;
   }
   m = mix(m, avg, smoothstep(P * 0.12, P * 0.35, px));
-  // the streets: a black band along both edges
+  // the streets: a slightly darker course of stone along both edges. It
+  // stays faint: where two streets meet their strips overlap, and a black
+  // band drew hard bars across the junction.
   if (k > 3.5) {
     float e = pat.z - abs(pat.y);
-    float band = 1.0 - smoothstep(0.4 - px, 0.4 + px, e);
-    m = max(m, mix(band, 0.4 / max(pat.z, 0.4) * 0.5, smoothstep(0.15, 0.5, px)));
+    float band = 1.0 - smoothstep(0.3 - px, 0.3 + px, e);
+    m = max(m, 0.16 * mix(band, 0.3 / max(pat.z, 0.3) * 0.5, smoothstep(0.15, 0.5, px)));
   }
   vec3 lime = vec3(0.49, 0.475, 0.43);
   vec3 bas = vec3(0.085, 0.085, 0.09);
@@ -427,6 +433,33 @@ const boxG = (w, h, d, x, y, z, color, glow = 0) => part(new THREE.BoxGeometry(w
 const cylG = (rt, rb, h, seg, x, y, z, color, glow = 0) => part(new THREE.CylinderGeometry(rt, rb, h, seg, 1, false).translate(x, y + h / 2, z), color, glow);
 const coneG = (r, h, seg, x, y, z, color) => part(new THREE.ConeGeometry(r, h, seg, 1, true).translate(x, y + h / 2, z), color);
 const icoG = (r, x, y, z, color) => part(new THREE.IcosahedronGeometry(r, 0).translate(x, y, z), color);
+// a tree crown: 80 faces, each corner pushed in or out a little (the same at
+// every face that shares it), normals out from the centre so it shades as a
+// soft mass of leaves, darker underneath
+function crownG(r, x, y, z, color) {
+  const g = new THREE.IcosahedronGeometry(1, 1);
+  const p = g.attributes.position;
+  const nor = g.attributes.normal;
+  const n = p.count;
+  const c = new Float32Array(n * 3);
+  const col = new THREE.Color(color);
+  for (let i = 0; i < n; i++) {
+    const ux = p.getX(i), uy = p.getY(i), uz = p.getZ(i);
+    const h = Math.sin(ux * 127.1 + uy * 311.7 + uz * 74.7 + r * 13.0) * 43758.5453;
+    const j = 0.84 + (h - Math.floor(h)) * 0.32;
+    p.setXYZ(i, x + ux * r * j, y + uy * r * 0.85 * j, z + uz * r * j);
+    const l = Math.hypot(ux, uy * 0.8 + 0.25, uz) || 1;
+    nor.setXYZ(i, ux / l, (uy * 0.8 + 0.25) / l, uz / l);
+    const shade = 0.6 + 0.5 * (uy * 0.5 + 0.5);
+    c[i * 3] = col.r * shade;
+    c[i * 3 + 1] = col.g * shade;
+    c[i * 3 + 2] = col.b * shade;
+  }
+  if (g.attributes.uv) g.deleteAttribute('uv');
+  g.setAttribute('color', new THREE.BufferAttribute(c, 3));
+  g.setAttribute('aGlow', new THREE.BufferAttribute(new Float32Array(n), 1));
+  return g;
+}
 function merged(parts) {
   const g = mergeGeometries(parts);
   g.scale(S, S, S);
@@ -468,7 +501,7 @@ const FURNITURE = {
     ]),
   // a parasol; the instance colour tints it
   umbrella: () => merged([cylG(0.025, 0.025, 2.3, 4, 0, 0, 0, 0xe8e4da), coneG(1.35, 0.42, 8, 0, 1.98, 0, 0xf6f2ea), cylG(1.35, 1.35, 0.12, 8, 0, 1.86, 0, 0xf6f2ea)]),
-  tree: () => merged([cylG(0.12, 0.2, 3.6, 5, 0, -0.3, 0, 0x5b4636), icoG(2.1, 0, 4.9, 0, 0x4f6d30), icoG(1.5, 0.7, 5.9, -0.4, 0x5a7a36), icoG(1.3, -0.8, 5.5, 0.6, 0x48662b)]),
+  tree: () => merged([cylG(0.12, 0.2, 3.6, 8, 0, -0.3, 0, 0x5b4636), crownG(2.1, 0, 4.9, 0, 0x4f6d30), crownG(1.5, 0.7, 5.9, -0.4, 0x5a7a36), crownG(1.3, -0.8, 5.5, 0.6, 0x48662b), crownG(1.2, 0.5, 4.6, 0.9, 0x526f2f)]),
 };
 const UMBRELLA_COLORS = [0xf3efe6, 0xb23a2e, 0x24452f, 0x23324f, 0xe7d9b0, 0x8a2433].map((h) => new THREE.Color(h));
 
@@ -482,6 +515,15 @@ function furnitureMaterial(uniforms, key) {
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', '#include <common>\nuniform float uStNight;\nuniform float uStGlow;\nvarying float vStGlow;')
       .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += vec3(1.0, 0.74, 0.42) * vStGlow * uStNight * uStGlow * 1.8;');
+    if (key === 'tree') {
+      // leaves on the crowns (the green parts; the trunk is brown)
+      sh.vertexShader = sh.vertexShader
+        .replace('#include <common>', '#include <common>\nvarying vec3 vLeafP;')
+        .replace('#include <begin_vertex>', `#include <begin_vertex>\nvLeafP = (instanceMatrix * vec4(position, 1.0)).xyz * ${(1 / S).toFixed(1)};`);
+      sh.fragmentShader = sh.fragmentShader
+        .replace('#include <common>', `#include <common>\nvarying vec3 vLeafP;\n${LEAF_GLSL}`)
+        .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb *= mix(1.0, brgLeaf(vLeafP), step(vColor.r * 1.05, vColor.g));');
+    }
   };
   return mat;
 }
@@ -719,6 +761,45 @@ function build(ctx, group, doc, pois, stats) {
     if (cx * cx + cz * cz > SIDEWALK_R * SIDEWALK_R) continue;
     areas.push({ name: a.name || '', kind: a.k, poly, cx, cz, areaM: a.a || Math.abs(polyArea(poly)) / (S * S), pat: calcadaPatternOf(a.name, 'square') });
   }
+  // A pedestrian street that crosses a patterned square takes the square's
+  // pattern. Its strip (roads.js) was paved by the street's own name, so it
+  // cut a plain band with straight edges through the waves. The pattern is
+  // drawn in world metres, so strip and square then join without a seam.
+  let repaved = 0;
+  if (ctx.roadGroup) {
+    const boxes = areas
+      .filter((a) => a.pat === CALCADA.waves || a.pat === CALCADA.net)
+      .map((a) => {
+        let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity;
+        for (const p of a.poly) {
+          x0 = Math.min(x0, p.x);
+          x1 = Math.max(x1, p.x);
+          z0 = Math.min(z0, p.z);
+          z1 = Math.max(z1, p.z);
+        }
+        return { a, x0, x1, z0, z1 };
+      })
+      .sort((p, q) => p.a.pat - q.a.pat); // waves win over the net
+    ctx.roadGroup.traverse((o) => {
+      const pat = o.geometry?.attributes?.aPat;
+      if (!o.isMesh || !pat) return;
+      const pos = o.geometry.attributes.position;
+      let changed = false;
+      for (let i = 0; i < pat.count; i++) {
+        const k = pat.getX(i);
+        if (k !== CALCADA.street && k !== CALCADA.sidewalk) continue;
+        const x = pos.getX(i), z = pos.getZ(i);
+        for (const b of boxes) {
+          if (x < b.x0 || x > b.x1 || z < b.z0 || z > b.z1 || !pip(b.a.poly, x, z)) continue;
+          pat.setX(i, b.a.pat);
+          changed = true;
+          repaved++;
+          break;
+        }
+      }
+      if (changed) pat.needsUpdate = true;
+    });
+  }
   // calçada meshes: draped on the terrain, or laid on a landmark's paving
   const CT = { pos: [], pat: [], idx: [] };
   let carpets = 0;
@@ -801,6 +882,185 @@ function build(ctx, group, doc, pois, stats) {
     const v = (i) => ({ x: contour[i].x, z: contour[i].y });
     for (const [i, j, k] of faces) drapeTri(v(i), v(j), v(k), ar.pat);
     ar.tris = (CT.idx.length - tris0) / 3;
+  }
+  // Frontage: the ground between a sidewalk (or a pedestrian street) and the
+  // house fronts along it is paved at the walk's level, up to 9 m deep. In a
+  // town there is no bare soil between the kerb and a doorstep, and without
+  // this the walk stood as a ledge over the terrain. Probed every 3 m; a
+  // stretch with no house behind it, or with another carriageway first,
+  // stays open.
+  let frontage = 0;
+  {
+    const MAXF = 9 * S;
+    const STEPF = 0.5 * S;
+    const inArea = (x, z) => areas.some((a) => pip(a.poly, x, z));
+    for (const w of net.ways) {
+      if (w.tunnel || w.bridge || w.n < 2) continue;
+      const m = w.start + (w.n >> 1);
+      if (X[m] * X[m] + Z[m] * Z[m] > SIDEWALK_R * SIDEWALK_R || !nearC(X[m], Z[m])) continue;
+      const ped = w.hw === 'pedestrian';
+      if (!ped && !WALKED.has(w.hw)) continue;
+      const half = (w.widthM / 2) * S;
+      const o2 = ped ? half - 0.1 * S : half + 0.25 * S + sidewalkM(w.hw) * S - 0.05 * S;
+      const top = (ped ? RIBBON_LIFT : RIBBON_LIFT + 0.03) - 0.004;
+      for (let i = w.start; i < w.start + w.n - 1; i++) {
+        const ax = X[i], az = Z[i];
+        let dx = X[i + 1] - ax, dz = Z[i + 1] - az;
+        const L = Math.hypot(dx, dz);
+        if (L < 1e-5) continue;
+        dx /= L;
+        dz /= L;
+        const steps = Math.max(1, Math.ceil(L / (3 * S)));
+        for (const sgn of [1, -1]) {
+          const lx = dz * sgn, lz = -dx * sgn;
+          // from the walk's outer edge to the first house wall; -1: none
+          const reach = (t) => {
+            const bx = ax + dx * t, bz = az + dz * t;
+            for (let d = STEPF; d <= MAXF; d += STEPF) {
+              const x = bx + lx * (o2 + d), z = bz + lz * (o2 + d);
+              if (bIdx.inside(x, z)) return d + 0.4 * S;
+              if (cars.near(x, z, 0)) return -1;
+            }
+            return -1;
+          };
+          const at = (t, o) => {
+            const u = t / L;
+            return { x: ax + dx * t + lx * o, z: az + dz * t + lz * o, y: net.surfaceY(i, sgn * o2) * (1 - u) + net.surfaceY(i + 1, sgn * o2) * u + top };
+          };
+          let ra = reach(0);
+          for (let s = 0; s < steps; s++) {
+            const ta = (L * s) / steps, tb = (L * (s + 1)) / steps;
+            const rb = reach(tb);
+            const r0 = ra;
+            ra = rb;
+            if (r0 < 0 || rb < 0) continue;
+            const mid = at((ta + tb) / 2, o2 + Math.min(r0, rb) / 2);
+            if (onAnyFloor(mid.x, mid.z) || inArea(mid.x, mid.z)) continue;
+            const a0 = at(ta, o2), b0 = at(tb, o2), a1 = at(ta, o2 + r0), b1 = at(tb, o2 + rb);
+            tri(CT, a0, b0, b1, CALCADA.sidewalk);
+            tri(CT, a0, b1, a1, CALCADA.sidewalk);
+            frontage++;
+          }
+        }
+      }
+    }
+  }
+  // Town ground: one sheet that fills the space between the streets, at the
+  // streets' own level. The roads lie about 0.5 m over the terrain (their
+  // grade is smoothed and each is level across), so without it every road
+  // and sidewalk edge is a ledge and a road on a slope is a ramp in the air.
+  // A 5 m grid within 24 m of a street: beside a kerbed street it meets the
+  // top of the sidewalk, under a carriageway it dips below it, away from the
+  // streets it sinks back into the terrain. None on a park, a wood, a field,
+  // water or a landmark's own floor.
+  let plateMesh = null;
+  let plateTris = 0;
+  if (!lite) {
+    const CELLP = 1.25; // 5 m
+    const RP = 6; // 24 m: a street's reach
+    const smp = []; // x, z, lift over (terrain + RIBBON_LIFT), outer edge, kerbed
+    const bkt = new Map();
+    const bkey = (x, z) => Math.floor(x / RP) * 65536 + Math.floor(z / RP);
+    let bx0 = Infinity, bx1 = -Infinity, bz0 = Infinity, bz1 = -Infinity;
+    for (const w of net.ways) {
+      if (w.tunnel || w.bridge || w.n < 2 || !(w.car || w.hw === 'pedestrian')) continue;
+      const kerbed = WALKED.has(w.hw);
+      const half = (w.widthM / 2) * S;
+      const edge = kerbed ? half + 0.25 * S + sidewalkM(w.hw) * S : half;
+      for (let i = w.start; i < w.start + w.n - 1; i++) {
+        if (net.HID[i] && net.HID[i + 1]) continue;
+        const L = Math.hypot(X[i + 1] - X[i], Z[i + 1] - Z[i]);
+        const n = Math.max(1, Math.ceil(L / 0.75));
+        for (let s = 0; s < n; s++) {
+          const u = (s + 0.5) / n;
+          const x = X[i] + (X[i + 1] - X[i]) * u, z = Z[i] + (Z[i + 1] - Z[i]) * u;
+          if (!nearC(x, z) || x * x + z * z > SIDEWALK_R * SIDEWALK_R) continue;
+          const road = net.surfaceY(i, 0) * (1 - u) + net.surfaceY(i + 1, 0) * u;
+          const k = smp.length / 5;
+          smp.push(x, z, road - heightAt(x, z), edge, kerbed ? 1 : 0);
+          const key = bkey(x, z);
+          let c = bkt.get(key);
+          if (!c) bkt.set(key, (c = []));
+          c.push(k);
+          bx0 = Math.min(bx0, x);
+          bx1 = Math.max(bx1, x);
+          bz0 = Math.min(bz0, z);
+          bz1 = Math.max(bz1, z);
+        }
+      }
+    }
+    if (smp.length) {
+      const gx0 = Math.floor((bx0 - RP) / CELLP), gz0 = Math.floor((bz0 - RP) / CELLP);
+      const nx = Math.ceil((bx1 + RP) / CELLP) - gx0 + 1, nz = Math.ceil((bz1 + RP) / CELLP) - gz0 + 1;
+      const PY = new Float32Array(nx * nz).fill(NaN);
+      const open = ctx.openAt || (() => false);
+      for (let j = 0; j < nz; j++) {
+        for (let i = 0; i < nx; i++) {
+          const x = (gx0 + i) * CELLP, z = (gz0 + j) * CELLP;
+          const cx = Math.floor(x / RP), cz = Math.floor(z / RP);
+          let near = RP, nk = -1, sw = 0, sd = 0;
+          for (let a = -1; a <= 1; a++) {
+            for (let b = -1; b <= 1; b++) {
+              const c = bkt.get((cx + a) * 65536 + cz + b);
+              if (!c) continue;
+              for (const k of c) {
+                const o = k * 5;
+                const d = Math.hypot(smp[o] - x, smp[o + 1] - z);
+                if (d >= RP) continue;
+                if (d < near) { near = d; nk = k; }
+                const wgt = (1 - d / RP) ** 3;
+                sw += wgt;
+                // beside a kerbed street: up to just under the sidewalk's top
+                sd += wgt * (smp[o + 2] + (smp[o + 4] ? 0.03 + 0.018 : 0));
+              }
+            }
+          }
+          if (nk < 0 || open(x, z) || onAnyFloor(x, z)) continue;
+          const g = heightAt(x, z);
+          let y;
+          if (near < smp[nk * 5 + 3] + 0.1) y = g + RIBBON_LIFT + smp[nk * 5 + 2] - 0.075; // under the street itself
+          else {
+            const f = 1 - smooth01((near - 3.5) / (RP - 3.5)); // 1 near a street, 0 at its reach
+            y = g + f * (RIBBON_LIFT - 0.03 + sd / Math.max(sw, 0.02)) - (1 - f) * 0.1;
+          }
+          PY[j * nx + i] = y;
+        }
+      }
+      const P = { pos: [], col: [], idx: [] };
+      const vid = new Int32Array(nx * nz).fill(-1);
+      const vert = (i, j) => {
+        const k = j * nx + i;
+        if (vid[k] >= 0) return vid[k];
+        const x = (gx0 + i) * CELLP, z = (gz0 + j) * CELLP;
+        vid[k] = P.pos.length / 3;
+        P.pos.push(x, PY[k], z);
+        const h = Math.sin(x * 12.9898 + z * 78.233) * 43758.5453;
+        const s = 0.9 + 0.2 * (h - Math.floor(h));
+        P.col.push(0.235 * s, 0.225 * s, 0.205 * s);
+        return vid[k];
+      };
+      for (let j = 0; j < nz - 1; j++) {
+        for (let i = 0; i < nx - 1; i++) {
+          const k = j * nx + i;
+          if (Number.isNaN(PY[k] + PY[k + 1] + PY[k + nx] + PY[k + nx + 1])) continue;
+          const a = vert(i, j), b = vert(i + 1, j), c = vert(i, j + 1), d = vert(i + 1, j + 1);
+          P.idx.push(a, c, b, b, c, d);
+        }
+      }
+      if (P.idx.length) {
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.Float32BufferAttribute(P.pos, 3));
+        g.setAttribute('color', new THREE.Float32BufferAttribute(P.col, 3));
+        g.setIndex(new THREE.Uint32BufferAttribute(P.idx, 1));
+        g.computeVertexNormals();
+        g.computeBoundingSphere();
+        plateMesh = new THREE.Mesh(g, asphaltGrain(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0 })));
+        plateMesh.name = 'street-plate';
+        plateMesh.receiveShadow = true;
+        group.add(plateMesh);
+        plateTris = P.idx.length / 3;
+      }
+    }
   }
   let calcadaMesh = null;
   if (CT.idx.length) {
@@ -1493,6 +1753,9 @@ function build(ctx, group, doc, pois, stats) {
       if (L.mesh.visible) fn += L.shown;
     }
     if (calcadaMesh) calcadaMesh.visible = camDist < (lite ? 450 : 900);
+    // the town ground only matters from near the street; from high up the
+    // terrain below it looks the same
+    if (plateMesh) plateMesh.visible = camDist < 110;
     if (glow) {
       glow.material.uniforms.uNight.value = night;
       glow.visible = night > 0.02 && camDist < (lite ? 450 : 2500);
@@ -1542,5 +1805,8 @@ function build(ctx, group, doc, pois, stats) {
     }
     return { walkers: w.length / 2, onCar, inBuilding, spots: spots.x.length, spotsBad, laneSamples: NSm, samplesBad, bad };
   }
-  return { update, check, people, signs, layers, lanes, terraces, glow, calcadaMesh, marks, areas };
+  // spots: where people stay (walk.js keeps the walker out of the seated ones)
+  // furniture: per type a flat list of [x, y, z, yaw, scale, colour] (walk.js
+  // keeps the walker out of the lamps, benches, tables and trees)
+  return { update, check, people, signs, layers, lanes, terraces, spots, glow, calcadaMesh, marks, areas, furniture: F };
 }
