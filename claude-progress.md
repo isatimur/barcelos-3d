@@ -197,3 +197,12 @@ updates it automatically.
 - What a class S or P visitor stops getting by default: the ring (blocks, main streets and streams beyond the core, up to 540 KB), the Microsoft buildings (up to 1.1 MB), the street level (calçada, benches, people, cafés and shops in search; only 8 KB, so this is a CPU saving, not a download one), aircraft and buses (12 KB + live data), the photo grain of ground and paving (1.7 MB). Class M loses only the textures. Screenshots of main and branch on the weak phone: `/tmp/barcelos-layers/weak-phone-{main,branch-light}.png` (not in the repository).
 - Seen in the browser: Light at night with rain, a place card and story mode (chapter 2 of 11): 0 console errors. `?layers=full` logs one 404 for `/api/adsb` on the static server, as main does. Barcelos's place card has no Save button; Share sits in the tools menu, unchanged.
 - Next: decide whether the street level should stay off on S (it is nearly free in bytes); `npm run perf` loads Light on phone-low now, so pin `?layers=full` in the bench or move the budgets.
+
+### Session 012 — heightAt is the drawn ground, ported from braga-3d (2026-11-23)
+
+- Goal (owner): at the walk start the paving looked tilted and the path ribbons lay under the grass.
+- Root cause: the ground mesh is drawn from the smoothed DEM, while `heightAt`, the datum of roads, paving and houses, was bilinear. The tile worker also draped the streamed tiles on `rawAt`.
+- Change: `src/terrain.js` copied from braga-3d (`heightAt` reads the ground mesh triangles; `dataAt` is the bilinear read; grid lines moved in from `src/scene.js`). `src/tile-worker.js` drapes on `groundMeshRawAt`, as Braga does. New `scripts/terrain-surface.test.mjs`.
+- Measured in the served app against the ground mesh (share of vertices under the ground, live site -> new build): `street-minor` 16.0 % -> 0.4 %, `street-primary` 12.2 % -> 0.9 %, `street-secondary` 14.4 % -> 0.8 %, `calcada-squares` 18.3 % -> 0.5 %, `lane-markings` 14.0 % -> 0 %.
+- Checks: `npm test` 56 pass, 27 skipped, 0 fail; `npm run verify` OK; walk start screenshot at eye height viewed: the walker stands on whole paving.
+- Known limits: under 1 % of road vertices stay under the ground. `scripts/check-walk.mjs` still has a Braga start coordinate. Not deployed.
